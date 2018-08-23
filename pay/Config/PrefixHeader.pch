@@ -11,6 +11,7 @@
 #define PrefixHeader_h
 
 #import "UtilsMacros.h"
+#import "GlobalSingleton.h"
 #import "APIStringMacros.h"
 #import "DimensMacros.h"
 #import "UIColor+ColorChange.h"
@@ -18,5 +19,6 @@
 #import "CGAFHttpRequest.h"
 #import "CGNetworkingManager.h"
 #import <MJExtension/MJExtension.h>
+#import "MBProgressHUD+Extension.h"
 
 #endif /* PrefixHeader_h */

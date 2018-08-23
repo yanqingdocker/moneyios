@@ -10,8 +10,12 @@
 #import "CGTabBarController.h"
 #import "CGRegisterViewController.h"
 #import "CGFindPWSViewController.h"
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+Extension.h"
 
-@interface CGLoginViewController ()<UITextFieldDelegate>
+#import "LMJDropdownMenu.h"
+
+@interface CGLoginViewController ()<UITextFieldDelegate,MBProgressHUDDelegate,LMJDropdownMenuDelegate>
 {
     //账号
     UITextField * _account;
@@ -21,6 +25,13 @@
     
     UIView * _bgView;
     UITapGestureRecognizer *_tapGesture;
+    
+    UIView *datePickerView;
+    UIDatePicker *datePicker;
+    UIView *datePickerMenu;
+    
+    LMJDropdownMenu * dropdownMenu;
+    UIView *guojiaView;
 }
 
 @end
@@ -49,6 +60,7 @@
 }
 
 - (void)initUI {
+        
     UIImageView * bgImageView = [[UIImageView alloc] init];
     bgImageView.frame = self.view.bounds;
 //    NSString * imagePath = [[NSBundle mainBundle]pathForResource:@"bgLoginImg.png" ofType:nil];
@@ -60,9 +72,19 @@
     _bgView = [[UIView alloc] init];
     //    _bgView.backgroundColor = [UIColor lightGrayColor];
     //    _bgView.alpha = 0.4;
-    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+//    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
     _bgView.frame = self.view.bounds;
+    
+    
+//    [_tapGesture setNumberOfTapsRequired:1];
+//    _tapGesture.cancelsTouchesInView = NO;
+//    [[UIApplication sharedApplication].keyWindow addGestureRecognizer:_tapGesture];
+    
+    
+    
     [bgImageView addSubview:_bgView];
+    
+    
     
     UIImageView * logoView = [[UIImageView alloc] init];
     logoView.frame = CGRectMake(120, 62, 128, 72);
@@ -122,6 +144,7 @@
     passwordLabel.text = @"密码";
     passwordLabel.textColor = [UIColor whiteColor];
     
+    
     UIButton *passwordBtn = [[UIButton alloc] init];
     passwordBtn.frame = CGRectMake(SCREEN_WIDTH - 20 -15, 400, 20, 20);
     
@@ -144,21 +167,43 @@
     [_bgView addSubview:passwordLabel];
     [_bgView addSubview:line3];
     
-    UIButton *countries = [[UIButton alloc] init];
-    countries.frame = CGRectMake(160, 260, 110, 44);
-    [countries setTitle:@"中国（+86）" forState:UIControlStateNormal];
-    [_bgView addSubview:countries];
+//    UIButton *countries = [[UIButton alloc] init];
+//    countries.frame = CGRectMake(160, 260, 110, 44);
+//    [countries setTitle:@"中国（+86）" forState:UIControlStateNormal];
+//    [_bgView addSubview:countries];
     
     
+    guojiaView = [[UIView alloc] init];
+    guojiaView.frame = self.view.bounds;
+//    [guojiaView addGestureRecognizer:_tapGesture];
+    guojiaView.backgroundColor = [UIColor clearColor];
+    
+    dropdownMenu = [[LMJDropdownMenu alloc] init];
+    [dropdownMenu setFrame:CGRectMake(160, 260, 110, 44)];
+    [dropdownMenu setMenuTitles:countries rowHeight:30];
+    dropdownMenu.delegate = self;
+    [dropdownMenu.mainBtn addTarget:self action:@selector(addView) forControlEvents:UIControlEventTouchUpInside];
+    [dropdownMenu.mainBtn setTitle:@"中国大陆" forState:UIControlStateNormal];
+    [dropdownMenu.mainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_bgView addSubview:dropdownMenu];
+    
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary]; // 创建属性字典
+    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:14]; // 设置font
+    attrs[NSForegroundColorAttributeName] = [UIColor whiteColor]; // 设置颜色
+    NSAttributedString *accountplace = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:attrs]; // 初始化富文本占位字符串
+    
+    NSAttributedString *passwordplace = [[NSAttributedString alloc] initWithString:@"请输入密码" attributes:attrs]; // 初始化富文本占位字符串
     
     _account = [[UITextField alloc] init];
     _account.frame = CGRectMake(100, 324, 170, 44);
     _account.textColor = [UIColor whiteColor];
-    _account.placeholder = @"请输入手机号";
+//    _account.placeholder = @"请输入手机号";
+    _account.attributedPlaceholder = accountplace;
     _account.clearButtonMode = UITextFieldViewModeNever;
     _account.delegate = self;
     _account.font = [UIFont systemFontOfSize:14];
-    _account.borderStyle = UITextBorderStyleNone;
+    _account.borderStyle = UIKeyboardTypeNumberPad;
+//    _account.clearButtonMode = UITextFieldViewModeWhileEditing;
     [_bgView addSubview:_account];
     
     //密码
@@ -166,14 +211,25 @@
     _password.frame = CGRectMake(100, 388, 170, 44);
     _password.font = [UIFont systemFontOfSize:14];
     _password.textColor = [UIColor whiteColor];
-    _password.placeholder = @"请输入密码";
+//    _password.placeholder = @"请输入密码";
+    _password.attributedPlaceholder = passwordplace;
     _password.secureTextEntry = YES;
     _password.borderStyle = UITextBorderStyleNone;
     _password.returnKeyType = UIReturnKeyDone;
     _password.delegate = self;
+//    _password.clearButtonMode = UITextFieldViewModeWhileEditing;
     _password.inputView = [[UIView alloc]init];
     [_bgView addSubview:_password];
     
+    //明暗文按钮
+    UIButton *eyeIcon = [[UIButton alloc] init];
+    eyeIcon.frame = CGRectMake(SCREEN_WIDTH - 40, 405, 15, 15);
+    [eyeIcon setImage:[UIImage imageNamed:@"eye_close"] forState:UIControlStateNormal];
+    [eyeIcon setImage:[UIImage imageNamed:@"eye_open"] forState:UIControlStateSelected];
+    eyeIcon.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [eyeIcon addTarget:self action:@selector(eyeEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [_bgView addSubview:eyeIcon];
+
     //登陆按钮
     UIButton * loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     loginBtn.frame = CGRectMake(15, 505, SCREEN_WIDTH - 30, 44);
@@ -204,10 +260,50 @@
     [self viewToCenterXWithView:loginBtn];
 }
 
--(void)tapRecognized:(UITapGestureRecognizer *)sender
-{
-    [self.view endEditing:YES];
+-(void)eyeEvent:(UIButton *)button {
+    button.selected = !button.selected;
+    _password.secureTextEntry = !_password.secureTextEntry;
 }
+
+
+- (void)dropdownMenu:(LMJDropdownMenu *)menu selectedCellNumber:(NSInteger)number{
+    
+    NSLog(@"你选择了：%@",menu.mainBtn.titleLabel.text);
+}
+//- (void)dropdownMenuDidShow:(LMJDropdownMenu *)menu{
+//    NSLog(@"--已经显示--");
+//
+//}
+
+- (void)addView{
+//    [self.view endEditing:NO];
+//    [_bgView addSubview:guojiaView];
+    
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+//    [_nameText resignFirstResponder];
+    [self.view endEditing:YES];
+    [dropdownMenu hideDropDown];
+}
+
+
+//-(void)tapRecognized:(UITapGestureRecognizer *)sender
+//{
+////        [self.view endEditing:YES];
+////    [guojiaView removeFromSuperview];
+////    [dropdownMenu hideDropDown];
+//
+//    if (sender.state == UIGestureRecognizerStateEnded){
+//        CGPoint location = [sender locationInView:nil];
+//        if (![dropdownMenu pointInside:[dropdownMenu convertPoint:location fromView:dropdownMenu.window] withEvent:nil]){
+//            [dropdownMenu.window removeGestureRecognizer:sender];
+////            [dropdownMenu dismissWithClickedButtonIndex:0 animated:YES];
+//        }
+//    }
+//
+//}
 
 #pragma mark - view
 - (void)viewToCenterXWithView:(UIView *)view {
@@ -220,82 +316,131 @@
 - (void)loginClick{
     [self.view endEditing:YES];
     
+//    if (_account.text.length == 0) {
+//        [MBProgressHUD showText:@"请输入账号" toView:self.view];
+//        return;
+//    }
+//    if(_password.text.length == 0){
+//        [MBProgressHUD showText:@"请输入密码" toView:self.view];
+//        return;
+//    }
     
+//    NSLog(@"你选择了：%@",dropdownMenu.mainBtn.titleLabel.text);
     
-//    [[CGAFHttpRequest shareRequest] loginWithphone:_account.text password:_password.text serverSuccessFn:^(id dict) {
-//        if(dict){
-//
-//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-//            NSLog(@"%@",result);
-//
-//            CGTabBarController *vc = [[CGTabBarController alloc] init];
-//            getAppWindow().rootViewController = vc;
-//
-//        }
+//    _account.text = @"13950357177";
+//    _password.text = @"123456";
+
+    
+//    _account.text = @"18193412366";
+//    _password.text = @"123456";
+    
+    _account.text = @"17759513665";
+    _password.text = @"123456";
+//    [MBProgressHUD showHUD];
+    
+    [[CGAFHttpRequest shareRequest] loginWithphone:_account.text password:_password.text serverSuccessFn:^(id dict) {
+        if(dict){
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSLog(@"%@",result);
+            GlobalSingleton *single=[GlobalSingleton Instance];
+            
+            single.currentUser = [UserModel objectWithKeyValues:result];
+            
+            single.currentUser.login = YES;
+            CGTabBarController *vc = [[CGTabBarController alloc] init];
+            getAppWindow().rootViewController = vc;
+            
+        }
+    } serverFailureFn:^(NSError *error) {
+        if(error){
+//            NSLog(@"%@",error);
+        }
+    }];
+}
+
+-(void)resetClick{
+    CGFindPWSViewController *vc = [[CGFindPWSViewController alloc] init];
+    [ self presentViewController:vc animated: YES completion:nil];
+//    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    
+//    //alpha 0.0  白色   alpha 1 ：黑色   alpha 0～1 ：遮罩颜色，逐渐
+//    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+//    self.view.userInteractionEnabled = YES;
+//    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
+//    
+//    datePickerView = [[UIView alloc] init];
+//    datePickerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    datePickerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+//    datePickerView.userInteractionEnabled = YES;
+//    [datePickerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
+//    [self.view addSubview:datePickerView];
+//    
+//    datePickerMenu = [[UIView alloc] init];
+////    datePickerMenu.userInteractionEnabled = NO;
+//    datePickerMenu.frame = CGRectMake(0, SCREEN_HEIGHT-216 -44, SCREEN_WIDTH, 44);
+//    datePickerMenu.backgroundColor = [UIColor whiteColor];
+//    [datePickerView addSubview:datePickerMenu];
+//    UIButton *confirmBtn = [[UIButton alloc] init];
+//    confirmBtn.frame = CGRectMake(SCREEN_WIDTH - 60, 4, 60, 36);
+//    [confirmBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+//    [confirmBtn addTarget:self action:@selector(confirmEvent) forControlEvents:UIControlEventTouchUpInside];
+//    [datePickerMenu addSubview:confirmBtn];
+//    UIButton *cancelBtn = [[UIButton alloc] init];
+//    cancelBtn.frame = CGRectMake(4, 4, 60, 36);
+//    [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+//    [cancelBtn addTarget:self action:@selector(disMissView) forControlEvents:UIControlEventTouchUpInside];
+//    [datePickerMenu addSubview:cancelBtn];
+//    datePicker = [ [ UIDatePicker alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT-216,SCREEN_WIDTH,216)];
+//    datePicker.backgroundColor = [UIColor whiteColor];
+//    datePicker.datePickerMode = UIDatePickerModeDate;
+//    
+//    datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
+//    [datePickerView addSubview:datePicker];
+}
+
+- (void)confirmEvent {
+    
+    NSDate *theDate = datePicker.date;
+//    NSLog(@"%@",[theDate descriptionWithLocale:[NSLocale currentLocale]]);
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    dateFormatter.dateFormat = @"YYYY-MM-dd HH-mm-ss";
+    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    NSLog(@"%@",[dateFormatter stringFromDate:theDate]);
+    [self disMissView];
+}
+- (void)disMissView {
+    
+    [datePickerMenu setFrame:CGRectMake(0, SCREEN_HEIGHT - 216 -44, SCREEN_WIDTH, 44)];
+    [datePicker setFrame:CGRectMake(0, SCREEN_HEIGHT - 216, SCREEN_WIDTH, 216)];
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         
+                         datePickerView.alpha = 0.0;
+                         
+                         [datePickerMenu setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 44)];
+                         [datePicker setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 216)];
+                     }
+                     completion:^(BOOL finished){
+                         
+                         [datePickerView removeFromSuperview];
+//                         [datePicker removeFromSuperview];
+                     }];
+    
+}
+-(void)registerClick{
+    CGRegisterViewController *vc = [[CGRegisterViewController alloc] init];
+    [ self presentViewController:vc animated: YES completion:nil];
+//    [[CGAFHttpRequest shareRequest] queryAllWithserverSuccessFn:^(id dict) {
+////        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//        NSLog(@"%@",dict);
 //    } serverFailureFn:^(NSError *error) {
 //        if(error){
 //            NSLog(@"%@",error);
 //        }
 //    }];
-//    NSString *cityArr=@"{'username'':'测试','idcard':'350182198911171596','birthday':'11/17','email':'34707098@qq.com','address':'我家'}";
-    
-    NSDictionary *song = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"测试",@"username",
-                          @"4012",@"idcard",
-                          @"Tom",@"birthday",
-                          @"测试",@"email",
-                          @"4012",@"address",
-                          nil];
-//    NSArray* cityArr = @[song,@"大连",@"辽宁",@"黑龙江",@"上海",@"江苏",@"宁波",@"杭州",@"浙江",@"厦门",@"福建",@"江西",@"山东",@"青岛",@"湖南",@"湖北",@"河南"];
-//    if ([NSJSONSerialization isValidJSONObject:song])
-//    {
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:song options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *json =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSLog(@"json data:%@",json);
-//    }
-    
-    [[CGAFHttpRequest shareRequest] authenticationWithdatas:json serverSuccessFn:^(id dict) {
-        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-        NSLog(@"%@",result);
-
-    } serverFailureFn:^(NSError *error) {
-        if(error){
-            NSLog(@"%@",error);
-        }
-    }];
-    
-    
-
-}
-
--(void)resetClick{
-//    CGFindPWSViewController *vc = [[CGFindPWSViewController alloc] init];
-//    [ self presentViewController:vc animated: YES completion:nil];
-    
-    [[CGAFHttpRequest shareRequest] loginResetpwdWithtelphone:@"13950357177" password:@"111111" serverSuccessFn:^(id dict) {
-        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-        NSLog(@"%@",result);
-        
-    } serverFailureFn:^(NSError *error) {
-        if(error){
-            NSLog(@"%@",error);
-        }
-    }];
-    
-}
-
--(void)registerClick{
-//    CGRegisterViewController *vc = [[CGRegisterViewController alloc] init];
-//    [ self presentViewController:vc animated: YES completion:nil];
-    [[CGAFHttpRequest shareRequest] queryAllWithserverSuccessFn:^(id dict) {
-//        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-        NSLog(@"%@",dict);
-    } serverFailureFn:^(NSError *error) {
-        if(error){
-            NSLog(@"%@",error);
-        }
-    }];
 }
 
 #pragma mark - UITextField delegate

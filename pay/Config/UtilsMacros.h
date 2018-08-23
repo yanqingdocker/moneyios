@@ -15,4 +15,6 @@
 
 #define getAppWindow()     ([[UIApplication sharedApplication]delegate]).window
 
+#define countries @[@"中国大陆",@"中国香港",@"柬埔寨",@"新加坡",@"马来西亚",@"泰国",@"缅甸",@"印度尼西亚",@"菲律宾",@"越南",@"老挝",@"文莱"]
+
 #endif /* UtilsMacros_h */

@@ -45,7 +45,7 @@
 - (void)initUI{
     
     UIView *bgView = [[UIView alloc] init];
-    bgView.frame = CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     bgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bgView];
     

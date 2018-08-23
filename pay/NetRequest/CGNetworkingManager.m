@@ -89,23 +89,21 @@ static CGNetworkingManager *manager = nil;
 {
     
     
-//    if (showHUD==YES) {
-//
-//        [MBProgressHUD showHUDAddedTo:nil animated:YES];
-//    }
+    if (showHUD==YES) {
+        [MBProgressHUD showHUDAddedToView:nil animated:YES];
+    }
     [self.requestManager GET:urlString parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//        if (showHUD==YES) {
-//            [MBProgressHUD hideHUDForView:nil animated:YES];
-//        }
-        
+        if (showHUD==YES) {
+            [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow  animated:YES];
+        }
         if (success) {
             success(responseObject);
         }
         
     }failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            if (showHUD==YES) {
-//                [MBProgressHUD hideHUDForView:nil  animated:YES];
-//            }
+        if (showHUD==YES) {
+            [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow  animated:YES];
+        }
         
             if (failure) {
                 failure(error);
@@ -192,6 +190,8 @@ static CGNetworkingManager *manager = nil;
     //    [params setObject:@"ios" forKey:@"devicetype"];
     
     //    _requestManager.requestSerializer.timeoutInterval = 8.0f;
+
+    
     
     if (self.myhud.length>0) {
         MBProgressHUD *mbhud=[[MBProgressHUD alloc]initWithView:[UIApplication sharedApplication].keyWindow];
@@ -205,8 +205,8 @@ static CGNetworkingManager *manager = nil;
     else{
         if (showHUD==YES)
         {
-//            [MBProgressHUD showHUDAddedTo:nil  animated:YES];
-//            [MBProgressHUD show]
+//            [MBProgressHUD showMessage:@""];
+            [MBProgressHUD showHUDAddedToView:nil animated:YES];
         }
         
         
@@ -217,18 +217,8 @@ static CGNetworkingManager *manager = nil;
     
     self.requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [self.requestManager POST:URLString parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-        if (self.myhud.length>0) {
-            
-            
-            [self.selfhud  hide:YES];
-            
-            
-        }
-        else{
-            if (showHUD==YES) {
-                [MBProgressHUD hideHUDForView:nil  animated:YES];
-            }
-            
+        if (showHUD==YES) {
+            [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow  animated:YES];
         }
         if (success) {
             
@@ -244,7 +234,7 @@ static CGNetworkingManager *manager = nil;
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (showHUD==YES) {
-            [MBProgressHUD hideHUDForView:nil  animated:YES];
+            [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow  animated:YES];
         }
         
         if (failure) {

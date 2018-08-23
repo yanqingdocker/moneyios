@@ -11,7 +11,9 @@
 #import "CGInitProcess.h"
 #import "CGHomeViewController.h"
 
-@interface AppDelegate ()
+#import "CGGuidePagesViewController.h"
+
+@interface AppDelegate ()<selectDelegate>
 @property (nonatomic,strong) CGInitProcess* cgInitProcess;
 @end
 
@@ -21,13 +23,56 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-    _cgInitProcess = [[CGInitProcess alloc]init];
-    return [_cgInitProcess startupProcessWithApplication:application andOptions:launchOptions];
+    
+    //如果程序窗口为nil，初始化为当前屏幕大小
+    if (!self.window) {
+        self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    }
+    
+//    NSArray *images = @[@"bgLoginImg", @"bgLoginImg", @"bgLoginImg"];
+//    BOOL y = [CGGuidePagesViewController isShow];
+//    if (y) {
+//        CGGuidePagesViewController *CG = [[CGGuidePagesViewController alloc] init];
+//        self.window.rootViewController = CG;
+//        [self.window makeKeyAndVisible];
+//        CG.delegate = self;
+//        [CG guidePageControllerWithImages:images];
+//    }else{
+        [self clickEnter];
+//    }
+    return YES;
+    
+    
+    //判断是否第一次安装程序
+//    NSInteger firstInstallTag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"kFirstKey"] integerValue];
+//    if (firstInstallTag == 1) {
+//        if ([self judgeGuideImageRefresh]) {
+//            [self showGuideViewController];
+//        } else {
+////            [self initLoginController];
+////            [self registerRemoteNotification];//注册通知
+//        }
+//    } else {//第一次安装APP
+//        //握手
+//        [AppSingletonManager checkHandShake];
+//        [NetworkController requestGuideImages];
+//        [self showGuideViewController];
+//    }
+}
 
-//    CGLoginViewController *loginView = [[CGLoginViewController alloc] init];
-//    _window.rootViewController = loginView;
-//
-//    return YES;
+- (void)clickEnter
+{
+    CGLoginViewController *loginView = [[CGLoginViewController alloc] init];
+    _window.rootViewController = loginView;
+    [self.window makeKeyAndVisible];
+//    CGLoginViewController *vc = [[CGLoginViewController alloc] init];
+//    self.window.rootViewController = vc;
+//    [self.window.layer transitionWithAnimType:TransitionAnimTypeRamdom subType:TransitionSubtypesFromRamdom curve:TransitionCurveRamdom duration:2.0f];
+    
+//    _cgInitProcess = [[CGInitProcess alloc]init];
+//    self.window.rootViewController = _cgInitProcess;
+//    return [_cgInitProcess startupProcessWithApplication:application andOptions:launchOptions];
+
 }
 
 

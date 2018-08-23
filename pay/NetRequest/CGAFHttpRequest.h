@@ -18,7 +18,7 @@
                serverSuccessFn:(void(^)(id dict))successFn
                serverFailureFn:(void(^)(NSError *error))failureFn;
 
-#pragma mark - **登录**
+#pragma mark - **登录模块**
 #pragma mark - 获取验证码
 - (void)userLoginWithusername:(NSString *)username
                           pwd:(NSString *)pwd
@@ -52,17 +52,205 @@
              serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 登陆后重置密码
-- (void)loginResetpwdWithtelphone:(NSString *)telphone
-                         password:(NSString *)password
-                  serverSuccessFn:(void(^)(id dict))successFn
-                  serverFailureFn:(void(^)(NSError *error))failureFn;
+- (void)resetpwdmodeWitholdpassword:(NSString *)oldpassword
+                        newpassword:(NSString *)newpassword
+                    serverSuccessFn:(void(^)(id dict))successFn
+                    serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 实名认证
 - (void)authenticationWithdatas:(NSString *)datas
                 serverSuccessFn:(void(^)(id dict))successFn
                 serverFailureFn:(void(^)(NSError *error))failureFn;
 
+#pragma mark - 上传头像
+- (void)uploadimgAllWithimg:(NSString *)img
+            serverSuccessFn:(void(^)(id dict))successFn
+            serverFailureFn:(void(^)(NSError *error))failureFn;
+
 #pragma mark - 汇率查看
 - (void)queryAllWithserverSuccessFn:(void(^)(id dict))successFn
                     serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - **账户模块**
+#pragma mark - 创建账户
+- (void)createCountWithcountType:(NSString *)countType
+                          payPwd:(NSString *)payPwd
+                 serverSuccessFn:(void(^)(id dict))successFn
+                 serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 修改账户状态
+- (void)startOrstopCountWithID:(NSString *)ID
+                         State:(NSString *)State
+               serverSuccessFn:(void(^)(id dict))successFn
+               serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 注销账户
+- (void)logoutCountWithID:(NSString *)ID
+          serverSuccessFn:(void(^)(id dict))successFn
+          serverFailureFn:(void(^)(NSError *error))failureFn;
+
+
+#pragma mark - **查询模块**
+#pragma mark - 查询当前用户下的所有支付宝账户
+- (void)querybyUseridWithID:(NSString *)ID
+            serverSuccessFn:(void(^)(id dict))successFn
+            serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 根据类型查询单个汇率
+- (void)getSingleRateWithtype:(NSString *)type
+              serverSuccessFn:(void(^)(id dict))successFn
+              serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 查询单个用户下的所有类型账户
+- (void)queryCountByUseridWithserverSuccessFn:(void(^)(id dict))successFn
+                              serverFailureFn:(void(^)(NSError *error))failureFn;
+
+//#pragma mark - 查询所有账户
+//- (void)queryAllCountWithserverSuccessFn:(void(^)(id dict))successFn
+//                         serverFailureFn:(void(^)(NSError *error))failureFn;
+
+
+#pragma mark - 查询单个用户下的所有银行卡
+- (void)queryWithserverSuccessFn:(void(^)(id dict))successFn
+                 serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 查询单个账户
+- (void)queryCountWithserverID:(NSString *)ID
+                     SuccessFn:(void(^)(id dict))successFn
+               serverFailureFn:(void(^)(NSError *error))failureFn;
+
+
+#pragma mark - 查询账户业务记录
+- (void)operaQuerybyUseridWithserverSuccessFn:(void(^)(id dict))successFn
+                              serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 查询单个信息接口
+- (void)queryMessageWithserverID:(NSString *)ID
+                       SuccessFn:(void(^)(id dict))successFn
+                 serverFailureFn:(void(^)(NSError *error))failureFn;
+
+
+#pragma mark - 查询所有货币类型
+- (void)queryMoneyTypeWithserverSuccessFn:(void(^)(id dict))successFn
+                          serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 查询单个账户
+- (void)getuserWithserverSuccessFn:(void(^)(id dict))successFn
+                   serverFailureFn:(void(^)(NSError *error))failureFn;
+
+
+#pragma mark - 话费充值接口
+- (void)payMentWithcountId:(NSString *)countId
+                   cardNum:(NSString *)cardNum
+                     phone:(NSString *)phone
+           serverSuccessFn:(void(^)(id dict))successFn
+           serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 账户充值接口
+- (void)rechargeWithtradeMoney:(NSString *)tradeMoney
+                       payType:(NSString *)payType
+                       countId:(NSString *)countId
+               serverSuccessFn:(void(^)(id dict))successFn
+               serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 获取银行卡类型接口
+- (void)getTypeWithbankcardid:(NSString *)bankcardid
+              serverSuccessFn:(void(^)(id dict))successFn
+              serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 绑定银行卡接口
+- (void)bindBankCardWithdatas:(NSString *)datas
+              serverSuccessFn:(void(^)(id dict))successFn
+              serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 解绑银行卡接口
+- (void)bindBankCardWithID:(NSString *)ID
+           serverSuccessFn:(void(^)(id dict))successFn
+           serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 发送接口信息
+- (void)sendCardWithreceivecount:(NSString *)receivecount
+                           title:(NSString *)title
+                         content:(NSString *)content
+                 serverSuccessFn:(void(^)(id dict))successFn
+                 serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 获取发送信息接口
+- (void)querysendWithserverSuccessFn:(void(^)(id dict))successFn
+                     serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 获取收件信息接口
+- (void)queryreceiveWithserverSuccessFn:(void(^)(id dict))successFn
+                        serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 标记发送信息接口
+- (void)marksendWithID:(NSString *)ID
+       serverSuccessFn:(void(^)(id dict))successFn
+       serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 标记收件信息接口
+- (void)markreceiveWithID:(NSString *)ID
+          serverSuccessFn:(void(^)(id dict))successFn
+          serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 删除信息接口
+- (void)messagedeleteWithID:(NSString *)ID
+     serverSuccessFn:(void(^)(id dict))successFn
+     serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 批量删除信息接口
+- (void)batchdeleteWithids:(NSString *)ids
+          serverSuccessFn:(void(^)(id dict))successFn
+          serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 转账接口
+- (void)switchWithcountid:(NSString *)countid
+             receivecount:(NSString *)receivecount
+                 moneynum:(NSString *)moneynum
+                   payPwd:(NSString *)payPwd
+          serverSuccessFn:(void(^)(id dict))successFn
+          serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 兑换接口
+- (void)exchangeWithsrcountid:(NSString *)srcountid
+                  destcountid:(NSString *)destcountid
+                     srcmoney:(NSString *)srcmoney
+                    destmoney:(NSString *)destmoney
+                       paypwd:(NSString *)paypwd
+              serverSuccessFn:(void(^)(id dict))successFn
+              serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 请求修改支付密码
+- (void)countCheckPhoneWithtelphone:(NSString *)telphone
+                     serverSuccessFn:(void(^)(id dict))successFn
+                     serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 确认修改账户支付密码
+- (void)updateCountpwdWithtelphone:(NSString *)telphone
+                    serverSuccessFn:(void(^)(id dict))successFn
+                    serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 修改手机号接口
+- (void)updatephoneWithchecknum:(NSString *)checknum
+                       newphone:(NSString *)newphone
+                serverSuccessFn:(void(^)(id dict))successFn
+                serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 查询个人借贷
+- (void)borrowQueryAllWithserverSuccessFn:(void(^)(id dict))successFn
+                          serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 申请开通VIP
+- (void)applyVipWithserverSuccessFn:(void(^)(id dict))successFn
+                    serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 外币提现接口
+- (void)getOutCashWithcountid:(NSString *)countid
+                      cardnum:(NSString *)cardnum
+                     banktype:(NSString *)banktype
+                          num:(NSString *)num
+                     username:(NSString *)username
+                       paypwd:(NSString *)paypwd
+              serverSuccessFn:(void(^)(id dict))successFn
+              serverFailureFn:(void(^)(NSError *error))failureFn;
 @end

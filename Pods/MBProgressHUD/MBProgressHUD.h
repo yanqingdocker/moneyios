@@ -522,5 +522,4 @@ typedef void (^MBProgressHUDCompletionBlock)();
  *  @return 返回一个 MBProgressHud 对象
  */
 + (MB_INSTANCETYPE)showHUD;
-
 @end

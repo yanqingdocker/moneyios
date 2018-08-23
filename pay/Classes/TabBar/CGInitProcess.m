@@ -7,7 +7,9 @@
 //
 
 #import "CGInitProcess.h"
-
+#import "CGGuidePagesViewController.h"
+@interface CGInitProcess ()<selectDelegate>
+@end
 @implementation CGInitProcess
 
 -(instancetype)init
@@ -20,6 +22,10 @@
 
 -(BOOL)startupProcessWithApplication:(UIApplication *)application andOptions:(NSDictionary *)launchOptions
 {
+    
+    
+
+    
     self.application = application;
     self.launchOptions = launchOptions;
     
@@ -29,18 +35,47 @@
     }
     
     //进入主框架界面
-    _cgLoginViewController = [[CGLoginViewController alloc]init];
-    application.delegate.window.rootViewController = _cgLoginViewController;
+//    _cgLoginViewController = [[CGLoginViewController alloc]init];
+//    application.delegate.window.rootViewController = _cgLoginViewController;
+//
+//    [application.delegate.window makeKeyAndVisible];
     
-    [application.delegate.window makeKeyAndVisible];
+    
+    
+    NSArray *images = @[@"bgLoginImg", @"bgLoginImg", @"bgLoginImg"];
+    BOOL y = [CGGuidePagesViewController isShow];
+    if (y) {
+        CGGuidePagesViewController *CG = [[CGGuidePagesViewController alloc] init];
+        
+        application.delegate.window.rootViewController = CG;
+        CG.delegate = self;
+        [CG guidePageControllerWithImages:images];
+        [application.delegate.window makeKeyAndVisible];
+    }else{
+        _cgLoginViewController = [[CGLoginViewController alloc]init];
+        application.delegate.window.rootViewController = _cgLoginViewController;
+        
+        [application.delegate.window makeKeyAndVisible];
+
+    }
     
     return YES;
 }
+
+//- (void)clickEnter
+//{
+//    CGLoginViewController *loginView = [[CGLoginViewController alloc] init];
+//    _window.rootViewController = loginView;
+//    
+//    
+//    
+//}
 
 //启动前广播消息
 -(void)addObserver
 {
     //添加需要的消息
+    
 }
 
 @end

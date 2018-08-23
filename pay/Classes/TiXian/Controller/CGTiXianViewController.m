@@ -43,7 +43,7 @@
 }
 
 - (void)initUI{
-    CGRect tableframe=CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT-NAVIGATIONBAR_HEIGHT);
+    CGRect tableframe=CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT-0);
     _tableview=[[UITableView alloc]initWithFrame:tableframe style:UITableViewStyleGrouped];
     _tableview.delegate=self;
     _tableview.dataSource=self;
@@ -54,7 +54,7 @@
     [self.view addSubview:_tableview];
     
     UIButton * nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    nextBtn.frame = CGRectMake(20, NAVIGATIONBAR_HEIGHT+ 45*5 + 20, SCREEN_WIDTH-20*2, 44);
+    nextBtn.frame = CGRectMake(20, 0+ 45*5 + 20, SCREEN_WIDTH-20*2, 44);
     nextBtn.tag = 1010;
     [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
     nextBtn.titleLabel.font = [UIFont systemFontOfSize:18];

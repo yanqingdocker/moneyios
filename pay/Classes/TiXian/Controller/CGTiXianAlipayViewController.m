@@ -41,7 +41,7 @@
 }
 
 -(void) initUI{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(17, NAVIGATIONBAR_HEIGHT + 10, SCREEN_WIDTH - 17*2, 330)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(17, 0 + 10, SCREEN_WIDTH - 17*2, 330)];
     view.backgroundColor = [UIColor whiteColor];
     view.layer.cornerRadius = 5;
     [self.view addSubview:view];

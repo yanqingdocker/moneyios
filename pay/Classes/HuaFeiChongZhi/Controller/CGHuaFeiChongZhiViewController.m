@@ -44,7 +44,7 @@
 - (void)initUI{
     _listDataArray = [NSMutableArray array];
     UIView *bgView = [[UIView alloc] init];
-    bgView.frame = CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, 520 - NAVIGATIONBAR_HEIGHT);
+    bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 520 - 0);
     bgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bgView];
     

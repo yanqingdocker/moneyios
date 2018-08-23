@@ -111,7 +111,6 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 #endif
 
 #pragma mark - Class methods
-
 /**
  *  隐藏 HUD
  */
@@ -128,7 +127,6 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 {
     return [self showHUDAddedTo:nil animated:YES];
 }
-
 + (MB_INSTANCETYPE)showHUDAddedTo:(UIView *)view animated:(BOOL)animated {
 	MBProgressHUD *hud = [[self alloc] initWithView:view];
 	hud.removeFromSuperViewOnHide = YES;

@@ -7,12 +7,14 @@
 //
 
 #import "CGBaseViewController.h"
+#import "MBProgressHUD+Extension.h"
 
 @interface CGBaseViewController ()
 {
     
 }
 @property (nonatomic, strong) UIView *topBar;
+@property (nonatomic, strong) dispatch_source_t timer;
 
 @end
 
@@ -46,8 +48,18 @@
     NSForegroundColorAttributeName:[UIColor whiteColor]}];
     //背景色
     self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    
+//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
+//
+//
+//    [self.view addGestureRecognizer:singleTap];
 }
-
+//-(void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer
+//{
+//    
+//    [self.view endEditing:YES];
+//    
+//}
 #pragma mark - UI
 - (void)initNav {
 
@@ -102,15 +114,18 @@
 #pragma mark - getter
 - (UIView *)topBar {
     if (!_topBar) {
-        self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"0d0d0d"];
-        
-//        [self.navigationController.navigationBar setBackgroundImage:[UIColor createImageWithColor:[UIColor colorWithHexString:@"0d0d0d"]] forBarMetrics:UIBarMetricsDefault];
+//        self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"0d0d0d"];
+        self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+        self.navigationController.navigationBar.translucent = NO;
 
-        _topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-        _topBar.backgroundColor = [UIColor colorWithHexString:@"0d0d0d"];
+//        _topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+//        _topBar.backgroundColor = [UIColor colorWithHexString:@"0d0d0d"];
+//        _topBar.backgroundColor = [UIColor blackColor];
         
         UIView *gbview = [[UIView alloc] initWithFrame:CGRectMake(0, -20, SCREEN_WIDTH, 20)];
-        gbview.backgroundColor = RGBCOLOR(44, 55, 66);
+//        gbview.backgroundColor = RGBCOLOR(44, 55, 66);
+//        gbview.backgroundColor = RGBCOLOR(38, 38, 38);
+        gbview.backgroundColor = [UIColor blackColor];
         [self.navigationController.navigationBar addSubview:gbview];
 
         [self.view addSubview:_topBar];
@@ -118,7 +133,10 @@
     return _topBar;
 }
 
-
+//- (void)showSuccess:(NSString *)text {
+//    //TODO
+//    if (text)[self.view makeToast:text duration:2.0 position:CSToastPositionCenter];
+//}
 
 
 //- (void)setUpLeftNavigationItemWithAction:(SEL)action
@@ -138,6 +156,48 @@
 - (void)pushViewControllerHiddenTabBar:(CGBaseViewController *)viewController animated:(BOOL)animated {
     viewController.isHiddenTabBar = YES;
     [self.navigationController pushViewController:viewController animated:animated];
+}
+
+- (void)startTimer:(UIButton *)btn {
+    btn.enabled = NO;
+    __block NSInteger timeOut = 3; /// 重新获取验证码时长
+    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+    dispatch_source_set_timer(self.timer, DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(self.timer, ^{
+        if (timeOut > 0) {
+            /// 开始计时
+            dispatch_async(dispatch_get_main_queue(), ^{
+                /// 设置倒计时样式
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDuration:1.0];
+                [btn setTitle:[NSString stringWithFormat:@"%ld秒后重新获取",(long)timeOut] forState:UIControlStateNormal];
+                [UIView commitAnimations];
+            });
+            timeOut --;
+        } else {
+            /// 销毁计时器
+            [self cancelTimer];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                btn.enabled = YES;
+            });
+            
+        }
+    });
+    dispatch_source_set_cancel_handler(self.timer, ^{
+        /// 设置重新获取样式
+        dispatch_async(dispatch_get_main_queue(), ^{
+            /// 设置倒计时样式
+            [btn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        });
+    });
+    dispatch_resume(self.timer);
+}
+
+- (void)cancelTimer {
+    if (self.timer) {
+        dispatch_source_cancel(self.timer);
+        self.timer = nil;
+    }
 }
 
 @end

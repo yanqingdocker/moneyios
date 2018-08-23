@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		4BF45B24846B135165BFADAF /* libPods-pay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EAEAC6E5792182B3FB64691 /* libPods-pay.a */; };
+		96219446212524EB00A7AFCC /* CGGuidePagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96219445212524EB00A7AFCC /* CGGuidePagesViewController.m */; };
+		9621944A2125719F00A7AFCC /* MBProgressHUD+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 962194482125719E00A7AFCC /* MBProgressHUD+Extension.m */; };
+		962B2BFA212BB91C00F2F030 /* GlobalSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 962B2BF9212BB91C00F2F030 /* GlobalSingleton.m */; };
+		962B2BFD212BB9F000F2F030 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 962B2BFC212BB9F000F2F030 /* UserModel.m */; };
+		964ABE312126CCDD0048FC2C /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 964ABE302126CCDD0048FC2C /* LMJDropdownMenu.m */; };
+		964ABE36212AA98C0048FC2C /* CGHuiLvTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964ABE35212AA98C0048FC2C /* CGHuiLvTableViewCell.m */; };
+		964ABE39212AC4B10048FC2C /* CGSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964ABE38212AC4B10048FC2C /* CGSetViewController.m */; };
+		964ABE3C212AE4900048FC2C /* CGBankCardTopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964ABE3B212AE4900048FC2C /* CGBankCardTopUpViewController.m */; };
+		964ABE40212AE7E00048FC2C /* CGSelectAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964ABE3F212AE7E00048FC2C /* CGSelectAccountTableViewCell.m */; };
+		964ABE43212AE9830048FC2C /* CGTitleAndTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 964ABE42212AE9830048FC2C /* CGTitleAndTextTableViewCell.m */; };
+		965256E8212D0DEB0026827A /* CGJiaoFeiTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965256E7212D0DEB0026827A /* CGJiaoFeiTypeViewController.m */; };
+		965256EB212D15150026827A /* CGDaiJiaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965256EA212D15140026827A /* CGDaiJiaoViewController.m */; };
+		965256F3212D588B0026827A /* CGBillQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965256F2212D588B0026827A /* CGBillQueryViewController.m */; };
+		965256F6212D619D0026827A /* CGMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965256F5212D619D0026827A /* CGMyProfileViewController.m */; };
 		96531BAF211A81CA009613AF /* CGZhuanZhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96531BAE211A81CA009613AF /* CGZhuanZhangViewController.m */; };
 		96531BB2211A92F1009613AF /* CGZhuanZhangConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96531BB1211A92F1009613AF /* CGZhuanZhangConfirmViewController.m */; };
 		96531BB7211AD8BA009613AF /* CGBudgetMonthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96531BB6211AD8BA009613AF /* CGBudgetMonthTableViewCell.m */; };
@@ -26,6 +40,7 @@
 		966E49142110896100839CE7 /* CGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966E49132110896100839CE7 /* CGLoginViewController.m */; };
 		966E491821109CA100839CE7 /* CGInitProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 966E491721109CA100839CE7 /* CGInitProcess.m */; };
 		966E491B2110A5A700839CE7 /* CGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966E491A2110A5A700839CE7 /* CGTabBarController.m */; };
+		9682199221216E2C00A05C8F /* CGHuiLvViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682199121216E2C00A05C8F /* CGHuiLvViewController.m */; };
 		96996E64211D6219008D7EAC /* CGFindPWSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96996E63211D6219008D7EAC /* CGFindPWSViewController.m */; };
 		96996E67211D7129008D7EAC /* CGResetpPSWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96996E66211D7128008D7EAC /* CGResetpPSWViewController.m */; };
 		96C782CB2112A5AB00EC6EEB /* JhtMarquee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C782CA2112A5AA00EC6EEB /* JhtMarquee.framework */; };
@@ -67,6 +82,34 @@
 /* Begin PBXFileReference section */
 		074D168A7B1870C6B2FA5B2E /* Pods-pay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pay.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pay/Pods-pay.debug.xcconfig"; sourceTree = "<group>"; };
 		5EAEAC6E5792182B3FB64691 /* libPods-pay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96219444212524EB00A7AFCC /* CGGuidePagesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGGuidePagesViewController.h; sourceTree = "<group>"; };
+		96219445212524EB00A7AFCC /* CGGuidePagesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGGuidePagesViewController.m; sourceTree = "<group>"; };
+		962194482125719E00A7AFCC /* MBProgressHUD+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Extension.m"; sourceTree = "<group>"; };
+		962194492125719F00A7AFCC /* MBProgressHUD+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Extension.h"; sourceTree = "<group>"; };
+		962B2BF8212BB91C00F2F030 /* GlobalSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalSingleton.h; sourceTree = "<group>"; };
+		962B2BF9212BB91C00F2F030 /* GlobalSingleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalSingleton.m; sourceTree = "<group>"; };
+		962B2BFB212BB9F000F2F030 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		962B2BFC212BB9F000F2F030 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		964ABE2F2126CCDD0048FC2C /* LMJDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJDropdownMenu.h; sourceTree = "<group>"; };
+		964ABE302126CCDD0048FC2C /* LMJDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJDropdownMenu.m; sourceTree = "<group>"; };
+		964ABE34212AA98C0048FC2C /* CGHuiLvTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGHuiLvTableViewCell.h; sourceTree = "<group>"; };
+		964ABE35212AA98C0048FC2C /* CGHuiLvTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGHuiLvTableViewCell.m; sourceTree = "<group>"; };
+		964ABE37212AC4B10048FC2C /* CGSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGSetViewController.h; sourceTree = "<group>"; };
+		964ABE38212AC4B10048FC2C /* CGSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGSetViewController.m; sourceTree = "<group>"; };
+		964ABE3A212AE4900048FC2C /* CGBankCardTopUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBankCardTopUpViewController.h; sourceTree = "<group>"; };
+		964ABE3B212AE4900048FC2C /* CGBankCardTopUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBankCardTopUpViewController.m; sourceTree = "<group>"; };
+		964ABE3E212AE7E00048FC2C /* CGSelectAccountTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGSelectAccountTableViewCell.h; sourceTree = "<group>"; };
+		964ABE3F212AE7E00048FC2C /* CGSelectAccountTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGSelectAccountTableViewCell.m; sourceTree = "<group>"; };
+		964ABE41212AE9830048FC2C /* CGTitleAndTextTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGTitleAndTextTableViewCell.h; sourceTree = "<group>"; };
+		964ABE42212AE9830048FC2C /* CGTitleAndTextTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGTitleAndTextTableViewCell.m; sourceTree = "<group>"; };
+		965256E6212D0DEB0026827A /* CGJiaoFeiTypeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGJiaoFeiTypeViewController.h; sourceTree = "<group>"; };
+		965256E7212D0DEB0026827A /* CGJiaoFeiTypeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGJiaoFeiTypeViewController.m; sourceTree = "<group>"; };
+		965256E9212D15140026827A /* CGDaiJiaoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGDaiJiaoViewController.h; sourceTree = "<group>"; };
+		965256EA212D15140026827A /* CGDaiJiaoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGDaiJiaoViewController.m; sourceTree = "<group>"; };
+		965256F1212D588B0026827A /* CGBillQueryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBillQueryViewController.h; sourceTree = "<group>"; };
+		965256F2212D588B0026827A /* CGBillQueryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBillQueryViewController.m; sourceTree = "<group>"; };
+		965256F4212D619D0026827A /* CGMyProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGMyProfileViewController.h; sourceTree = "<group>"; };
+		965256F5212D619D0026827A /* CGMyProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGMyProfileViewController.m; sourceTree = "<group>"; };
 		96531BAD211A81CA009613AF /* CGZhuanZhangViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGZhuanZhangViewController.h; sourceTree = "<group>"; };
 		96531BAE211A81CA009613AF /* CGZhuanZhangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZhuanZhangViewController.m; sourceTree = "<group>"; };
 		96531BB0211A92F1009613AF /* CGZhuanZhangConfirmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGZhuanZhangConfirmViewController.h; sourceTree = "<group>"; };
@@ -108,6 +151,8 @@
 		966E491721109CA100839CE7 /* CGInitProcess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGInitProcess.m; sourceTree = "<group>"; };
 		966E49192110A5A700839CE7 /* CGTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGTabBarController.h; sourceTree = "<group>"; };
 		966E491A2110A5A700839CE7 /* CGTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGTabBarController.m; sourceTree = "<group>"; };
+		9682199021216E2C00A05C8F /* CGHuiLvViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGHuiLvViewController.h; sourceTree = "<group>"; };
+		9682199121216E2C00A05C8F /* CGHuiLvViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGHuiLvViewController.m; sourceTree = "<group>"; };
 		96996E62211D6219008D7EAC /* CGFindPWSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGFindPWSViewController.h; sourceTree = "<group>"; };
 		96996E63211D6219008D7EAC /* CGFindPWSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGFindPWSViewController.m; sourceTree = "<group>"; };
 		96996E65211D7128008D7EAC /* CGResetpPSWViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGResetpPSWViewController.h; sourceTree = "<group>"; };
@@ -193,6 +238,62 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		964ABE33212AA9030048FC2C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				964ABE34212AA98C0048FC2C /* CGHuiLvTableViewCell.h */,
+				964ABE35212AA98C0048FC2C /* CGHuiLvTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		964ABE3D212AE78F0048FC2C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				964ABE3E212AE7E00048FC2C /* CGSelectAccountTableViewCell.h */,
+				964ABE3F212AE7E00048FC2C /* CGSelectAccountTableViewCell.m */,
+				964ABE41212AE9830048FC2C /* CGTitleAndTextTableViewCell.h */,
+				964ABE42212AE9830048FC2C /* CGTitleAndTextTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		965256E4212D0D7A0026827A /* ShengHuo */ = {
+			isa = PBXGroup;
+			children = (
+				965256E5212D0D8D0026827A /* Controller */,
+			);
+			path = ShengHuo;
+			sourceTree = "<group>";
+		};
+		965256E5212D0D8D0026827A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				965256E6212D0DEB0026827A /* CGJiaoFeiTypeViewController.h */,
+				965256E7212D0DEB0026827A /* CGJiaoFeiTypeViewController.m */,
+				965256E9212D15140026827A /* CGDaiJiaoViewController.h */,
+				965256EA212D15140026827A /* CGDaiJiaoViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		965256EF212D54610026827A /* ZhangDanChaXun */ = {
+			isa = PBXGroup;
+			children = (
+				965256F0212D54AC0026827A /* Controller */,
+			);
+			path = ZhangDanChaXun;
+			sourceTree = "<group>";
+		};
+		965256F0212D54AC0026827A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				965256F1212D588B0026827A /* CGBillQueryViewController.h */,
+				965256F2212D588B0026827A /* CGBillQueryViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		96531BAB211A7F90009613AF /* ZhuanZhang */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +359,8 @@
 				966E48FA2110322400839CE7 /* NetRequest */,
 				966E48F92110321900839CE7 /* Others */,
 				966E48F7211031FD00839CE7 /* Resourecs */,
+				96219444212524EB00A7AFCC /* CGGuidePagesViewController.h */,
+				96219445212524EB00A7AFCC /* CGGuidePagesViewController.m */,
 			);
 			path = pay;
 			sourceTree = "<group>";
@@ -300,6 +403,8 @@
 		966E48FA2110322400839CE7 /* NetRequest */ = {
 			isa = PBXGroup;
 			children = (
+				962194492125719F00A7AFCC /* MBProgressHUD+Extension.h */,
+				962194482125719E00A7AFCC /* MBProgressHUD+Extension.m */,
 				9667EA00211BF10C0024BFF3 /* CGNetworkingManager.h */,
 				9667EA01211BF10C0024BFF3 /* CGNetworkingManager.m */,
 				9667EA03211C28070024BFF3 /* CGAFHttpRequest.h */,
@@ -311,6 +416,8 @@
 		966E48FB2110324100839CE7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				964ABE2F2126CCDD0048FC2C /* LMJDropdownMenu.h */,
+				964ABE302126CCDD0048FC2C /* LMJDropdownMenu.m */,
 				96C8494D2111675F00CC7267 /* UIColor+ColorChange.h */,
 				96C8494E2111676000CC7267 /* UIColor+ColorChange.m */,
 			);
@@ -326,6 +433,8 @@
 				966E490F211062A400839CE7 /* APIStringMacros.h */,
 				966E4910211062BA00839CE7 /* UtilsMacros.h */,
 				966E4911211064FE00839CE7 /* PrefixHeader.pch */,
+				962B2BF8212BB91C00F2F030 /* GlobalSingleton.h */,
+				962B2BF9212BB91C00F2F030 /* GlobalSingleton.m */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -333,6 +442,9 @@
 		966E48FD2110325800839CE7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				965256EF212D54610026827A /* ZhangDanChaXun */,
+				965256E4212D0D7A0026827A /* ShengHuo */,
+				9682198F21216C8900A05C8F /* HuiLv */,
 				96531BAB211A7F90009613AF /* ZhuanZhang */,
 				96E68EA42119412F00453A4A /* HuaFeiChongZhi */,
 				96C782CE2112B8D300EC6EEB /* TiXian */,
@@ -382,6 +494,8 @@
 		966E490321104EED00839CE7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				962B2BFB212BB9F000F2F030 /* UserModel.h */,
+				962B2BFC212BB9F000F2F030 /* UserModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -431,9 +545,19 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		9682198F21216C8900A05C8F /* HuiLv */ = {
+			isa = PBXGroup;
+			children = (
+				964ABE33212AA9030048FC2C /* View */,
+				96F6BAC821216EFF00C546DD /* Controller */,
+			);
+			path = HuiLv;
+			sourceTree = "<group>";
+		};
 		96C782CC2112B2A100EC6EEB /* ChongZhi */ = {
 			isa = PBXGroup;
 			children = (
+				964ABE3D212AE78F0048FC2C /* View */,
 				96C782CD2112B3A200EC6EEB /* Controller */,
 			);
 			path = ChongZhi;
@@ -444,6 +568,8 @@
 			children = (
 				96E68EAD211998F800453A4A /* CGChongZhiViewController.h */,
 				96E68EAE211998F800453A4A /* CGChongZhiViewController.m */,
+				964ABE3A212AE4900048FC2C /* CGBankCardTopUpViewController.h */,
+				964ABE3B212AE4900048FC2C /* CGBankCardTopUpViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -503,6 +629,10 @@
 			children = (
 				96C8494A21113DE400CC7267 /* CGMeRootViewController.h */,
 				96C8494B21113DE400CC7267 /* CGMeRootViewController.m */,
+				964ABE37212AC4B10048FC2C /* CGSetViewController.h */,
+				964ABE38212AC4B10048FC2C /* CGSetViewController.m */,
+				965256F4212D619D0026827A /* CGMyProfileViewController.h */,
+				965256F5212D619D0026827A /* CGMyProfileViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -532,6 +662,15 @@
 				96E68EAB21197E6700453A4A /* CGConfirmPaymentView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		96F6BAC821216EFF00C546DD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9682199021216E2C00A05C8F /* CGHuiLvViewController.h */,
+				9682199121216E2C00A05C8F /* CGHuiLvViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -705,34 +844,49 @@
 			buildActionMask = 2147483647;
 			files = (
 				96C8494F2111676000CC7267 /* UIColor+ColorChange.m in Sources */,
+				964ABE3C212AE4900048FC2C /* CGBankCardTopUpViewController.m in Sources */,
+				964ABE312126CCDD0048FC2C /* LMJDropdownMenu.m in Sources */,
 				9667EA02211BF10C0024BFF3 /* CGNetworkingManager.m in Sources */,
 				96996E64211D6219008D7EAC /* CGFindPWSViewController.m in Sources */,
 				96531BB7211AD8BA009613AF /* CGBudgetMonthTableViewCell.m in Sources */,
 				9667EA08211C61310024BFF3 /* CGRegisterViewController.m in Sources */,
 				96E68EA321184CEA00453A4A /* CGTiXianResultsAlertView.m in Sources */,
+				965256EB212D15150026827A /* CGDaiJiaoViewController.m in Sources */,
+				962B2BFD212BB9F000F2F030 /* UserModel.m in Sources */,
 				96C782D62112FC1300EC6EEB /* AppSingleton.m in Sources */,
 				96C782DD21142BA200EC6EEB /* CGTiXianTypeViewController.m in Sources */,
+				965256F3212D588B0026827A /* CGBillQueryViewController.m in Sources */,
 				96E68E942117E38400453A4A /* CGTiXianAlipayViewController.m in Sources */,
+				964ABE43212AE9830048FC2C /* CGTitleAndTextTableViewCell.m in Sources */,
 				96C782DA2113F63500EC6EEB /* CGBounceView.m in Sources */,
 				96E68EA0211833EA00453A4A /* CGTiXianTiKuanViewController.m in Sources */,
 				966E49142110896100839CE7 /* CGLoginViewController.m in Sources */,
+				96219446212524EB00A7AFCC /* CGGuidePagesViewController.m in Sources */,
 				96996E67211D7129008D7EAC /* CGResetpPSWViewController.m in Sources */,
 				96531BBD211AE9CF009613AF /* CGZhuanZhangDetailTableViewCell.m in Sources */,
 				9667EA05211C28070024BFF3 /* CGAFHttpRequest.m in Sources */,
 				966E491B2110A5A700839CE7 /* CGTabBarController.m in Sources */,
+				964ABE40212AE7E00048FC2C /* CGSelectAccountTableViewCell.m in Sources */,
+				965256E8212D0DEB0026827A /* CGJiaoFeiTypeViewController.m in Sources */,
+				9621944A2125719F00A7AFCC /* MBProgressHUD+Extension.m in Sources */,
 				96531BBA211ADF69009613AF /* CGZhuanZhangJiLuViewController.m in Sources */,
+				964ABE36212AA98C0048FC2C /* CGHuiLvTableViewCell.m in Sources */,
+				962B2BFA212BB91C00F2F030 /* GlobalSingleton.m in Sources */,
 				96C782D32112D35E00EC6EEB /* CGTiXianViewController.m in Sources */,
 				96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */,
 				96C8494C21113DE400CC7267 /* CGMeRootViewController.m in Sources */,
 				966E48D521102E0D00839CE7 /* main.m in Sources */,
+				964ABE39212AC4B10048FC2C /* CGSetViewController.m in Sources */,
 				96C8494821113DA600CC7267 /* CGHomeViewController.m in Sources */,
 				966E490C2110523D00839CE7 /* CGBaseViewController.m in Sources */,
 				96E68E9A21181BA400453A4A /* CGTopUpDetailViewController.m in Sources */,
 				966E48C721102E0A00839CE7 /* AppDelegate.m in Sources */,
 				96E68EA8211942D700453A4A /* CGHuaFeiChongZhiViewController.m in Sources */,
 				96E68E972117F51800453A4A /* CGAccountBalanceTableViewCell.m in Sources */,
+				9682199221216E2C00A05C8F /* CGHuiLvViewController.m in Sources */,
 				96531BB2211A92F1009613AF /* CGZhuanZhangConfirmViewController.m in Sources */,
 				96E68E9D2118208F00453A4A /* CGTopUpDetailTableViewCell.m in Sources */,
+				965256F6212D619D0026827A /* CGMyProfileViewController.m in Sources */,
 				966E491821109CA100839CE7 /* CGInitProcess.m in Sources */,
 				96E68EAC21197E6700453A4A /* CGConfirmPaymentView.m in Sources */,
 				96531BAF211A81CA009613AF /* CGZhuanZhangViewController.m in Sources */,
@@ -899,6 +1053,7 @@
 			baseConfigurationReference = 074D168A7B1870C6B2FA5B2E /* Pods-pay.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C775AJX9C7;
 				ENABLE_BITCODE = YES;
@@ -914,6 +1069,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cgaf.pay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -923,6 +1080,7 @@
 			baseConfigurationReference = D1404783A06137CFC7BA5CFC /* Pods-pay.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C775AJX9C7;
 				ENABLE_BITCODE = YES;
@@ -938,6 +1096,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cgaf.pay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

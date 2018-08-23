@@ -55,7 +55,7 @@
 - (void) initUI{
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];
-    bgView.frame = CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:bgView];
     
 //    _telphone = [[UITextField alloc] init];
@@ -86,6 +86,16 @@
     _password.inputView = [[UIView alloc]init];
     [bgView addSubview:_password];
     
+    //明暗文按钮
+    UIButton *eyeIcon = [[UIButton alloc] init];
+    eyeIcon.frame = CGRectMake(SCREEN_WIDTH - 40, 405, 15, 15);
+    [eyeIcon setImage:[UIImage imageNamed:@"eye_close"] forState:UIControlStateNormal];
+    [eyeIcon setImage:[UIImage imageNamed:@"eye_open"] forState:UIControlStateSelected];
+    eyeIcon.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [eyeIcon addTarget:self action:@selector(eyeEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:eyeIcon];
+    
+    //确认密码
     _passwordcheck = [[UITextField alloc] init];
     _passwordcheck.frame = CGRectMake(100, 388, 170, 44);
     _passwordcheck.font = [UIFont systemFontOfSize:14];
@@ -97,7 +107,16 @@
     _passwordcheck.inputView = [[UIView alloc]init];
     [bgView addSubview:_passwordcheck];
     
-    //登陆按钮
+    //明暗文按钮
+    UIButton *eyeIcon2 = [[UIButton alloc] init];
+    eyeIcon2.frame = CGRectMake(SCREEN_WIDTH - 40, 405, 15, 15);
+    [eyeIcon2 setImage:[UIImage imageNamed:@"eye_close"] forState:UIControlStateNormal];
+    [eyeIcon2 setImage:[UIImage imageNamed:@"eye_open"] forState:UIControlStateSelected];
+    eyeIcon2.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [eyeIcon2 addTarget:self action:@selector(eyeEvent2:) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:eyeIcon2];
+    
+    //重置密码按钮
     UIButton * loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     loginBtn.frame = CGRectMake(15, 505, SCREEN_WIDTH - 30, 44);
     [loginBtn setTitle:@"重置密码" forState:UIControlStateNormal];
@@ -106,6 +125,16 @@
     loginBtn.layer.cornerRadius = 10.0;
     [loginBtn addTarget:self action:@selector(nextClick) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:loginBtn];
+}
+
+-(void)eyeEvent:(UIButton *)button {
+    button.selected = !button.selected;
+    _password.secureTextEntry = !_password.secureTextEntry;
+}
+
+-(void)eyeEvent2:(UIButton *)button {
+    button.selected = !button.selected;
+    _passwordcheck.secureTextEntry = !_passwordcheck.secureTextEntry;
 }
 
 - (void)getCheckClick{

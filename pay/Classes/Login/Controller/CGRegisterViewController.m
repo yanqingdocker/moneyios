@@ -16,6 +16,8 @@
     UITextField *_passwordcheck;
 }
 
+@property (strong, nonatomic) UIButton *getCheckBtn;
+//@property (nonatomic, strong) dispatch_source_t timer;
 @end
 
 @implementation CGRegisterViewController
@@ -66,11 +68,11 @@
 - (void) initUI{
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];
-    bgView.frame = CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:bgView];
     
 //    UILabel *pinzhengLab = [[UILabel alloc] init];
-//    pinzhengLab.frame = CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    pinzhengLab.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     _telphone = [[UITextField alloc] init];
     _telphone.frame = CGRectMake(100, 208, 170, 44);
@@ -90,12 +92,12 @@
     _check.borderStyle = UITextBorderStyleNone;
     [bgView addSubview:_check];
     
-    UIButton *getCheckBtn = [[UIButton alloc] init];
-    getCheckBtn.frame = CGRectMake(280, 268, 90, 44);
-    [getCheckBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [getCheckBtn addTarget:self action:@selector(getCheckClick) forControlEvents:UIControlEventTouchUpInside];
-    [bgView addSubview:getCheckBtn];
+    _getCheckBtn = [[UIButton alloc] init];
+    _getCheckBtn.frame = CGRectMake(180, 268, 180, 44);
+    [_getCheckBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [_getCheckBtn addTarget:self action:@selector(getCheckClick) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:_getCheckBtn];
     
     //密码
     _password = [[UITextField alloc] init];
@@ -109,6 +111,15 @@
     _password.inputView = [[UIView alloc]init];
     [bgView addSubview:_password];
     
+    //明暗文按钮
+    UIButton *eyeIcon = [[UIButton alloc] init];
+    eyeIcon.frame = CGRectMake(SCREEN_WIDTH - 40, 405, 15, 15);
+    [eyeIcon setImage:[UIImage imageNamed:@"eye_close"] forState:UIControlStateNormal];
+    [eyeIcon setImage:[UIImage imageNamed:@"eye_open"] forState:UIControlStateSelected];
+    eyeIcon.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [eyeIcon addTarget:self action:@selector(eyeEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:eyeIcon];
+    
     _passwordcheck = [[UITextField alloc] init];
     _passwordcheck.frame = CGRectMake(100, 388, 170, 44);
     _passwordcheck.font = [UIFont systemFontOfSize:14];
@@ -119,6 +130,15 @@
     _passwordcheck.delegate = self;
     _passwordcheck.inputView = [[UIView alloc]init];
     [bgView addSubview:_passwordcheck];
+    
+    //明暗文按钮
+    UIButton *eyeIcon2 = [[UIButton alloc] init];
+    eyeIcon2.frame = CGRectMake(SCREEN_WIDTH - 40, 405, 15, 15);
+    [eyeIcon2 setImage:[UIImage imageNamed:@"eye_close"] forState:UIControlStateNormal];
+    [eyeIcon2 setImage:[UIImage imageNamed:@"eye_open"] forState:UIControlStateSelected];
+    eyeIcon2.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [eyeIcon2 addTarget:self action:@selector(eyeEvent2:) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:eyeIcon2];
     
     //登陆按钮
     UIButton * loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -131,13 +151,23 @@
     [bgView addSubview:loginBtn];
 }
 
+-(void)eyeEvent:(UIButton *)button {
+    button.selected = !button.selected;
+    _password.secureTextEntry = !_password.secureTextEntry;
+}
+
+-(void)eyeEvent2:(UIButton *)button {
+    button.selected = !button.selected;
+    _passwordcheck.secureTextEntry = !_passwordcheck.secureTextEntry;
+}
+
 - (void)getCheckClick{
     [[CGAFHttpRequest shareRequest] checkPhoneWithtelphone:_telphone.text
                                            serverSuccessFn:^(id dict)
      {
-         if(dict){
-             NSLog(@"%@",dict);
-         }
+         
+         [self startTimer:_getCheckBtn];
+         
      }serverFailureFn:^(NSError *error){
          if(error){
              NSLog(@"%@",error);
@@ -158,4 +188,47 @@
         }
     }];
 }
+
+
+//- (void)startTimer {
+//    __block NSInteger timeOut = 59; /// 重新获取验证码时长
+//    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+//    dispatch_source_set_timer(self.timer, DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+//    dispatch_source_set_event_handler(self.timer, ^{
+//        if (timeOut > 0) {
+//            /// 开始计时
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                /// 设置倒计时样式
+//                [UIView beginAnimations:nil context:nil];
+//                [UIView setAnimationDuration:1.0];
+//                [_getCheckBtn setTitle:[NSString stringWithFormat:@"%ld秒后重新发送",(long)timeOut] forState:UIControlStateNormal];
+//                [UIView commitAnimations];
+//            });
+//            timeOut --;
+//        } else {
+//            /// 销毁计时器
+//            [self cancelTimer];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                _getCheckBtn.enabled = YES;
+//            });
+//
+//        }
+//    });
+//    dispatch_source_set_cancel_handler(self.timer, ^{
+//        /// 设置重新获取样式
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            /// 设置倒计时样式
+//            [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+//            [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateDisabled];
+//        });
+//    });
+//    dispatch_resume(self.timer);
+//}
+//
+//- (void)cancelTimer {
+//    if (self.timer) {
+//        dispatch_source_cancel(self.timer);
+//        self.timer = nil;
+//    }
+//}
 @end

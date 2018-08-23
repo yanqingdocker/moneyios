@@ -17,32 +17,32 @@
  *
  *  @return 单例对象
  */
-+ (id)sharedInstance;
-
-#pragma mark --------------------- hud
-/**
- *  显示加载转圈视图
- */
-- (void)showLoadingHUD;
-
-/**
- *  显示带文字的hud
- *
- *  @param title 文字
- */
-- (void)showHUDWithTitle:(NSString *)title;
-
-/**
- *  显示带文字+标题的hud
- *
- *  @param title 文字
- */
-- (void)showAnimationTitleView:(NSString *)title;
-
-/**
- *  隐藏hud
- */
-- (void)hideHUD;
+//+ (id)sharedInstance;
+//
+//#pragma mark --------------------- hud
+///**
+// *  显示加载转圈视图
+// */
+//- (void)showLoadingHUD;
+//
+///**
+// *  显示带文字的hud
+// *
+// *  @param title 文字
+// */
+//- (void)showHUDWithTitle:(NSString *)title;
+//
+///**
+// *  显示带文字+标题的hud
+// *
+// *  @param title 文字
+// */
+//- (void)showAnimationTitleView:(NSString *)title;
+//
+///**
+// *  隐藏hud
+// */
+//- (void)hideHUD;
 
 @end
 

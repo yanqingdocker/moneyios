@@ -66,7 +66,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _tuanModel.count+1;
+    return _tuanModel.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -130,7 +130,7 @@
         
         self.view.alpha = 1.0;
         
-        [self->_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - ZLBounceViewHight, SCREEN_WIDTH, ZLBounceViewHight)];
+        [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - ZLBounceViewHight, SCREEN_WIDTH, ZLBounceViewHight)];
         
     } completion:nil];
 }
@@ -142,12 +142,12 @@
                          
                          self.view.alpha = 0.0;
                          
-                         [self->_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, ZLBounceViewHight)];
+                         [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, ZLBounceViewHight)];
                      }
                      completion:^(BOOL finished){
                          
                          [self.view removeFromSuperview];
-                         [self->_contentView removeFromSuperview];
+                         [_contentView removeFromSuperview];
                          
                      }];
     

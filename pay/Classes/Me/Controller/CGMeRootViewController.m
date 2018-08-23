@@ -7,8 +7,9 @@
 //
 
 #import "CGMeRootViewController.h"
+#import "CGSetViewController.h"
 
-@interface CGMeRootViewController (){
+@interface CGMeRootViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIButton *_headImgBtn;//头像
     UILabel *_nameLab;//用户名称
     UILabel *_lastLoginLab;//最后登录时间
@@ -18,9 +19,10 @@
     UILabel *_RMBtotalAssets;//折合总资产
     UILabel *_income;//收入
     UILabel *_spending;//支出
-    
+    UserModel *usermodel;
 }
 
+@property (nonatomic,strong) UIImagePickerController *imagePicker;
 @end
 
 @implementation CGMeRootViewController
@@ -35,10 +37,7 @@
 //    
 //    [self.view addSubview:statusBarView];
     
-    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-        statusBar.backgroundColor = [UIColor clearColor];
-    }
+    
 }
 - (void)initNav{
     
@@ -59,12 +58,20 @@
     
     UIButton *setBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 15 - 15, 35, 15, 15)];
     [setBtn setImage:[UIImage imageNamed:@"setIcon"] forState:UIControlStateNormal];
-//    [setBtn addTarget:self action:@selector(setBtn) forControlEvents:UIControlEventTouchUpInside];
+    [setBtn addTarget:self action:@selector(setClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:setBtn];
     
+    NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    
     _headImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 48/2, 69, 48, 48)];
-    [_headImgBtn setImage:[UIImage imageNamed:@"headImg"] forState:UIControlStateNormal];
-    //    [headImgBtn addTarget:self action:@selector(headImgBtn) forControlEvents:UIControlEventTouchUpInside];
+    if(data == nil){
+        [_headImgBtn setImage:[UIImage imageNamed:@"headImg"] forState:UIControlStateNormal];
+    }else{
+        [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+    }
+         
+     
+    [_headImgBtn addTarget:self action:@selector(headClick) forControlEvents:UIControlEventTouchUpInside];
     _headImgBtn.layer.cornerRadius=_headImgBtn.frame.size.width/2;//裁成圆角
     _headImgBtn.layer.masksToBounds=YES;
     [topView addSubview:_headImgBtn];
@@ -251,16 +258,146 @@
     }
 }
 
+#pragma mark -头像UIImageview的点击事件-
+- (void)headClick {
+    //自定义消息框
+//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"拍照",@"从相册选择", nil];
+//    sheet.tag = 2550;
+//    //显示消息框
+//    [sheet showInView:self.view];
+    
+    
+    self.imagePicker = [[UIImagePickerController alloc] init];
+    self.imagePicker.delegate = self;
+    self.imagePicker.allowsEditing = YES;
+    
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"从相机拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:self.imagePicker animated:YES completion:nil];
+        }
+    }];
+    
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击了取消");
+    }];
+    
+    [actionSheet addAction:cameraAction];
+    [actionSheet addAction:photoAction];
+    [actionSheet addAction:cancelAction];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+    
+}
+
+//获取选择的图片
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    [_headImgBtn setImage:image forState:UIControlStateNormal];
+//    self.imageView.image = image;
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    NSString *encodedImageStr = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    //上传头像
+    [[CGAFHttpRequest shareRequest] uploadimgAllWithimg:encodedImageStr serverSuccessFn:^(id dict) {
+        if(dict){
+            
+            NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            
+            //                    _dataArray = result[6];
+            NSLog(@"%@",dataArray);
+            
+            //            [_tableView reloadData];
+        }
+    } serverFailureFn:^(NSError *error) {
+        if(error){
+            NSLog(@"error:%@",error);
+        }
+    }];
+}
+
+
+//从相机或者相册界面弹出
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark -消息框代理实现-
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    if (actionSheet.tag == 2550) {
+//        NSUInteger sourceType = 0;
+//        // 判断系统是否支持相机
+//        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+//        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//            imagePickerController.delegate = self; //设置代理
+//            imagePickerController.allowsEditing = YES;
+//            imagePickerController.sourceType = sourceType; //图片来源
+//            if (buttonIndex == 0) {
+//                return;
+//            }else if (buttonIndex == 1) {
+//                //拍照
+//                sourceType = UIImagePickerControllerSourceTypeCamera;
+//                imagePickerController.sourceType = sourceType;
+//                [self presentViewController:imagePickerController animated:YES completion:nil];
+//            }else if (buttonIndex == 2){
+//                //相册
+//                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//                imagePickerController.sourceType = sourceType;
+//                [self presentViewController:imagePickerController animated:YES completion:nil];
+//            }
+//        }else {
+//            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//            imagePickerController.sourceType = sourceType;
+//            [self presentViewController:imagePickerController animated:YES completion:nil];
+//        }
+//    }
+//}
+//
+//#pragma mark -实现图片选择器代理-（上传图片的网络请求也是在这个方法里面进行，这里我不再介绍具体怎么上传图片）
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+//    [picker dismissViewControllerAnimated:YES completion:^{}];
+//    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
+////    _headerV.image = image;  //给UIimageView赋值已经选择的相片
+//    [_headImgBtn setImage:image forState:UIControlStateNormal];
+//
+//    //上传图片到服务器--在这里进行图片上传的网络请求，这里不再介绍
+////    ......
+//}
+//
+////当用户取消选择的时候，调用该方法
+//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+//    [picker dismissViewControllerAnimated:YES completion:^{}];
+//}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = [UIColor clearColor];
+    }
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    //背景色
+//    self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"0d0d0d"];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+-(void)setClick{
+    CGSetViewController *vc = [[CGSetViewController alloc] init];
+    [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 
 

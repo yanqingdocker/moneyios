@@ -14,6 +14,8 @@
 #import "CGHuaFeiChongZhiViewController.h"
 #import "CGChongZhiViewController.h"
 #import "CGZhuanZhangViewController.h"
+#import "CGHuiLvViewController.h"
+#import "CGJiaoFeiTypeViewController.h"
 
 @interface CGHomeViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
@@ -46,8 +48,10 @@
 - (void)initUI
 {
     
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, 140)];
-    topView.backgroundColor = [UIColor colorWithHexString:@"0d0d0d"];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 140)];
+//    topView.backgroundColor = [UIColor colorWithHexString:@"0d0d0d"];
+//    topView.backgroundColor = RGBCOLOR(38, 38, 38);
+    topView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:topView];
     
     UIButton *saomafu = [[UIButton alloc] init];
@@ -74,14 +78,14 @@
     
     //跑马灯
 //    [self addHorizontalMarquee];
-    _horizontalMarquee = [[JhtHorizontalMarquee alloc] initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT+topView.frame.size.height, SCREEN_WIDTH, 40) withSingleScrollDuration:10.0];
+    _horizontalMarquee = [[JhtHorizontalMarquee alloc] initWithFrame:CGRectMake(0, 0+topView.frame.size.height, SCREEN_WIDTH, 40) withSingleScrollDuration:10.0];
     self.horizontalMarquee.text = @" 这是一个跑马灯View，测试一下好不好用1111111111111111！ ";
     [self.view addSubview:self.horizontalMarquee];
     
     //功能九宫格
-//    UIView *jiugonggeView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT+topView.frame.size.height+_horizontalMarquee.frame.size.height, SCREEN_WIDTH, SCREEN_WIDTH-44-NAVIGATIONBAR_HEIGHT+topView.frame.size.height)];//iPhone8适配
+//    UIView *jiugonggeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0+topView.frame.size.height+_horizontalMarquee.frame.size.height, SCREEN_WIDTH, SCREEN_WIDTH-44-66+topView.frame.size.height)];//iPhone8适配
     
-    UIView *jiugonggeView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT+topView.frame.size.height+_horizontalMarquee.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT-44-NAVIGATIONBAR_HEIGHT-topView.frame.size.height-_horizontalMarquee.frame.size.height)];
+    UIView *jiugonggeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0+topView.frame.size.height+_horizontalMarquee.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT-44-66-topView.frame.size.height-_horizontalMarquee.frame.size.height)];
     jiugonggeView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:jiugonggeView];
     
@@ -172,18 +176,99 @@
         CGZhuanZhangViewController *vc = [[CGZhuanZhangViewController alloc] init];
         [self pushViewControllerHiddenTabBar:vc animated:YES];
     }else if(btn.tag == 3){
-        NSLog(@"%ld",(long)btn.tag);
+        NSLog(@"%@",@"创建账户");
+        [[CGAFHttpRequest shareRequest] createCountWithcountType:@"countType" payPwd:@"payPwd" serverSuccessFn:^(id dict) {
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSLog(@"%@",result);
+            
+        } serverFailureFn:^(NSError *error) {
+            if(error){
+                NSLog(@"%@",error);
+            }
+        }];
     }else if(btn.tag == 4){
-        NSLog(@"%ld",(long)btn.tag);
+        NSLog(@"%@",@"修改账户状态");
+        [[CGAFHttpRequest shareRequest] startOrstopCountWithID:@"13950357177" State:@"0" serverSuccessFn:^(id dict) {
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSLog(@"%@",result);
+            
+        } serverFailureFn:^(NSError *error) {
+            if(error){
+                NSLog(@"%@",error);
+            }
+        }];
+        
     }else if(btn.tag == 5){
-        NSLog(@"%ld",(long)btn.tag);
+        CGJiaoFeiTypeViewController *vc = [[CGJiaoFeiTypeViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+//        [[CGAFHttpRequest shareRequest] getuserWithserverSuccessFn:^(id dict) {
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//        } serverFailureFn:^(NSError *error) {
+//            if(error){
+//                NSLog(@"%@",error);
+//            }
+//        }];
     }else if(btn.tag == 6){
         CGChongZhiViewController *vc = [[CGChongZhiViewController alloc] init];
         [self pushViewControllerHiddenTabBar:vc animated:YES];
     }else if(btn.tag == 7){
-        NSLog(@"%ld",(long)btn.tag);
+        CGHuiLvViewController *cv = [[CGHuiLvViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:cv animated:YES];
+//        [[CGAFHttpRequest shareRequest] resetpwdmodeWitholdpassword:@"123456" newpassword:@"123456" serverSuccessFn:^(id dict) {
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//
+//        } serverFailureFn:^(NSError *error) {
+//            if(error){
+//                NSLog(@"%@",error);
+//            }
+//        }];
     }else if(btn.tag == 8){
-        NSLog(@"%ld",(long)btn.tag);
+        
+        
+//        NSDictionary *song1 = [NSDictionary dictionaryWithObjectsAndKeys:
+//                               @"bankcard",@"6226661701682969",
+//                               @"username",@"林豪威尔",
+//                               @"idcard",@"350182918911171596",
+//                               @"phone",@"13625031117",
+//                               @"address",@"福州湖东支行",
+//                               @"banktype",@"中国光大银行",
+//                               nil];
+        
+        //兑换接口
+//        NSDictionary *song2 = [NSDictionary dictionaryWithObjectsAndKeys:
+//                               @"",@"srcountid",
+//                               @"",@"destcountid",
+//                               @"",@"srcmoney",
+//                               @"",@"destmoney",
+//                               @"",@"paypwd",
+//                               nil];
+
+        
+//        NSDictionary *song = [NSDictionary dictionaryWithObjectsAndKeys:
+//                              @"测试",@"username",
+//                              @"4012",@"idcard",
+//                              @"Tom",@"birthday",
+//                              @"测试",@"email",
+//                              @"4012",@"address",
+//                              nil];
+//
+//        NSError *error;
+//        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:song options:NSJSONWritingPrettyPrinted error:&error];
+//        NSString *json =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//        NSLog(@"json data:%@",json);
+//
+//
+//        [[CGAFHttpRequest shareRequest] authenticationWithdatas:json serverSuccessFn:^(id dict) {
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//
+//        } serverFailureFn:^(NSError *error) {
+//            if(error){
+//                NSLog(@"%@",error);
+//            }
+//        }];
     }
 }
 /** 添加 横向 跑马灯 */

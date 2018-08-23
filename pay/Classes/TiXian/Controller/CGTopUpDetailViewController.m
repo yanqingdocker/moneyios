@@ -29,7 +29,7 @@
 }
 
 - (void)initUI{
-    CGRect tableframe=CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH,SCREEN_HEIGHT);
+    CGRect tableframe=CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT);
     _tableView=[[UITableView alloc]initWithFrame:tableframe style:UITableViewStylePlain];
     _tableView.delegate=self;
     _tableView.dataSource=self;

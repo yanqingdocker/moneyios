@@ -158,7 +158,7 @@
         
         self.view.alpha = 1.0;
         
-        [self->_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight, SCREEN_WIDTH, CGConfirmPaymentViewHight)];
+        [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight, SCREEN_WIDTH, CGConfirmPaymentViewHight)];
         
     } completion:nil];
 }
@@ -170,12 +170,12 @@
                          
                          self.view.alpha = 0.0;
                          
-                         [self->_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, CGConfirmPaymentViewHight)];
+                         [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, CGConfirmPaymentViewHight)];
                      }
                      completion:^(BOOL finished){
                          
                          [self.view removeFromSuperview];
-                         [self->_contentView removeFromSuperview];
+                         [_contentView removeFromSuperview];
                          
                      }];
     

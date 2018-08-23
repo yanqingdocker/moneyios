@@ -14,7 +14,7 @@
     UITextField *_telphone;
     UITextField *_check;
 }
-
+@property (strong, nonatomic) UIButton *getCheckBtn;
 @end
 
 @implementation CGFindPWSViewController
@@ -54,11 +54,11 @@
 - (void) initUI{
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];
-    bgView.frame = CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:bgView];
     
     //    UILabel *pinzhengLab = [[UILabel alloc] init];
-    //    pinzhengLab.frame = CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    //    pinzhengLab.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     _telphone = [[UITextField alloc] init];
     _telphone.frame = CGRectMake(100, 208, 170, 44);
@@ -78,12 +78,12 @@
     _check.borderStyle = UITextBorderStyleNone;
     [bgView addSubview:_check];
     
-    UIButton *getCheckBtn = [[UIButton alloc] init];
-    getCheckBtn.frame = CGRectMake(280, 268, 110, 44);
-    [getCheckBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [getCheckBtn addTarget:self action:@selector(getCheckClick) forControlEvents:UIControlEventTouchUpInside];
-    [bgView addSubview:getCheckBtn];
+    _getCheckBtn = [[UIButton alloc] init];
+    _getCheckBtn.frame = CGRectMake(280, 268, 110, 44);
+    [_getCheckBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [_getCheckBtn addTarget:self action:@selector(getCheckClick) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:_getCheckBtn];
     
     //登陆按钮
     UIButton * loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -100,10 +100,8 @@
     [[CGAFHttpRequest shareRequest] checkPhoneWithtelphone:_telphone.text
                                            serverSuccessFn:^(id dict)
      {
-         if(dict){
-             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-             NSLog(@"%@",result);
-         }
+         [self startTimer:_getCheckBtn];
+         
      }serverFailureFn:^(NSError *error){
          if(error){
              NSLog(@"%@",error);

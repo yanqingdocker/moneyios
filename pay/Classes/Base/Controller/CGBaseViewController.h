@@ -31,4 +31,6 @@
 @property (nonatomic, copy) NSString *navigationTitle;
 - (void)setBackButton:(BOOL)isShown;
 - (void)goBack;
+
+- (void)startTimer:(UIButton *)btn;
 @end
