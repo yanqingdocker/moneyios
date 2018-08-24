@@ -60,6 +60,14 @@
 		96E68EA8211942D700453A4A /* CGHuaFeiChongZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EA7211942D600453A4A /* CGHuaFeiChongZhiViewController.m */; };
 		96E68EAC21197E6700453A4A /* CGConfirmPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EAB21197E6700453A4A /* CGConfirmPaymentView.m */; };
 		96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EAE211998F800453A4A /* CGChongZhiViewController.m */; };
+		ADF7D689212F9F16008D18FA /* HMScannerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D67D212F9F16008D18FA /* HMScannerBorder.m */; };
+		ADF7D68A212F9F16008D18FA /* HMScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D67F212F9F16008D18FA /* HMScannerMaskView.m */; };
+		ADF7D68B212F9F16008D18FA /* HMScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D681212F9F16008D18FA /* HMScannerViewController.m */; };
+		ADF7D68C212F9F16008D18FA /* HMScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D682212F9F16008D18FA /* HMScanner.m */; };
+		ADF7D68D212F9F16008D18FA /* HMScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ADF7D683212F9F16008D18FA /* HMScanner.bundle */; };
+		ADF7D68E212F9F16008D18FA /* HMScanerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D684212F9F16008D18FA /* HMScanerCardViewController.m */; };
+		ADF7D68F212F9F16008D18FA /* HMScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D686212F9F16008D18FA /* HMScannerController.m */; };
+		ADF7D692212F9F9E008D18FA /* CGShouKuanMaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D691212F9F9E008D18FA /* CGShouKuanMaViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +198,21 @@
 		96E68EAB21197E6700453A4A /* CGConfirmPaymentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGConfirmPaymentView.m; sourceTree = "<group>"; };
 		96E68EAD211998F800453A4A /* CGChongZhiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGChongZhiViewController.h; sourceTree = "<group>"; };
 		96E68EAE211998F800453A4A /* CGChongZhiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGChongZhiViewController.m; sourceTree = "<group>"; };
+		ADF7D67C212F9F16008D18FA /* HMScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScanner.h; sourceTree = "<group>"; };
+		ADF7D67D212F9F16008D18FA /* HMScannerBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerBorder.m; sourceTree = "<group>"; };
+		ADF7D67E212F9F16008D18FA /* HMScannerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerController.h; sourceTree = "<group>"; };
+		ADF7D67F212F9F16008D18FA /* HMScannerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerMaskView.m; sourceTree = "<group>"; };
+		ADF7D680212F9F16008D18FA /* HMScanerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScanerCardViewController.h; sourceTree = "<group>"; };
+		ADF7D681212F9F16008D18FA /* HMScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerViewController.m; sourceTree = "<group>"; };
+		ADF7D682212F9F16008D18FA /* HMScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScanner.m; sourceTree = "<group>"; };
+		ADF7D683212F9F16008D18FA /* HMScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HMScanner.bundle; sourceTree = "<group>"; };
+		ADF7D684212F9F16008D18FA /* HMScanerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScanerCardViewController.m; sourceTree = "<group>"; };
+		ADF7D685212F9F16008D18FA /* HMScannerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerMaskView.h; sourceTree = "<group>"; };
+		ADF7D686212F9F16008D18FA /* HMScannerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerController.m; sourceTree = "<group>"; };
+		ADF7D687212F9F16008D18FA /* HMScannerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerBorder.h; sourceTree = "<group>"; };
+		ADF7D688212F9F16008D18FA /* HMScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerViewController.h; sourceTree = "<group>"; };
+		ADF7D690212F9F9E008D18FA /* CGShouKuanMaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGShouKuanMaViewController.h; sourceTree = "<group>"; };
+		ADF7D691212F9F9E008D18FA /* CGShouKuanMaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGShouKuanMaViewController.m; sourceTree = "<group>"; };
 		D1404783A06137CFC7BA5CFC /* Pods-pay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pay.release.xcconfig"; path = "Pods/Target Support Files/Pods-pay/Pods-pay.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -416,6 +439,7 @@
 		966E48FB2110324100839CE7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				ADF7D67B212F9F16008D18FA /* QRCode */,
 				964ABE2F2126CCDD0048FC2C /* LMJDropdownMenu.h */,
 				964ABE302126CCDD0048FC2C /* LMJDropdownMenu.m */,
 				96C8494D2111675F00CC7267 /* UIColor+ColorChange.h */,
@@ -620,6 +644,8 @@
 			children = (
 				96C8494621113DA600CC7267 /* CGHomeViewController.h */,
 				96C8494721113DA600CC7267 /* CGHomeViewController.m */,
+				ADF7D690212F9F9E008D18FA /* CGShouKuanMaViewController.h */,
+				ADF7D691212F9F9E008D18FA /* CGShouKuanMaViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -671,6 +697,26 @@
 				9682199121216E2C00A05C8F /* CGHuiLvViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		ADF7D67B212F9F16008D18FA /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				ADF7D67C212F9F16008D18FA /* HMScanner.h */,
+				ADF7D67D212F9F16008D18FA /* HMScannerBorder.m */,
+				ADF7D67E212F9F16008D18FA /* HMScannerController.h */,
+				ADF7D67F212F9F16008D18FA /* HMScannerMaskView.m */,
+				ADF7D680212F9F16008D18FA /* HMScanerCardViewController.h */,
+				ADF7D681212F9F16008D18FA /* HMScannerViewController.m */,
+				ADF7D682212F9F16008D18FA /* HMScanner.m */,
+				ADF7D683212F9F16008D18FA /* HMScanner.bundle */,
+				ADF7D684212F9F16008D18FA /* HMScanerCardViewController.m */,
+				ADF7D685212F9F16008D18FA /* HMScannerMaskView.h */,
+				ADF7D686212F9F16008D18FA /* HMScannerController.m */,
+				ADF7D687212F9F16008D18FA /* HMScannerBorder.h */,
+				ADF7D688212F9F16008D18FA /* HMScannerViewController.h */,
+			);
+			path = QRCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -779,6 +825,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				966E48D221102E0D00839CE7 /* LaunchScreen.storyboard in Resources */,
+				ADF7D68D212F9F16008D18FA /* HMScanner.bundle in Resources */,
 				966E48CF21102E0D00839CE7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -844,6 +891,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96C8494F2111676000CC7267 /* UIColor+ColorChange.m in Sources */,
+				ADF7D68A212F9F16008D18FA /* HMScannerMaskView.m in Sources */,
 				964ABE3C212AE4900048FC2C /* CGBankCardTopUpViewController.m in Sources */,
 				964ABE312126CCDD0048FC2C /* LMJDropdownMenu.m in Sources */,
 				9667EA02211BF10C0024BFF3 /* CGNetworkingManager.m in Sources */,
@@ -862,6 +910,9 @@
 				96E68EA0211833EA00453A4A /* CGTiXianTiKuanViewController.m in Sources */,
 				966E49142110896100839CE7 /* CGLoginViewController.m in Sources */,
 				96219446212524EB00A7AFCC /* CGGuidePagesViewController.m in Sources */,
+				ADF7D68C212F9F16008D18FA /* HMScanner.m in Sources */,
+				ADF7D68E212F9F16008D18FA /* HMScanerCardViewController.m in Sources */,
+				ADF7D692212F9F9E008D18FA /* CGShouKuanMaViewController.m in Sources */,
 				96996E67211D7129008D7EAC /* CGResetpPSWViewController.m in Sources */,
 				96531BBD211AE9CF009613AF /* CGZhuanZhangDetailTableViewCell.m in Sources */,
 				9667EA05211C28070024BFF3 /* CGAFHttpRequest.m in Sources */,
@@ -876,6 +927,7 @@
 				96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */,
 				96C8494C21113DE400CC7267 /* CGMeRootViewController.m in Sources */,
 				966E48D521102E0D00839CE7 /* main.m in Sources */,
+				ADF7D68F212F9F16008D18FA /* HMScannerController.m in Sources */,
 				964ABE39212AC4B10048FC2C /* CGSetViewController.m in Sources */,
 				96C8494821113DA600CC7267 /* CGHomeViewController.m in Sources */,
 				966E490C2110523D00839CE7 /* CGBaseViewController.m in Sources */,
@@ -884,6 +936,8 @@
 				96E68EA8211942D700453A4A /* CGHuaFeiChongZhiViewController.m in Sources */,
 				96E68E972117F51800453A4A /* CGAccountBalanceTableViewCell.m in Sources */,
 				9682199221216E2C00A05C8F /* CGHuiLvViewController.m in Sources */,
+				ADF7D68B212F9F16008D18FA /* HMScannerViewController.m in Sources */,
+				ADF7D689212F9F16008D18FA /* HMScannerBorder.m in Sources */,
 				96531BB2211A92F1009613AF /* CGZhuanZhangConfirmViewController.m in Sources */,
 				96E68E9D2118208F00453A4A /* CGTopUpDetailTableViewCell.m in Sources */,
 				965256F6212D619D0026827A /* CGMyProfileViewController.m in Sources */,

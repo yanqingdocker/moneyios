@@ -262,7 +262,7 @@
 //    [_headImgView setImage:image forState:UIControlStateNormal];
     _headImgView.image = image;
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
     NSString *encodedImageStr = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     //上传头像代码写下面
 
@@ -271,10 +271,8 @@
             
             _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             
-            //                    _dataArray = result[6];
             NSLog(@"%@",_dataArray);
             
-//            [_tableView reloadData];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){

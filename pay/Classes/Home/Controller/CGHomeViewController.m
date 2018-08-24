@@ -17,6 +17,9 @@
 #import "CGHuiLvViewController.h"
 #import "CGJiaoFeiTypeViewController.h"
 
+#import "HMScannerController.h"
+#import "CGShouKuanMaViewController.h"
+
 @interface CGHomeViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
     // 横向 跑马灯
@@ -57,7 +60,7 @@
     UIButton *saomafu = [[UIButton alloc] init];
     saomafu = [[UIButton alloc] init];
     [saomafu setImage:[UIImage imageNamed:@"扫码付"] forState:UIControlStateNormal];
-//    [saomafu addTarget:self action:@selector(siftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [saomafu addTarget:self action:@selector(saomafuClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:saomafu];
     [saomafu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(102, 158));
@@ -68,7 +71,7 @@
     UIButton *shoukuanma = [[UIButton alloc] init];
     shoukuanma = [[UIButton alloc] init];
     [shoukuanma setImage:[UIImage imageNamed:@"收款码"] forState:UIControlStateNormal];
-    //    [shoukuanma addTarget:self action:@selector(siftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [shoukuanma addTarget:self action:@selector(shoukuanmaBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:shoukuanma];
     [shoukuanma mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(102, 158));
@@ -292,4 +295,31 @@
     return _horizontalMarquee;
 }
 
+- (void)saomafuButton {
+    NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    
+    NSString *cardName = [GlobalSingleton Instance].currentUser.username;
+    
+    UIImage *avatar;
+    if(data == nil){
+        avatar = [UIImage imageNamed:@"headImg"];
+    }else{
+        avatar = [UIImage imageWithData:data];
+    }
+    
+    HMScannerController *scanner = [HMScannerController scannerWithCardName:cardName avatar:avatar completion:^(NSString *stringValue) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:stringValue message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }];
+    
+    [scanner setTitleColor:[UIColor whiteColor] tintColor:[UIColor greenColor]];
+    
+    [self showDetailViewController:scanner sender:nil];
+}
+
+
+-(void)shoukuanmaClick{
+    CGShouKuanMaViewController *vc = [[CGShouKuanMaViewController alloc] init];
+    [self pushViewControllerHiddenTabBar:vc animated:YES];
+}
 @end

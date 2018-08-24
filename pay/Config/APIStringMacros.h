@@ -15,8 +15,8 @@
 #ifndef __OPTIMIZE__  //debug release 判断
 //测试地址
 //登录模块
-//#define BASEURL             @"http://47.52.196.190"//基础地址
-#define BASEURL             @"http://192.168.31.21:8082"//基础地址
+#define BASEURL             @"http://47.52.196.190"//基础地址
+//#define BASEURL             @"http://192.168.31.21:8082"//yanqing地址
 #define CHECKPHONE          @"/user/checkPhone"//获取验证码
 #define REGISTER            @"/user/register"//用户注册
 #define LOGIN               @"/user/login"//用户登录
