@@ -295,7 +295,7 @@
     return _horizontalMarquee;
 }
 
-- (void)saomafuButton {
+- (void)saomafuClick {
     NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
     
     NSString *cardName = [GlobalSingleton Instance].currentUser.username;
