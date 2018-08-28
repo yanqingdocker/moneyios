@@ -14,6 +14,7 @@
 @property (strong , nonatomic) NSString *key;
 @property (strong , nonatomic) NSIndexPath *indexPath;
 @property (strong , nonatomic) UITextField *contentText;
+@property (strong , nonatomic) UIImageView *img;
 
 @property (assign , nonatomic) id delegate;
 

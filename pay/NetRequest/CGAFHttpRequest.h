@@ -71,6 +71,11 @@
 - (void)queryAllWithserverSuccessFn:(void(^)(id dict))successFn
                     serverFailureFn:(void(^)(NSError *error))failureFn;
 
+#pragma mark - 根据电话查询账户信息
+- (void)getuserbyTelphoneWithtelphone:(NSString *)telphone
+                      serverSuccessFn:(void(^)(id dict))successFn
+                      serverFailureFn:(void(^)(NSError *error))failureFn;
+
 #pragma mark - **账户模块**
 #pragma mark - 创建账户
 - (void)createCountWithcountType:(NSString *)countType
@@ -109,19 +114,23 @@
 //- (void)queryAllCountWithserverSuccessFn:(void(^)(id dict))successFn
 //                         serverFailureFn:(void(^)(NSError *error))failureFn;
 
+#pragma mark - 根据流水号查询交易详情
+- (void)queryByIdWithid:(NSString *)ID
+        serverSuccessFn:(void(^)(id dict))successFn
+        serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 查询单个用户下的所有银行卡
 - (void)queryWithserverSuccessFn:(void(^)(id dict))successFn
                  serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 查询单个账户
-- (void)queryCountWithserverID:(NSString *)ID
-                     SuccessFn:(void(^)(id dict))successFn
+- (void)queryCountWithID:(NSString *)ID
+                serverSuccessFn:(void(^)(id dict))successFn
                serverFailureFn:(void(^)(NSError *error))failureFn;
 
 
 #pragma mark - 查询账户业务记录
-- (void)operaQuerybyUseridWithserverSuccessFn:(void(^)(id dict))successFn
+- (void)operaQueryByUseridWithserverSuccessFn:(void(^)(id dict))successFn
                               serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 查询单个信息接口

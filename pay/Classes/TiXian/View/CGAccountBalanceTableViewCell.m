@@ -41,15 +41,23 @@
         titleLab;
     });
 
-    UIImageView *img = [[UIImageView alloc] init];
+    _img =     ({
+    UIImageView * img = [[UIImageView alloc] init];
     img.frame = CGRectMake(leftSpace, 85, 25, 25);
-    [img setImage:[UIImage imageNamed:@"RMBIcon"]];
-    
+//    if([_countType isEqualToString:@"CNY"]){
+////        [img setImage:[UIImage imageNamed:@"CNYIcon"]];
+//    }
+//    if([_countType isEqualToString:@"USD"]){
+//        [img setImage:[UIImage imageNamed:_countType]];
+//    }
+        img;
+    });
+        
     _contentText =     ({
         UITextField * contentText = [[UITextField  alloc] init];
-        contentText.frame = CGRectMake(img.frame.origin.x + img.frame.size.width+5,
+        contentText.frame = CGRectMake(_img.frame.origin.x + _img.frame.size.width+5,
                                        70,
-                                       SCREEN_WIDTH - img.frame.origin.x + img.frame.size.width - leftSpace - 75 ,
+                                       SCREEN_WIDTH - _img.frame.origin.x + _img.frame.size.width - leftSpace - 75 ,
                                        50);
         //        contentText.textAlignment = NSTextAlignmentLeft;
 //        contentText.backgroundColor = [UIColor redColor];
@@ -59,7 +67,7 @@
     });
     
     [self.contentView addSubview:_titleLab];
-    [self.contentView addSubview:img];
+    [self.contentView addSubview:_img];
     [self.contentView addSubview:_contentText];
 }
 

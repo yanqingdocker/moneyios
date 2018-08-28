@@ -19,6 +19,14 @@
 
 #import "HMScannerController.h"
 #import "CGShouKuanMaViewController.h"
+#import "CGBillQueryViewController.h"
+
+#import "CGSaoMaZhuanZhangViewController.h"
+#import "CGHuiDuiTypeViewController.h"
+
+#import "CGZhuanZhangConfirmViewController.h"
+//要删
+#import "CGJiaoYiDetailsViewController.h"
 
 @interface CGHomeViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
@@ -71,7 +79,7 @@
     UIButton *shoukuanma = [[UIButton alloc] init];
     shoukuanma = [[UIButton alloc] init];
     [shoukuanma setImage:[UIImage imageNamed:@"收款码"] forState:UIControlStateNormal];
-    [shoukuanma addTarget:self action:@selector(shoukuanmaBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [shoukuanma addTarget:self action:@selector(shoukuanmaClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:shoukuanma];
     [shoukuanma mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(102, 158));
@@ -179,16 +187,19 @@
         CGZhuanZhangViewController *vc = [[CGZhuanZhangViewController alloc] init];
         [self pushViewControllerHiddenTabBar:vc animated:YES];
     }else if(btn.tag == 3){
-        NSLog(@"%@",@"创建账户");
-        [[CGAFHttpRequest shareRequest] createCountWithcountType:@"countType" payPwd:@"payPwd" serverSuccessFn:^(id dict) {
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",result);
-            
-        } serverFailureFn:^(NSError *error) {
-            if(error){
-                NSLog(@"%@",error);
-            }
-        }];
+        CGHuiDuiTypeViewController *vc = [[CGHuiDuiTypeViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+        
+//        NSLog(@"%@",@"创建账户");
+//        [[CGAFHttpRequest shareRequest] createCountWithcountType:@"countType" payPwd:@"payPwd" serverSuccessFn:^(id dict) {
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//
+//        } serverFailureFn:^(NSError *error) {
+//            if(error){
+//                NSLog(@"%@",error);
+//            }
+//        }];
     }else if(btn.tag == 4){
         NSLog(@"%@",@"修改账户状态");
         [[CGAFHttpRequest shareRequest] startOrstopCountWithID:@"13950357177" State:@"0" serverSuccessFn:^(id dict) {
@@ -228,7 +239,8 @@
 //            }
 //        }];
     }else if(btn.tag == 8){
-        
+        CGBillQueryViewController *cv = [[CGBillQueryViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:cv animated:YES];
         
 //        NSDictionary *song1 = [NSDictionary dictionaryWithObjectsAndKeys:
 //                               @"bankcard",@"6226661701682969",
@@ -297,29 +309,74 @@
 
 - (void)saomafuClick {
     NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    
+
     NSString *cardName = [GlobalSingleton Instance].currentUser.username;
-    
+
     UIImage *avatar;
     if(data == nil){
         avatar = [UIImage imageNamed:@"headImg"];
     }else{
         avatar = [UIImage imageWithData:data];
     }
-    
+
     HMScannerController *scanner = [HMScannerController scannerWithCardName:cardName avatar:avatar completion:^(NSString *stringValue) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:stringValue message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:stringValue message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alertView show];
+
+        NSDictionary *params =  [stringValue JSONObject];
+
+        NSLog(@"%@",[params objectForKey:@"receivecount"]);
+
+        [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:[params objectForKey:@"receivecount"] serverSuccessFn:^(id dict) {
+            if(dict){
+                NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                NSLog(@"%@",result);
+
+                NSData *data=[[NSData alloc] initWithBase64EncodedString:[result objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+
+
+                CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
+//                        vc.params = result;
+                vc.moneynum = [params objectForKey:@"moneynum"];
+                vc.imgdata = data;
+                vc.receivecount = [params objectForKey:@"receivecount"];
+                vc.username = [params objectForKey:@"username"];//[result objectForKey:@"username"]
+                [self pushViewControllerHiddenTabBar:vc animated:YES];
+            }
+        } serverFailureFn:^(NSError *error) {
+            if(error){
+                NSLog(@"%@",error);
+            }
+        }];
+
+
+
+
+//        CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
+//        vc.moneynum = @"1";
+//        vc.imgdata = data;
+//        vc.receivecount = @"13950357177";
+//        vc.username = @"名称";
+//        [self pushViewControllerHiddenTabBar:vc animated:YES];
+
+
     }];
-    
+
     [scanner setTitleColor:[UIColor whiteColor] tintColor:[UIColor greenColor]];
-    
+
     [self showDetailViewController:scanner sender:nil];
+
+//    CGJiaoYiDetailsViewController  *vc = [[CGJiaoYiDetailsViewController alloc] init];
+//    vc.liushuiID = @"20180815113937493";
+//    [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 
 
 -(void)shoukuanmaClick{
     CGShouKuanMaViewController *vc = [[CGShouKuanMaViewController alloc] init];
     [self pushViewControllerHiddenTabBar:vc animated:YES];
+    
+//    CGSaoMaZhuanZhangViewController *vc = [[CGSaoMaZhuanZhangViewController alloc] init];
+//    [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 @end

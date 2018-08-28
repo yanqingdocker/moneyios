@@ -50,7 +50,7 @@
         
         //title
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
-        titleLabel.text = @"选择储值银行卡";
+        titleLabel.text = _BVtitle;
         titleLabel.textAlignment = NSTextAlignmentCenter;
         [_contentView addSubview:titleLabel];
     }

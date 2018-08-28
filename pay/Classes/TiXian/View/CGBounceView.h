@@ -11,5 +11,6 @@
 @interface CGBounceView : UIViewController
 @property(nonatomic,strong)void(^selectbankcardblock)(NSString *);
 @property (nonatomic,strong)NSArray *tuanModel;
+@property (nonatomic,strong)NSString *BVtitle;
 - (void)showInView:(UIView *)view;
 @end

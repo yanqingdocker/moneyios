@@ -15,8 +15,9 @@
 #ifndef __OPTIMIZE__  //debug release 判断
 //测试地址
 //登录模块
-#define BASEURL             @"http://47.52.196.190"//基础地址
-//#define BASEURL             @"http://192.168.31.21:8082"//yanqing地址
+//#define BASEURL             @"http://47.52.196.190"//基础地址
+#define BASEURL             @"http://192.168.31.93:8082"//yanqing地址
+//#define BASEURL             @"http://192.168.1.3:8082"//自己家地址
 #define CHECKPHONE          @"/user/checkPhone"//获取验证码
 #define REGISTER            @"/user/register"//用户注册
 #define LOGIN               @"/user/login"//用户登录
@@ -26,6 +27,7 @@
 #define AUTHENTICATION      @"/user/authentication"//实名认证
 #define UPLOADIMG           @"/user/uploadimg"//上传头像
 #define QUERYAll            @"/rate/queryAll"//汇率查看
+#define GETUSERBYTELPHONE   @"/user/getuserbyTelphone"//汇率查看
 
 //账户模块
 #define CREATECOUNT         @"/count/createCount"//创建账户
@@ -36,6 +38,7 @@
 //查询模块
 #define QUERYBYUSERID       @"/appliy/querybyUserid"//查询当前用户下的所有支付宝账户
 #define GETSINGLERATE       @"/rate/getSingleRate"//根据类型查询单个汇率
+#define QUERYBYID           @"/opera/queryById"//根据流水号查询交易详情
 #define QUERYCOUNTBYUSERID  @"/count/queryCountByUserid"//查询单个用户下的所有类型账户
 #define QUERYALLCOUNT       @"/count/queryAllCount"//查询所有账户
 #define QUERY               @"/bank/query"//查询单个用户下的所有银行卡

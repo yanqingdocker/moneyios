@@ -393,6 +393,7 @@
 //
 - (void)selectbankcard{
     _tuanNumView = [[CGBounceView alloc]init];
+    _tuanNumView.BVtitle = @"选择储值银行卡";
     _tuanNumView.tuanModel = _nameArray;
     [_tuanNumView showInView:self.view];
     //            __weak __typeof(self)wself = self;

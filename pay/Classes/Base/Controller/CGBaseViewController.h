@@ -33,4 +33,6 @@
 - (void)goBack;
 
 - (void)startTimer:(UIButton *)btn;
+
+-(NSString *)convertToJsonData:(NSDictionary *)dict;//NSDictionary 转 NSString
 @end

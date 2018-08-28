@@ -202,23 +202,39 @@
     _account.clearButtonMode = UITextFieldViewModeNever;
     _account.delegate = self;
     _account.font = [UIFont systemFontOfSize:14];
-    _account.borderStyle = UIKeyboardTypeNumberPad;
+    _account.borderStyle = UITextBorderStyleNone;
+    _account.keyboardType = UIKeyboardTypeNumberPad;
 //    _account.clearButtonMode = UITextFieldViewModeWhileEditing;
     [_bgView addSubview:_account];
     
     //密码
+//    _password = [[UITextField alloc] init];
+//    _password.frame = CGRectMake(100, 388, 170, 44);
+//    _password.font = [UIFont systemFontOfSize:14];
+//    _password.textColor = [UIColor whiteColor];
+////    _password.placeholder = @"请输入密码";
+//    _password.attributedPlaceholder = passwordplace;
+//    _password.secureTextEntry = YES;
+//    _password.borderStyle = UITextBorderStyleNone;
+////    _password.keyboardType = UIKeyboardTypeDecimalPad;
+//    _password.returnKeyType = UIReturnKeyDone;
+//    _password.delegate = self;
+////    _password.clearButtonMode = UITextFieldViewModeWhileEditing;
+//    _password.inputView = [[UIView alloc]init];
+//    [_bgView addSubview:_password];
+    
     _password = [[UITextField alloc] init];
     _password.frame = CGRectMake(100, 388, 170, 44);
-    _password.font = [UIFont systemFontOfSize:14];
     _password.textColor = [UIColor whiteColor];
-//    _password.placeholder = @"请输入密码";
-    _password.attributedPlaceholder = passwordplace;
-    _password.secureTextEntry = YES;
-    _password.borderStyle = UITextBorderStyleNone;
-    _password.returnKeyType = UIReturnKeyDone;
+    //    _account.placeholder = @"请输入手机号";
+    _password.attributedPlaceholder = accountplace;
+    _password.clearButtonMode = UITextFieldViewModeNever;
     _password.delegate = self;
-//    _password.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _password.inputView = [[UIView alloc]init];
+    _password.font = [UIFont systemFontOfSize:14];
+    _password.borderStyle = UITextBorderStyleNone;
+    _password.keyboardType = UIKeyboardTypeNamePhonePad;
+    _password.secureTextEntry = YES;
+    //    _account.clearButtonMode = UITextFieldViewModeWhileEditing;
     [_bgView addSubview:_password];
     
     //明暗文按钮
@@ -339,7 +355,7 @@
 //    [MBProgressHUD showHUD];
     
     [[CGAFHttpRequest shareRequest] loginWithphone:_account.text password:_password.text serverSuccessFn:^(id dict) {
-        if(dict){
+        if(dict){            
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             NSLog(@"%@",result);
             GlobalSingleton *single=[GlobalSingleton Instance];
@@ -357,6 +373,8 @@
         }
     }];
 }
+
+
 
 -(void)resetClick{
     CGFindPWSViewController *vc = [[CGFindPWSViewController alloc] init];
@@ -445,14 +463,14 @@
 
 #pragma mark - UITextField delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textFiel{
-    if (textFiel == _account)
-    {
-        [_password becomeFirstResponder];
-    }
-    else
-    {
+//    if (textFiel == _account)
+//    {
+//        [_password becomeFirstResponder];
+//    }
+//    else
+//    {
         [self.view endEditing:YES];
-    }
+//    }
     return YES;
 }
 

@@ -172,7 +172,7 @@
                     serverFailureFn:(void(^)(NSError *error))failureFn
 {
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYAll]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYAll]
                      WithParams:Nil
                         success:successFn
                         failure:failureFn
@@ -250,11 +250,27 @@
     
     params[@"ID"] = ID;//id
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,LOGOUTCOUNT]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,LOGOUTCOUNT]
                      WithParams:params
                         success:successFn
                         failure:failureFn
                         showHUD:YES];
+}
+
+#pragma mark - 根据电话查询账户信息
+- (void)getuserbyTelphoneWithtelphone:(NSString *)telphone
+          serverSuccessFn:(void(^)(id dict))successFn
+          serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"telphone"] = telphone;//电话
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,GETUSERBYTELPHONE]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
 }
 
 #pragma mark - **账户模块**
@@ -301,6 +317,22 @@
                         showHUD:YES];
 }
 
+#pragma mark - 根据流水号查询交易详情
+- (void)queryByIdWithid:(NSString *)ID
+              serverSuccessFn:(void(^)(id dict))successFn
+              serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"id"] = ID;//流水号
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYBYID]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
+}
+
 //#pragma mark - 查询所有账户
 //- (void)queryAllCountWithserverSuccessFn:(void(^)(id dict))successFn
 //                              serverFailureFn:(void(^)(NSError *error))failureFn
@@ -324,13 +356,13 @@
 }
 
 #pragma mark - 查询单个账户
-- (void)queryCountWithserverID:(NSString *)ID
-                     SuccessFn:(void(^)(id dict))successFn
+- (void)queryCountWithID:(NSString *)ID
+                     serverSuccessFn:(void(^)(id dict))successFn
                serverFailureFn:(void(^)(NSError *error))failureFn
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
-    params[@"ID"] = ID;//id
+    params[@"id"] = ID;//id
     
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYCOUNT]
                     WithParams:params
@@ -370,7 +402,7 @@
 - (void)queryMoneyTypeWithserverSuccessFn:(void(^)(id dict))successFn
                               serverFailureFn:(void(^)(NSError *error))failureFn
 {
-    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,OPERAQUERYBYUSERID]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYMONEYTYPE]
                     WithParams:nil
                        success:successFn
                        failure:failureFn
@@ -613,7 +645,7 @@
     params[@"moneynum"] = moneynum;//待转金额
     params[@"payPwd"] = payPwd;//支付密码
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,SWITCH]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,SWITCH]
                     WithParams:params
                        success:successFn
                        failure:failureFn

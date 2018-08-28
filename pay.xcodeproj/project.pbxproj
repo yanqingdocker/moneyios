@@ -60,6 +60,22 @@
 		96E68EA8211942D700453A4A /* CGHuaFeiChongZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EA7211942D600453A4A /* CGHuaFeiChongZhiViewController.m */; };
 		96E68EAC21197E6700453A4A /* CGConfirmPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EAB21197E6700453A4A /* CGConfirmPaymentView.m */; };
 		96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EAE211998F800453A4A /* CGChongZhiViewController.m */; };
+		AD26F0F52133B52400D48656 /* UIView+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EA2133B52300D48656 /* UIView+XLPasswordView.m */; };
+		AD26F0F62133B52400D48656 /* UIImage+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EB2133B52300D48656 /* UIImage+XLPasswordView.m */; };
+		AD26F0F72133B52400D48656 /* UIColor+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EC2133B52300D48656 /* UIColor+XLPasswordView.m */; };
+		AD26F0F82133B52400D48656 /* XLRandomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0ED2133B52300D48656 /* XLRandomKeyboard.m */; };
+		AD26F0F92133B52400D48656 /* XLPasswordView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AD26F0F02133B52300D48656 /* XLPasswordView.bundle */; };
+		AD26F0FA2133B52400D48656 /* XLPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0F22133B52300D48656 /* XLPasswordInputView.m */; };
+		AD26F0FB2133B52400D48656 /* XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0F42133B52300D48656 /* XLPasswordView.m */; };
+		AD26F0FE2133C94100D48656 /* CGJiaoYiDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0FD2133C94100D48656 /* CGJiaoYiDetailsViewController.m */; };
+		AD26F1022133E63300D48656 /* CGJiaoYiDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */; };
+		AD57350E2135028C00A1B0CF /* CGHuiDuiTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */; };
+		AD573511213507EC00A1B0CF /* CGBuyUSDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD573510213507EC00A1B0CF /* CGBuyUSDViewController.m */; };
+		AD57351421350BDC00A1B0CF /* CGAccountSelectiewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD57351321350BDC00A1B0CF /* CGAccountSelectiewController.m */; };
+		AD5735172135291B00A1B0CF /* CGBuyMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5735162135291B00A1B0CF /* CGBuyMoneyViewController.m */; };
+		ADB901472132EB9A000E1E18 /* CGBillQueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB901462132EB9A000E1E18 /* CGBillQueryTableViewCell.m */; };
+		ADD2AF302131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */; };
+		ADD764742134072100B11B43 /* CGBillDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD764732134072100B11B43 /* CGBillDetailsViewController.m */; };
 		ADF7D689212F9F16008D18FA /* HMScannerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D67D212F9F16008D18FA /* HMScannerBorder.m */; };
 		ADF7D68A212F9F16008D18FA /* HMScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D67F212F9F16008D18FA /* HMScannerMaskView.m */; };
 		ADF7D68B212F9F16008D18FA /* HMScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D681212F9F16008D18FA /* HMScannerViewController.m */; };
@@ -68,6 +84,7 @@
 		ADF7D68E212F9F16008D18FA /* HMScanerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D684212F9F16008D18FA /* HMScanerCardViewController.m */; };
 		ADF7D68F212F9F16008D18FA /* HMScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D686212F9F16008D18FA /* HMScannerController.m */; };
 		ADF7D692212F9F9E008D18FA /* CGShouKuanMaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D691212F9F9E008D18FA /* CGShouKuanMaViewController.m */; };
+		ADF7D695212FE74E008D18FA /* CGShouKuanSheZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D694212FE74D008D18FA /* CGShouKuanSheZhiViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +215,38 @@
 		96E68EAB21197E6700453A4A /* CGConfirmPaymentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGConfirmPaymentView.m; sourceTree = "<group>"; };
 		96E68EAD211998F800453A4A /* CGChongZhiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGChongZhiViewController.h; sourceTree = "<group>"; };
 		96E68EAE211998F800453A4A /* CGChongZhiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGChongZhiViewController.m; sourceTree = "<group>"; };
+		AD26F0E72133B52300D48656 /* UIView+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XLPasswordView.h"; sourceTree = "<group>"; };
+		AD26F0E82133B52300D48656 /* UIImage+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+XLPasswordView.h"; sourceTree = "<group>"; };
+		AD26F0E92133B52300D48656 /* UIColor+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+XLPasswordView.h"; sourceTree = "<group>"; };
+		AD26F0EA2133B52300D48656 /* UIView+XLPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XLPasswordView.m"; sourceTree = "<group>"; };
+		AD26F0EB2133B52300D48656 /* UIImage+XLPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+XLPasswordView.m"; sourceTree = "<group>"; };
+		AD26F0EC2133B52300D48656 /* UIColor+XLPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+XLPasswordView.m"; sourceTree = "<group>"; };
+		AD26F0ED2133B52300D48656 /* XLRandomKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLRandomKeyboard.m; sourceTree = "<group>"; };
+		AD26F0EE2133B52300D48656 /* XLPasswordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPasswordInputView.h; sourceTree = "<group>"; };
+		AD26F0EF2133B52300D48656 /* XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPasswordView.h; sourceTree = "<group>"; };
+		AD26F0F02133B52300D48656 /* XLPasswordView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = XLPasswordView.bundle; sourceTree = "<group>"; };
+		AD26F0F12133B52300D48656 /* XLPasswordViewTypeDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPasswordViewTypeDefine.h; sourceTree = "<group>"; };
+		AD26F0F22133B52300D48656 /* XLPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLPasswordInputView.m; sourceTree = "<group>"; };
+		AD26F0F32133B52300D48656 /* XLRandomKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLRandomKeyboard.h; sourceTree = "<group>"; };
+		AD26F0F42133B52300D48656 /* XLPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLPasswordView.m; sourceTree = "<group>"; };
+		AD26F0FC2133C94100D48656 /* CGJiaoYiDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGJiaoYiDetailsViewController.h; sourceTree = "<group>"; };
+		AD26F0FD2133C94100D48656 /* CGJiaoYiDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGJiaoYiDetailsViewController.m; sourceTree = "<group>"; };
+		AD26F1002133E63300D48656 /* CGJiaoYiDetailsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGJiaoYiDetailsModel.h; sourceTree = "<group>"; };
+		AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGJiaoYiDetailsModel.m; sourceTree = "<group>"; };
+		AD57350C2135028C00A1B0CF /* CGHuiDuiTypeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGHuiDuiTypeViewController.h; sourceTree = "<group>"; };
+		AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGHuiDuiTypeViewController.m; sourceTree = "<group>"; };
+		AD57350F213507EC00A1B0CF /* CGBuyUSDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBuyUSDViewController.h; sourceTree = "<group>"; };
+		AD573510213507EC00A1B0CF /* CGBuyUSDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBuyUSDViewController.m; sourceTree = "<group>"; };
+		AD57351221350BDC00A1B0CF /* CGAccountSelectiewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGAccountSelectiewController.h; sourceTree = "<group>"; };
+		AD57351321350BDC00A1B0CF /* CGAccountSelectiewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGAccountSelectiewController.m; sourceTree = "<group>"; };
+		AD5735152135291B00A1B0CF /* CGBuyMoneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBuyMoneyViewController.h; sourceTree = "<group>"; };
+		AD5735162135291B00A1B0CF /* CGBuyMoneyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBuyMoneyViewController.m; sourceTree = "<group>"; };
+		ADB901452132EB9A000E1E18 /* CGBillQueryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBillQueryTableViewCell.h; sourceTree = "<group>"; };
+		ADB901462132EB9A000E1E18 /* CGBillQueryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBillQueryTableViewCell.m; sourceTree = "<group>"; };
+		ADD2AF2E2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGSaoMaZhuanZhangViewController.h; sourceTree = "<group>"; };
+		ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGSaoMaZhuanZhangViewController.m; sourceTree = "<group>"; };
+		ADD764722134072100B11B43 /* CGBillDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBillDetailsViewController.h; sourceTree = "<group>"; };
+		ADD764732134072100B11B43 /* CGBillDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBillDetailsViewController.m; sourceTree = "<group>"; };
 		ADF7D67C212F9F16008D18FA /* HMScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScanner.h; sourceTree = "<group>"; };
 		ADF7D67D212F9F16008D18FA /* HMScannerBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerBorder.m; sourceTree = "<group>"; };
 		ADF7D67E212F9F16008D18FA /* HMScannerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerController.h; sourceTree = "<group>"; };
@@ -213,6 +262,8 @@
 		ADF7D688212F9F16008D18FA /* HMScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerViewController.h; sourceTree = "<group>"; };
 		ADF7D690212F9F9E008D18FA /* CGShouKuanMaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGShouKuanMaViewController.h; sourceTree = "<group>"; };
 		ADF7D691212F9F9E008D18FA /* CGShouKuanMaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGShouKuanMaViewController.m; sourceTree = "<group>"; };
+		ADF7D693212FE74D008D18FA /* CGShouKuanSheZhiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGShouKuanSheZhiViewController.h; sourceTree = "<group>"; };
+		ADF7D694212FE74D008D18FA /* CGShouKuanSheZhiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGShouKuanSheZhiViewController.m; sourceTree = "<group>"; };
 		D1404783A06137CFC7BA5CFC /* Pods-pay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pay.release.xcconfig"; path = "Pods/Target Support Files/Pods-pay/Pods-pay.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -303,6 +354,8 @@
 		965256EF212D54610026827A /* ZhangDanChaXun */ = {
 			isa = PBXGroup;
 			children = (
+				ADD764712133F6F900B11B43 /* Model */,
+				ADB901442132EB7C000E1E18 /* View */,
 				965256F0212D54AC0026827A /* Controller */,
 			);
 			path = ZhangDanChaXun;
@@ -313,6 +366,8 @@
 			children = (
 				965256F1212D588B0026827A /* CGBillQueryViewController.h */,
 				965256F2212D588B0026827A /* CGBillQueryViewController.m */,
+				ADD764722134072100B11B43 /* CGBillDetailsViewController.h */,
+				ADD764732134072100B11B43 /* CGBillDetailsViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -439,6 +494,7 @@
 		966E48FB2110324100839CE7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				AD26F0E52133B52300D48656 /* XLPasswordView */,
 				ADF7D67B212F9F16008D18FA /* QRCode */,
 				964ABE2F2126CCDD0048FC2C /* LMJDropdownMenu.h */,
 				964ABE302126CCDD0048FC2C /* LMJDropdownMenu.m */,
@@ -466,6 +522,7 @@
 		966E48FD2110325800839CE7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AD57350A2135024900A1B0CF /* HuiDui */,
 				965256EF212D54610026827A /* ZhangDanChaXun */,
 				965256E4212D0D7A0026827A /* ShengHuo */,
 				9682198F21216C8900A05C8F /* HuiLv */,
@@ -485,6 +542,7 @@
 		966E48FF211034CF00839CE7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AD26F0FF2133E3BC00D48656 /* Model */,
 				96C8494521113D8400CC7267 /* Controller */,
 			);
 			path = Home;
@@ -646,6 +704,12 @@
 				96C8494721113DA600CC7267 /* CGHomeViewController.m */,
 				ADF7D690212F9F9E008D18FA /* CGShouKuanMaViewController.h */,
 				ADF7D691212F9F9E008D18FA /* CGShouKuanMaViewController.m */,
+				ADF7D693212FE74D008D18FA /* CGShouKuanSheZhiViewController.h */,
+				ADF7D694212FE74D008D18FA /* CGShouKuanSheZhiViewController.m */,
+				ADD2AF2E2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.h */,
+				ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */,
+				AD26F0FC2133C94100D48656 /* CGJiaoYiDetailsViewController.h */,
+				AD26F0FD2133C94100D48656 /* CGJiaoYiDetailsViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -697,6 +761,83 @@
 				9682199121216E2C00A05C8F /* CGHuiLvViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		AD26F0E52133B52300D48656 /* XLPasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				AD26F0E62133B52300D48656 /* Category */,
+				AD26F0ED2133B52300D48656 /* XLRandomKeyboard.m */,
+				AD26F0EE2133B52300D48656 /* XLPasswordInputView.h */,
+				AD26F0EF2133B52300D48656 /* XLPasswordView.h */,
+				AD26F0F02133B52300D48656 /* XLPasswordView.bundle */,
+				AD26F0F12133B52300D48656 /* XLPasswordViewTypeDefine.h */,
+				AD26F0F22133B52300D48656 /* XLPasswordInputView.m */,
+				AD26F0F32133B52300D48656 /* XLRandomKeyboard.h */,
+				AD26F0F42133B52300D48656 /* XLPasswordView.m */,
+			);
+			path = XLPasswordView;
+			sourceTree = "<group>";
+		};
+		AD26F0E62133B52300D48656 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				AD26F0E72133B52300D48656 /* UIView+XLPasswordView.h */,
+				AD26F0E82133B52300D48656 /* UIImage+XLPasswordView.h */,
+				AD26F0E92133B52300D48656 /* UIColor+XLPasswordView.h */,
+				AD26F0EA2133B52300D48656 /* UIView+XLPasswordView.m */,
+				AD26F0EB2133B52300D48656 /* UIImage+XLPasswordView.m */,
+				AD26F0EC2133B52300D48656 /* UIColor+XLPasswordView.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		AD26F0FF2133E3BC00D48656 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD26F1002133E63300D48656 /* CGJiaoYiDetailsModel.h */,
+				AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AD57350A2135024900A1B0CF /* HuiDui */ = {
+			isa = PBXGroup;
+			children = (
+				AD57350B2135025700A1B0CF /* Controller */,
+			);
+			path = HuiDui;
+			sourceTree = "<group>";
+		};
+		AD57350B2135025700A1B0CF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AD57350C2135028C00A1B0CF /* CGHuiDuiTypeViewController.h */,
+				AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */,
+				AD57350F213507EC00A1B0CF /* CGBuyUSDViewController.h */,
+				AD573510213507EC00A1B0CF /* CGBuyUSDViewController.m */,
+				AD57351221350BDC00A1B0CF /* CGAccountSelectiewController.h */,
+				AD57351321350BDC00A1B0CF /* CGAccountSelectiewController.m */,
+				AD5735152135291B00A1B0CF /* CGBuyMoneyViewController.h */,
+				AD5735162135291B00A1B0CF /* CGBuyMoneyViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		ADB901442132EB7C000E1E18 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ADB901452132EB9A000E1E18 /* CGBillQueryTableViewCell.h */,
+				ADB901462132EB9A000E1E18 /* CGBillQueryTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ADD764712133F6F900B11B43 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		ADF7D67B212F9F16008D18FA /* QRCode */ = {
@@ -827,6 +968,7 @@
 				966E48D221102E0D00839CE7 /* LaunchScreen.storyboard in Resources */,
 				ADF7D68D212F9F16008D18FA /* HMScanner.bundle in Resources */,
 				966E48CF21102E0D00839CE7 /* Assets.xcassets in Resources */,
+				AD26F0F92133B52400D48656 /* XLPasswordView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,16 +1034,20 @@
 			files = (
 				96C8494F2111676000CC7267 /* UIColor+ColorChange.m in Sources */,
 				ADF7D68A212F9F16008D18FA /* HMScannerMaskView.m in Sources */,
+				AD26F0F52133B52400D48656 /* UIView+XLPasswordView.m in Sources */,
 				964ABE3C212AE4900048FC2C /* CGBankCardTopUpViewController.m in Sources */,
 				964ABE312126CCDD0048FC2C /* LMJDropdownMenu.m in Sources */,
 				9667EA02211BF10C0024BFF3 /* CGNetworkingManager.m in Sources */,
 				96996E64211D6219008D7EAC /* CGFindPWSViewController.m in Sources */,
+				AD26F0FB2133B52400D48656 /* XLPasswordView.m in Sources */,
 				96531BB7211AD8BA009613AF /* CGBudgetMonthTableViewCell.m in Sources */,
 				9667EA08211C61310024BFF3 /* CGRegisterViewController.m in Sources */,
 				96E68EA321184CEA00453A4A /* CGTiXianResultsAlertView.m in Sources */,
+				AD57351421350BDC00A1B0CF /* CGAccountSelectiewController.m in Sources */,
 				965256EB212D15150026827A /* CGDaiJiaoViewController.m in Sources */,
 				962B2BFD212BB9F000F2F030 /* UserModel.m in Sources */,
 				96C782D62112FC1300EC6EEB /* AppSingleton.m in Sources */,
+				AD26F0FE2133C94100D48656 /* CGJiaoYiDetailsViewController.m in Sources */,
 				96C782DD21142BA200EC6EEB /* CGTiXianTypeViewController.m in Sources */,
 				965256F3212D588B0026827A /* CGBillQueryViewController.m in Sources */,
 				96E68E942117E38400453A4A /* CGTiXianAlipayViewController.m in Sources */,
@@ -909,34 +1055,46 @@
 				96C782DA2113F63500EC6EEB /* CGBounceView.m in Sources */,
 				96E68EA0211833EA00453A4A /* CGTiXianTiKuanViewController.m in Sources */,
 				966E49142110896100839CE7 /* CGLoginViewController.m in Sources */,
+				ADD764742134072100B11B43 /* CGBillDetailsViewController.m in Sources */,
 				96219446212524EB00A7AFCC /* CGGuidePagesViewController.m in Sources */,
 				ADF7D68C212F9F16008D18FA /* HMScanner.m in Sources */,
 				ADF7D68E212F9F16008D18FA /* HMScanerCardViewController.m in Sources */,
 				ADF7D692212F9F9E008D18FA /* CGShouKuanMaViewController.m in Sources */,
+				AD26F0FA2133B52400D48656 /* XLPasswordInputView.m in Sources */,
 				96996E67211D7129008D7EAC /* CGResetpPSWViewController.m in Sources */,
 				96531BBD211AE9CF009613AF /* CGZhuanZhangDetailTableViewCell.m in Sources */,
+				ADB901472132EB9A000E1E18 /* CGBillQueryTableViewCell.m in Sources */,
 				9667EA05211C28070024BFF3 /* CGAFHttpRequest.m in Sources */,
 				966E491B2110A5A700839CE7 /* CGTabBarController.m in Sources */,
 				964ABE40212AE7E00048FC2C /* CGSelectAccountTableViewCell.m in Sources */,
 				965256E8212D0DEB0026827A /* CGJiaoFeiTypeViewController.m in Sources */,
 				9621944A2125719F00A7AFCC /* MBProgressHUD+Extension.m in Sources */,
+				AD573511213507EC00A1B0CF /* CGBuyUSDViewController.m in Sources */,
 				96531BBA211ADF69009613AF /* CGZhuanZhangJiLuViewController.m in Sources */,
 				964ABE36212AA98C0048FC2C /* CGHuiLvTableViewCell.m in Sources */,
+				AD26F1022133E63300D48656 /* CGJiaoYiDetailsModel.m in Sources */,
 				962B2BFA212BB91C00F2F030 /* GlobalSingleton.m in Sources */,
 				96C782D32112D35E00EC6EEB /* CGTiXianViewController.m in Sources */,
 				96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */,
+				AD26F0F72133B52400D48656 /* UIColor+XLPasswordView.m in Sources */,
 				96C8494C21113DE400CC7267 /* CGMeRootViewController.m in Sources */,
 				966E48D521102E0D00839CE7 /* main.m in Sources */,
 				ADF7D68F212F9F16008D18FA /* HMScannerController.m in Sources */,
 				964ABE39212AC4B10048FC2C /* CGSetViewController.m in Sources */,
 				96C8494821113DA600CC7267 /* CGHomeViewController.m in Sources */,
+				AD26F0F82133B52400D48656 /* XLRandomKeyboard.m in Sources */,
 				966E490C2110523D00839CE7 /* CGBaseViewController.m in Sources */,
 				96E68E9A21181BA400453A4A /* CGTopUpDetailViewController.m in Sources */,
 				966E48C721102E0A00839CE7 /* AppDelegate.m in Sources */,
+				AD5735172135291B00A1B0CF /* CGBuyMoneyViewController.m in Sources */,
 				96E68EA8211942D700453A4A /* CGHuaFeiChongZhiViewController.m in Sources */,
+				ADD2AF302131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m in Sources */,
 				96E68E972117F51800453A4A /* CGAccountBalanceTableViewCell.m in Sources */,
+				AD26F0F62133B52400D48656 /* UIImage+XLPasswordView.m in Sources */,
 				9682199221216E2C00A05C8F /* CGHuiLvViewController.m in Sources */,
+				AD57350E2135028C00A1B0CF /* CGHuiDuiTypeViewController.m in Sources */,
 				ADF7D68B212F9F16008D18FA /* HMScannerViewController.m in Sources */,
+				ADF7D695212FE74E008D18FA /* CGShouKuanSheZhiViewController.m in Sources */,
 				ADF7D689212F9F16008D18FA /* HMScannerBorder.m in Sources */,
 				96531BB2211A92F1009613AF /* CGZhuanZhangConfirmViewController.m in Sources */,
 				96E68E9D2118208F00453A4A /* CGTopUpDetailTableViewCell.m in Sources */,

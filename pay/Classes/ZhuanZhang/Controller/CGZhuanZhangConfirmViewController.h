@@ -10,5 +10,9 @@
 #import "CGBaseViewController.h"
 
 @interface CGZhuanZhangConfirmViewController : CGBaseViewController
+@property(nonatomic,strong)NSString *moneynum;//金额
+@property(nonatomic,strong)NSData *imgdata;//头像data
+@property(nonatomic,strong)NSString *receivecount;//电话
+@property(nonatomic,strong)NSString *username;//名称
 
 @end
