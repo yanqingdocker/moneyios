@@ -221,13 +221,9 @@
           serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 兑换接口
-- (void)exchangeWithsrcountid:(NSString *)srcountid
-                  destcountid:(NSString *)destcountid
-                     srcmoney:(NSString *)srcmoney
-                    destmoney:(NSString *)destmoney
-                       paypwd:(NSString *)paypwd
-              serverSuccessFn:(void(^)(id dict))successFn
-              serverFailureFn:(void(^)(NSError *error))failureFn;
+- (void)exchangeWithdatas:(NSString *)datas
+          serverSuccessFn:(void(^)(id dict))successFn
+          serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 请求修改支付密码
 - (void)countCheckPhoneWithtelphone:(NSString *)telphone

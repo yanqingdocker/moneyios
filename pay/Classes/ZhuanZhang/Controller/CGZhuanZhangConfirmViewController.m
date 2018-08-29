@@ -175,6 +175,7 @@
                 CGJiaoYiDetailsViewController *vc = [[CGJiaoYiDetailsViewController alloc] init];
                 vc.liushuiID = [result objectForKey:@"message"];
                 [self pushViewControllerHiddenTabBar:vc animated:YES];
+                [passwordView hidePasswordView];
             }
             
             

@@ -227,7 +227,7 @@
     _password.frame = CGRectMake(100, 388, 170, 44);
     _password.textColor = [UIColor whiteColor];
     //    _account.placeholder = @"请输入手机号";
-    _password.attributedPlaceholder = accountplace;
+    _password.attributedPlaceholder = passwordplace;
     _password.clearButtonMode = UITextFieldViewModeNever;
     _password.delegate = self;
     _password.font = [UIFont systemFontOfSize:14];

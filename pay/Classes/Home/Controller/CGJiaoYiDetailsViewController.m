@@ -10,7 +10,6 @@
 #import "CGJiaoYiDetailsModel.h"
 
 @interface CGJiaoYiDetailsViewController ()<UITableViewDelegate,UITableViewDataSource>{
-//    NSDictionary *_result;
     NSMutableArray *_result;
     UILabel *_jiaoyiType;
     UILabel *_money;
@@ -38,7 +37,6 @@
             NSLog(@"%@",_result);
             
             _jyModel = [CGJiaoYiDetailsModel objectWithKeyValues:[_result objectAtIndex:0]];
-//            ediantong
             
             _jiaoyiType.text = _jyModel.operaType;
             _money.text = _jyModel.num;

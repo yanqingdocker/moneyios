@@ -55,7 +55,7 @@
 
 @implementation LMJDropdownMenu
 {
-    UIImageView * _arrowMark;   // 尖头图标
+//    UIImageView * _arrowMark;   // 尖头图标
     UIView      * _listView;    // 下拉列表背景View
     UITableView * _tableView;   // 下拉列表
     
@@ -89,7 +89,7 @@
     _mainBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_mainBtn setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     [_mainBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [_mainBtn setTitle:@"中国大陆" forState:UIControlStateNormal];
+    [_mainBtn setTitle:@"中国大陆" forState:UIControlStateNormal];
     [_mainBtn addTarget:self action:@selector(clickMainBtn:) forControlEvents:UIControlEventTouchUpInside];
     _mainBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _mainBtn.titleLabel.font    = [UIFont systemFontOfSize:14.f];
@@ -103,9 +103,9 @@
     
     
     // 旋转尖头
-    _arrowMark = [[UIImageView alloc] initWithFrame:CGRectMake(_mainBtn.frame.size.width - 15, 0, 9, 9)];
+    _arrowMark = [[UIImageView alloc] initWithFrame:CGRectMake(_mainBtn.frame.size.width - 35, 0, 9, 9)];
     _arrowMark.center = CGPointMake(VIEW_CENTER_X(_arrowMark), VIEW_HEIGHT(_mainBtn)/2);
-    _arrowMark.image  = [UIImage imageNamed:@"dropdownMenu_cornerIcon.png"];
+    _arrowMark.image  = [UIImage imageNamed:@"dropdownMenu_cornerIcon"];
     [_mainBtn addSubview:_arrowMark];
 
 }

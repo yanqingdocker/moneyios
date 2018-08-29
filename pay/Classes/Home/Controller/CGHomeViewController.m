@@ -158,7 +158,7 @@
     }
     
     
-    UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 0, 1, jiugonggeView.frame.size.height)];
+    UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(jiugonggeView.frame.size.width/3, 0, 1, jiugonggeView.frame.size.height)];
     line1.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3*2, 0, 1, jiugonggeView.frame.size.height)];
     line2.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
@@ -201,16 +201,16 @@
 //            }
 //        }];
     }else if(btn.tag == 4){
-        NSLog(@"%@",@"修改账户状态");
-        [[CGAFHttpRequest shareRequest] startOrstopCountWithID:@"13950357177" State:@"0" serverSuccessFn:^(id dict) {
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",result);
-            
-        } serverFailureFn:^(NSError *error) {
-            if(error){
-                NSLog(@"%@",error);
-            }
-        }];
+//        NSLog(@"%@",@"修改账户状态");
+//        [[CGAFHttpRequest shareRequest] startOrstopCountWithID:@"13950357177" State:@"0" serverSuccessFn:^(id dict) {
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//
+//        } serverFailureFn:^(NSError *error) {
+//            if(error){
+//                NSLog(@"%@",error);
+//            }
+//        }];
         
     }else if(btn.tag == 5){
         CGJiaoFeiTypeViewController *vc = [[CGJiaoFeiTypeViewController alloc] init];

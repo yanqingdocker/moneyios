@@ -8,7 +8,9 @@
 
 #import "CGBuyMoneyViewController.h"
 
-@interface CGBuyMoneyViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>{
+#import "XLPasswordView.h"
+
+@interface CGBuyMoneyViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,XLPasswordViewDelegate>{
     NSDictionary *_result;
     UILabel *_huilvLab;
     UITableView *_tableView;
@@ -35,36 +37,11 @@
             NSLog(@"%@",_result);
             
             
-            _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"sellPic"]];
-            //            for (int i = 0; i<_result.count; i++) {
-            //                if(![[[_result objectAtIndex:i] objectForKey:@"countType"] isEqualToString:@"CNY"]){
-            //                    NSLog(@"没有人民币账户,无法买入人民币");
-            //                }
-            //                if(![[[_result objectAtIndex:i] objectForKey:@"countType"] isEqualToString:@"USD"]){
-            //                    NSLog(@"没有美元账户,无法买入美元");
-            //                }
-            //            }
+            _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"buyPic"]];
             
-            //            _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
-            //            _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
-            //
-            //            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            //            NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
-            //
-            //            [_tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
-            //
-            //            //            _nameArray = [NSArray arrayWithObjects:@"USD",@"CNY",nil];
-            //            //            NSArray *_nameArray = [[NSArray alloc] init];
-            //            _array  = [[NSMutableArray alloc] init];
-            //            for (int i = 0; i < _result.count; i++) {
-            //                [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
-            //            }
-            //            _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
-            //                                [_tableView reloadData];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
-//            NSLog(@"%@",error);
             [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@%@",_buyType,_sellType] serverSuccessFn:^(id dict) {
                 if(dict){
                     
@@ -73,31 +50,6 @@
                     NSLog(@"%@",_result);
                     
                     _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"sellPic"]];
-                    //            for (int i = 0; i<_result.count; i++) {
-                    //                if(![[[_result objectAtIndex:i] objectForKey:@"countType"] isEqualToString:@"CNY"]){
-                    //                    NSLog(@"没有人民币账户,无法买入人民币");
-                    //                }
-                    //                if(![[[_result objectAtIndex:i] objectForKey:@"countType"] isEqualToString:@"USD"]){
-                    //                    NSLog(@"没有美元账户,无法买入美元");
-                    //                }
-                    //            }
-                    
-                    //            _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
-                    //            _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
-                    //
-                    //            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                    //            NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
-                    //
-                    //            [_tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
-                    //
-                    //            //            _nameArray = [NSArray arrayWithObjects:@"USD",@"CNY",nil];
-                    //            //            NSArray *_nameArray = [[NSArray alloc] init];
-                    //            _array  = [[NSMutableArray alloc] init];
-                    //            for (int i = 0; i < _result.count; i++) {
-                    //                [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
-                    //            }
-                    //            _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
-                    //                                [_tableView reloadData];
                 }
             } serverFailureFn:^(NSError *error) {
                 if(error){
@@ -281,6 +233,38 @@
 
 -(void) confirmEvent{
     [self.view endEditing:YES];
+    XLPasswordView *passwordView = [XLPasswordView passwordView];
+    passwordView.delegate = self;
+    [passwordView showPasswordInView:self.view];
     
+}
+
+- (void)passwordView:(XLPasswordView *)passwordView didFinishInput:(NSString *)password
+{
+    //    NSLog(@"输入密码位数已满,在这里做一些事情,例如自动校验密码");
+//    [[CGAFHttpRequest shareRequest] switchWithcountid:_accountID receivecount:_receivecount moneynum:_moneynum payPwd:password serverSuccessFn:^(id dict) {
+//        if(dict){
+//            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//
+//            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
+//                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+//                [passwordView clearPassword];
+//            }
+//            if([[result objectForKey:@"code"] isEqualToString:@"success"]){
+//                //                [passwordView hidePasswordView];
+//                //                [MBProgressHUD showText:@"转账成功" toView:self.view];
+//                CGJiaoYiDetailsViewController *vc = [[CGJiaoYiDetailsViewController alloc] init];
+//                vc.liushuiID = [result objectForKey:@"message"];
+//                [self pushViewControllerHiddenTabBar:vc animated:YES];
+//            }
+//
+//
+//
+//        }
+//    } serverFailureFn:^(NSError *error) {
+//        if(error){
+//            NSLog(@"%@",error);
+//        }
+//    }];
 }
 @end

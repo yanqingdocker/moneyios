@@ -8,6 +8,7 @@
 
 #import "CGHuiDuiTypeViewController.h"
 #import "CGAccountSelectiewController.h"
+#import "CGZiXuanDuiHuanViewController.h"
 
 @interface CGHuiDuiTypeViewController (){
     NSMutableArray *_result;
@@ -115,7 +116,7 @@
             cellView.tag = i;
         }else if(i == 3){
             [cellView setImage:[UIImage imageNamed:@"买入比特币"] forState:UIControlStateNormal];
-            [cellView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            cellView.tag = i;
         }
         [cellView addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -190,20 +191,16 @@
             [MBProgressHUD showText:@"抱歉您当前没有人民币账户,无法买入人民币" toView:self.view];
         }
     }else if(btn.tag == 2){
-        //        CGZhuanZhangViewController *vc = [[CGZhuanZhangViewController alloc] init];
-        //        [self pushViewControllerHiddenTabBar:vc animated:YES];
-    }else if(btn.tag == 3){
-        //        NSLog(@"%@",@"创建账户");
-        //        [[CGAFHttpRequest shareRequest] createCountWithcountType:@"countType" payPwd:@"payPwd" serverSuccessFn:^(id dict) {
-        //            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-        //            NSLog(@"%@",result);
-        //
-        //        } serverFailureFn:^(NSError *error) {
-        //            if(error){
-        //                NSLog(@"%@",error);
-        //            }
-        //        }];
+        if (_result.count < 2) {
+            [MBProgressHUD showText:@"抱歉您的账号不足两个,无法自选汇兑" toView:self.view];
+            return;
+        }
         
+        CGZiXuanDuiHuanViewController *vc = [[CGZiXuanDuiHuanViewController alloc] init];
+        vc.dataArray = _result;
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+    }else if(btn.tag == 3){
+        [MBProgressHUD showText:@"该功能正在开发中..." toView:self.view];
     }
 }
 

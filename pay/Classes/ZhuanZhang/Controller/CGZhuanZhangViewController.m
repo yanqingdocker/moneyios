@@ -293,6 +293,13 @@
 
 - (void)nextEvent{
     [self.view endEditing:YES];
+    
+    if(_alipayAccount.text.length == 0){
+        [MBProgressHUD showText:@"请输入手机号" toView:self.view];
+        return;
+
+    }
+    
     [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:_alipayAccount.text serverSuccessFn:^(id dict) {//@"17759513665"
         if(dict){
             NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];

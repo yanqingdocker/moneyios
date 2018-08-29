@@ -575,7 +575,7 @@
     
     params[@"id"] = ID;
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,MARKSEND]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,MARKSEND]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -591,7 +591,7 @@
     
     params[@"id"] = ID;
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,MARKRECEIVE]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,MARKRECEIVE]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -652,24 +652,26 @@
                        showHUD:YES];
 }
 
+//srcountid:(NSString *)srcountid
+//destcountid:(NSString *)destcountid
+//srcmoney:(NSString *)srcmoney
+//destmoney:(NSString *)destmoney
+//paypwd:(NSString *)paypwd
 #pragma mark - 兑换接口
-- (void)exchangeWithsrcountid:(NSString *)srcountid
-                  destcountid:(NSString *)destcountid
-                     srcmoney:(NSString *)srcmoney
-                    destmoney:(NSString *)destmoney
-                       paypwd:(NSString *)paypwd
+- (void)exchangeWithdatas:(NSString *)datas
               serverSuccessFn:(void(^)(id dict))successFn
               serverFailureFn:(void(^)(NSError *error))failureFn
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    params[@"datas"] = datas;
     
-    params[@"srcountid"] = srcountid;//原账户id
-    params[@"destcountid"] = destcountid;///目标账户id
-    params[@"srcmoney"] = srcmoney;//需要兑换的额度
-    params[@"destmoney"] = destmoney;//兑换后的额度
-    params[@"paypwd"] = paypwd;//支付密码
+//    params[@"srcountid"] = srcountid;//原账户id
+//    params[@"destcountid"] = destcountid;///目标账户id
+//    params[@"srcmoney"] = srcmoney;//需要兑换的额度
+//    params[@"destmoney"] = destmoney;//兑换后的额度
+//    params[@"paypwd"] = paypwd;//支付密码
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,SWITCH]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,EXCHANGE]
                      WithParams:params
                         success:successFn
                         failure:failureFn

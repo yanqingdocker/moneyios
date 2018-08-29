@@ -21,15 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-        statusBar.backgroundColor = [UIColor blackColor];
-        self.navigationController.navigationBar.translucent = NO;
-    }
+//    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+//    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+//        statusBar.backgroundColor = [UIColor blackColor];
+//        self.navigationController.navigationBar.translucent = NO;
+//    }
 }
 
 - (void)initNav{
-    self.navigationItem.title = @"银行卡充值";
+    self.navigationItem.title = @"设置";
     [self setBackButton:YES];
 }
 

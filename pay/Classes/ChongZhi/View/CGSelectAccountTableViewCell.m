@@ -11,7 +11,7 @@
 @implementation CGSelectAccountTableViewCell
 + (instancetype)cellForTableView:(UITableView *)tableView
 {
-    static NSString * ID = @"CGTopUpDetailTableViewCell";
+    static NSString * ID = @"CGSelectAccountTableViewCell";
     CGSelectAccountTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[CGSelectAccountTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:ID];

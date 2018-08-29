@@ -11,7 +11,7 @@
 @implementation CGTitleAndTextTableViewCell
 + (instancetype)cellForTableView:(UITableView *)tableView
 {
-    static NSString * ID = @"CGTopUpDetailTableViewCell";
+    static NSString * ID = @"CGTitleAndTextTableViewCell";
     CGTitleAndTextTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[CGTitleAndTextTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:ID];

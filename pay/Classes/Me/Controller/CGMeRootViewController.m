@@ -8,6 +8,7 @@
 
 #import "CGMeRootViewController.h"
 #import "CGSetViewController.h"
+#import "CGMyEmailViewController.h"
 
 @interface CGMeRootViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIButton *_headImgBtn;//头像
@@ -167,8 +168,8 @@
         //        [botBtn setTitle:title forState:UIControlStateNormal];
 //                botBtn.backgroundColor = [UIColor redColor];
         //        [botBtn setTitle:[NSString stringWithFormat:@"银行卡%d",index] forState:UIControlStateNormal];
-        botBtn.tag = 1000+index;
-        //        [botBtn addTarget:self action:@selector(botBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        botBtn.tag = 2000+index;
+        [botBtn addTarget:self action:@selector(botBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [gongnengView addSubview:botBtn];
         
         UIImageView *gnImg = [[UIImageView alloc] init];
@@ -376,28 +377,56 @@
 //    [picker dismissViewControllerAnimated:YES completion:^{}];
 //}
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-        statusBar.backgroundColor = [UIColor clearColor];
-    }
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
-    //背景色
-//    self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"0d0d0d"];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self topBar];
 }
+
+
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+//    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+//        statusBar.backgroundColor = [UIColor clearColor];
+//    }
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    
+//    
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    //背景色
+////    self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
+//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"0d0d0d"];
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
+////    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+////    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+////        statusBar.backgroundColor = [UIColor blackColor];
+////        self.navigationController.navigationBar.translucent = NO;
+////    }
+//}
 
 -(void)setClick{
     CGSetViewController *vc = [[CGSetViewController alloc] init];
     [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 
-
-
+-(void)botBtnClick:(UIButton *)btn
+{
+    if(btn.tag == 2000){
+        CGMyEmailViewController *vc = [[CGMyEmailViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+    }
+}
 @end
