@@ -547,7 +547,7 @@
 
 {
     
-    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,SEND]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYSEND]
                     WithParams:nil
                         success:successFn
                         failure:failureFn
@@ -591,7 +591,7 @@
     
     params[@"id"] = ID;
     
-    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,MARKRECEIVE]
+    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,MARKRECEIVE]
                      WithParams:params
                         success:successFn
                         failure:failureFn

@@ -103,7 +103,7 @@
     
     //内容（滚动视图）高度大于一定数值时
     
-    if (textView.contentSize.height >80)
+    if (textView.contentSize.height >120)
         
     {
         

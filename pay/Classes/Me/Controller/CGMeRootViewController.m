@@ -7,8 +7,9 @@
 //
 
 #import "CGMeRootViewController.h"
-#import "CGSetViewController.h"
-#import "CGMyEmailViewController.h"
+#import "CGSetViewController.h"//设置
+#import "CGMyEmailViewController.h"//我的信箱
+#import "CGZhangHuZongLanViewController.h"//账户总览
 
 @interface CGMeRootViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIButton *_headImgBtn;//头像
@@ -428,5 +429,10 @@
         CGMyEmailViewController *vc = [[CGMyEmailViewController alloc] init];
         [self pushViewControllerHiddenTabBar:vc animated:YES];
     }
+    if(btn.tag == 2003){
+        CGZhangHuZongLanViewController *vc = [[CGZhangHuZongLanViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+    }
+    
 }
 @end

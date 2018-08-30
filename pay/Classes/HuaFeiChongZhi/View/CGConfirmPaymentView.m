@@ -7,7 +7,7 @@
 //
 
 #import "CGConfirmPaymentView.h"
-#define CGConfirmPaymentViewHight 464
+#define CGConfirmPaymentViewHight 400
 
 @interface CGConfirmPaymentView ()<UITableViewDelegate, UITableViewDataSource>{
     UIView *_contentView;

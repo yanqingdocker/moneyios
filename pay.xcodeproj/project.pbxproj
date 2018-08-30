@@ -60,6 +60,16 @@
 		96E68EA8211942D700453A4A /* CGHuaFeiChongZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EA7211942D600453A4A /* CGHuaFeiChongZhiViewController.m */; };
 		96E68EAC21197E6700453A4A /* CGConfirmPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EAB21197E6700453A4A /* CGConfirmPaymentView.m */; };
 		96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E68EAE211998F800453A4A /* CGChongZhiViewController.m */; };
+		AD16923B213780B200FFB382 /* CGInBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD16923A213780B200FFB382 /* CGInBoxViewController.m */; };
+		AD16923E213780C900FFB382 /* CGOutBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD16923D213780C900FFB382 /* CGOutBoxViewController.m */; };
+		AD169242213780F600FFB382 /* CGInBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD169241213780F600FFB382 /* CGInBoxTableViewCell.m */; };
+		AD1692452137810700FFB382 /* CGOutBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692442137810700FFB382 /* CGOutBoxTableViewCell.m */; };
+		AD1692492137887300FFB382 /* CGInBoxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692482137887300FFB382 /* CGInBoxModel.m */; };
+		AD16924C2137889000FFB382 /* CGOutBoxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD16924B2137889000FFB382 /* CGOutBoxModel.m */; };
+		AD16924F2137C4DE00FFB382 /* CGEmailContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD16924E2137C4DE00FFB382 /* CGEmailContentView.m */; };
+		AD16925A2137E36300FFB382 /* CGZhangHuZongLanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692592137E36300FFB382 /* CGZhangHuZongLanViewController.m */; };
+		AD16925E2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD16925D2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m */; };
+		AD1692622137EA9800FFB382 /* CGZhangHuZongLanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */; };
 		AD26F0F52133B52400D48656 /* UIView+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EA2133B52300D48656 /* UIView+XLPasswordView.m */; };
 		AD26F0F62133B52400D48656 /* UIImage+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EB2133B52300D48656 /* UIImage+XLPasswordView.m */; };
 		AD26F0F72133B52400D48656 /* UIColor+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EC2133B52300D48656 /* UIColor+XLPasswordView.m */; };
@@ -221,6 +231,26 @@
 		96E68EAB21197E6700453A4A /* CGConfirmPaymentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGConfirmPaymentView.m; sourceTree = "<group>"; };
 		96E68EAD211998F800453A4A /* CGChongZhiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGChongZhiViewController.h; sourceTree = "<group>"; };
 		96E68EAE211998F800453A4A /* CGChongZhiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGChongZhiViewController.m; sourceTree = "<group>"; };
+		AD169239213780B200FFB382 /* CGInBoxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGInBoxViewController.h; sourceTree = "<group>"; };
+		AD16923A213780B200FFB382 /* CGInBoxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGInBoxViewController.m; sourceTree = "<group>"; };
+		AD16923C213780C900FFB382 /* CGOutBoxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGOutBoxViewController.h; sourceTree = "<group>"; };
+		AD16923D213780C900FFB382 /* CGOutBoxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGOutBoxViewController.m; sourceTree = "<group>"; };
+		AD169240213780F600FFB382 /* CGInBoxTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGInBoxTableViewCell.h; sourceTree = "<group>"; };
+		AD169241213780F600FFB382 /* CGInBoxTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGInBoxTableViewCell.m; sourceTree = "<group>"; };
+		AD1692432137810700FFB382 /* CGOutBoxTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGOutBoxTableViewCell.h; sourceTree = "<group>"; };
+		AD1692442137810700FFB382 /* CGOutBoxTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGOutBoxTableViewCell.m; sourceTree = "<group>"; };
+		AD1692472137887300FFB382 /* CGInBoxModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGInBoxModel.h; sourceTree = "<group>"; };
+		AD1692482137887300FFB382 /* CGInBoxModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGInBoxModel.m; sourceTree = "<group>"; };
+		AD16924A2137889000FFB382 /* CGOutBoxModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGOutBoxModel.h; sourceTree = "<group>"; };
+		AD16924B2137889000FFB382 /* CGOutBoxModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGOutBoxModel.m; sourceTree = "<group>"; };
+		AD16924D2137C4DE00FFB382 /* CGEmailContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGEmailContentView.h; sourceTree = "<group>"; };
+		AD16924E2137C4DE00FFB382 /* CGEmailContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGEmailContentView.m; sourceTree = "<group>"; };
+		AD1692582137E36300FFB382 /* CGZhangHuZongLanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGZhangHuZongLanViewController.h; sourceTree = "<group>"; };
+		AD1692592137E36300FFB382 /* CGZhangHuZongLanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGZhangHuZongLanViewController.m; sourceTree = "<group>"; };
+		AD16925C2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGZhangHuZongLanTableViewCell.h; sourceTree = "<group>"; };
+		AD16925D2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZhangHuZongLanTableViewCell.m; sourceTree = "<group>"; };
+		AD1692602137EA9800FFB382 /* CGZhangHuZongLanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGZhangHuZongLanModel.h; sourceTree = "<group>"; };
+		AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZhangHuZongLanModel.m; sourceTree = "<group>"; };
 		AD26F0E72133B52300D48656 /* UIView+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XLPasswordView.h"; sourceTree = "<group>"; };
 		AD26F0E82133B52300D48656 /* UIImage+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+XLPasswordView.h"; sourceTree = "<group>"; };
 		AD26F0E92133B52300D48656 /* UIColor+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+XLPasswordView.h"; sourceTree = "<group>"; };
@@ -569,6 +599,7 @@
 		966E49002110389F00839CE7 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				AD1692562137E36300FFB382 /* ZhangHuZongLan */,
 				AD7BDC1B2136A9B600B2F487 /* Email */,
 				96C8494921113DAE00CC7267 /* Controller */,
 			);
@@ -783,6 +814,67 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		AD16923F213780D800FFB382 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AD169240213780F600FFB382 /* CGInBoxTableViewCell.h */,
+				AD169241213780F600FFB382 /* CGInBoxTableViewCell.m */,
+				AD1692432137810700FFB382 /* CGOutBoxTableViewCell.h */,
+				AD1692442137810700FFB382 /* CGOutBoxTableViewCell.m */,
+				AD16924D2137C4DE00FFB382 /* CGEmailContentView.h */,
+				AD16924E2137C4DE00FFB382 /* CGEmailContentView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AD1692462137884900FFB382 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD1692472137887300FFB382 /* CGInBoxModel.h */,
+				AD1692482137887300FFB382 /* CGInBoxModel.m */,
+				AD16924A2137889000FFB382 /* CGOutBoxModel.h */,
+				AD16924B2137889000FFB382 /* CGOutBoxModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AD1692562137E36300FFB382 /* ZhangHuZongLan */ = {
+			isa = PBXGroup;
+			children = (
+				AD16925F2137E93B00FFB382 /* Model */,
+				AD16925B2137E36B00FFB382 /* View */,
+				AD1692572137E36300FFB382 /* Controller */,
+			);
+			path = ZhangHuZongLan;
+			sourceTree = "<group>";
+		};
+		AD1692572137E36300FFB382 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AD1692582137E36300FFB382 /* CGZhangHuZongLanViewController.h */,
+				AD1692592137E36300FFB382 /* CGZhangHuZongLanViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AD16925B2137E36B00FFB382 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AD16925C2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.h */,
+				AD16925D2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AD16925F2137E93B00FFB382 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD1692602137EA9800FFB382 /* CGZhangHuZongLanModel.h */,
+				AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AD26F0E52133B52300D48656 /* XLPasswordView */ = {
 			isa = PBXGroup;
 			children = (
@@ -870,6 +962,8 @@
 		AD7BDC1B2136A9B600B2F487 /* Email */ = {
 			isa = PBXGroup;
 			children = (
+				AD1692462137884900FFB382 /* Model */,
+				AD16923F213780D800FFB382 /* View */,
 				AD7BDC1C2136A9CE00B2F487 /* Controller */,
 			);
 			path = Email;
@@ -882,6 +976,10 @@
 				AD7BDC1E2136AA1200B2F487 /* CGMyEmailViewController.m */,
 				AD7BDC202136BD2000B2F487 /* CGSendMessageViewController.h */,
 				AD7BDC212136BD2000B2F487 /* CGSendMessageViewController.m */,
+				AD169239213780B200FFB382 /* CGInBoxViewController.h */,
+				AD16923A213780B200FFB382 /* CGInBoxViewController.m */,
+				AD16923C213780C900FFB382 /* CGOutBoxViewController.h */,
+				AD16923D213780C900FFB382 /* CGOutBoxViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1103,12 +1201,16 @@
 				9667EA02211BF10C0024BFF3 /* CGNetworkingManager.m in Sources */,
 				96996E64211D6219008D7EAC /* CGFindPWSViewController.m in Sources */,
 				AD7BDC1F2136AA1200B2F487 /* CGMyEmailViewController.m in Sources */,
+				AD1692492137887300FFB382 /* CGInBoxModel.m in Sources */,
 				AD26F0FB2133B52400D48656 /* XLPasswordView.m in Sources */,
 				96531BB7211AD8BA009613AF /* CGBudgetMonthTableViewCell.m in Sources */,
 				9667EA08211C61310024BFF3 /* CGRegisterViewController.m in Sources */,
 				AD7BDC222136BD2000B2F487 /* CGSendMessageViewController.m in Sources */,
 				96E68EA321184CEA00453A4A /* CGTiXianResultsAlertView.m in Sources */,
 				AD57351421350BDC00A1B0CF /* CGAccountSelectiewController.m in Sources */,
+				AD16923E213780C900FFB382 /* CGOutBoxViewController.m in Sources */,
+				AD16924F2137C4DE00FFB382 /* CGEmailContentView.m in Sources */,
+				AD1692452137810700FFB382 /* CGOutBoxTableViewCell.m in Sources */,
 				965256EB212D15150026827A /* CGDaiJiaoViewController.m in Sources */,
 				962B2BFD212BB9F000F2F030 /* UserModel.m in Sources */,
 				96C782D62112FC1300EC6EEB /* AppSingleton.m in Sources */,
@@ -1120,11 +1222,13 @@
 				964ABE43212AE9830048FC2C /* CGTitleAndTextTableViewCell.m in Sources */,
 				96C782DA2113F63500EC6EEB /* CGBounceView.m in Sources */,
 				96E68EA0211833EA00453A4A /* CGTiXianTiKuanViewController.m in Sources */,
+				AD16923B213780B200FFB382 /* CGInBoxViewController.m in Sources */,
 				966E49142110896100839CE7 /* CGLoginViewController.m in Sources */,
 				ADD764742134072100B11B43 /* CGBillDetailsViewController.m in Sources */,
 				96219446212524EB00A7AFCC /* CGGuidePagesViewController.m in Sources */,
 				ADF7D68C212F9F16008D18FA /* HMScanner.m in Sources */,
 				ADF7D68E212F9F16008D18FA /* HMScanerCardViewController.m in Sources */,
+				AD169242213780F600FFB382 /* CGInBoxTableViewCell.m in Sources */,
 				ADF7D692212F9F9E008D18FA /* CGShouKuanMaViewController.m in Sources */,
 				AD26F0FA2133B52400D48656 /* XLPasswordInputView.m in Sources */,
 				96996E67211D7129008D7EAC /* CGResetpPSWViewController.m in Sources */,
@@ -1144,10 +1248,13 @@
 				96C782D32112D35E00EC6EEB /* CGTiXianViewController.m in Sources */,
 				96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */,
 				AD26F0F72133B52400D48656 /* UIColor+XLPasswordView.m in Sources */,
+				AD16925E2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m in Sources */,
+				AD1692622137EA9800FFB382 /* CGZhangHuZongLanModel.m in Sources */,
 				96C8494C21113DE400CC7267 /* CGMeRootViewController.m in Sources */,
 				966E48D521102E0D00839CE7 /* main.m in Sources */,
 				ADF7D68F212F9F16008D18FA /* HMScannerController.m in Sources */,
 				964ABE39212AC4B10048FC2C /* CGSetViewController.m in Sources */,
+				AD16925A2137E36300FFB382 /* CGZhangHuZongLanViewController.m in Sources */,
 				96C8494821113DA600CC7267 /* CGHomeViewController.m in Sources */,
 				AD26F0F82133B52400D48656 /* XLRandomKeyboard.m in Sources */,
 				966E490C2110523D00839CE7 /* CGBaseViewController.m in Sources */,
@@ -1161,6 +1268,7 @@
 				9682199221216E2C00A05C8F /* CGHuiLvViewController.m in Sources */,
 				AD57350E2135028C00A1B0CF /* CGHuiDuiTypeViewController.m in Sources */,
 				AD7BDC16213674CA00B2F487 /* CGHuiDuiSuccessViewController.m in Sources */,
+				AD16924C2137889000FFB382 /* CGOutBoxModel.m in Sources */,
 				ADF7D68B212F9F16008D18FA /* HMScannerViewController.m in Sources */,
 				ADF7D695212FE74E008D18FA /* CGShouKuanSheZhiViewController.m in Sources */,
 				ADF7D689212F9F16008D18FA /* HMScannerBorder.m in Sources */,

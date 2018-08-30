@@ -9,6 +9,8 @@
 #import "CGMyEmailViewController.h"
 #import "CGImageTextTableViewCell.h"
 #import "CGSendMessageViewController.h"
+#import "CGInBoxViewController.h"
+#import "CGOutBoxViewController.h"
 
 @interface CGMyEmailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -74,16 +76,16 @@
         CGSendMessageViewController *vc = [[CGSendMessageViewController alloc] init];
         [self pushViewControllerHiddenTabBar:vc animated:YES];
     }
-//    if (indexPath.row == 1){
-//        CGDaiJiaoViewController *vc = [[CGDaiJiaoViewController alloc] init];
+    if (indexPath.row == 1){
+        CGInBoxViewController *vc = [[CGInBoxViewController alloc] init];
 //        vc.title = @"水费代缴";
-//        [self pushViewControllerHiddenTabBar:vc animated:YES];
-//    }
-//    if (indexPath.row == 2){
-//        CGDaiJiaoViewController *vc = [[CGDaiJiaoViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+    }
+    if (indexPath.row == 2){
+        CGOutBoxViewController *vc = [[CGOutBoxViewController alloc] init];
 //        vc.title = @"电费代缴";
-//        [self pushViewControllerHiddenTabBar:vc animated:YES];
-//    }
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+    }
 }
 
 @end
