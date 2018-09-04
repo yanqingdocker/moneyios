@@ -10,5 +10,6 @@
 #import "CGBaseViewController.h"
 
 @interface CGMeRootViewController : CGBaseViewController
+@property (nonatomic,strong) NSString *defaultCountType;
 
 @end

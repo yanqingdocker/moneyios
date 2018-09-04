@@ -9,18 +9,34 @@
 #import "CGZhangHuZongLanViewController.h"
 #import "CGZhangHuZongLanModel.h"
 #import "CGZhangHuZongLanTableViewCell.h"
+#import "CGCreatAccountViewController.h"
 
-@interface CGZhangHuZongLanViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CGZhangHuZongLanViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    BOOL flag;
+    int sum;
+    int sum1;
+}
 @property (strong, nonatomic)  NSMutableArray *result;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *footerView;
-//@property (strong, nonatomic) CGZhangHuZongLanModel model;
+@property (strong, nonatomic) CGZhangHuZongLanModel *ZHZLModel;
 @end
 
 @implementation CGZhangHuZongLanViewController
 
 - (void)viewDidLoad {
+    sum = 0;
+    sum1 = 0;
+    flag = true;
+    _result = [[NSMutableArray alloc] init];
     [super viewDidLoad];
+}
+
+-(void) viewDidAppear:(BOOL)animated{
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    
     [self requestForm];
 }
 
@@ -28,11 +44,9 @@
     [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
         if(dict){
             
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSMutableArray *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _result = [result mutableCopy];
             NSLog(@"%@",_result);
-            //            self.model=[ComDeAllocationModel mj_objectWithKeyValues:dict];
-            //            UserModel *usermodel = [UserModel objectWithKeyValues:result];
-            //            usermodel.login = YES;
             
             [_tableView reloadData];
             
@@ -79,7 +93,7 @@
         [sureBtn setImage:[UIImage imageNamed:@"addIcon"] forState:UIControlStateNormal];
         [sureBtn setTitle:@"开通账户" forState:UIControlStateNormal];
         [sureBtn setBackgroundImage:[UIImage imageNamed:@"dottedLine"] forState:UIControlStateNormal];
-        [sureBtn addTarget:self action:@selector(sureBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [sureBtn addTarget:self action:@selector(createAccountClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:sureBtn];
         [footerView addSubview:sureBtn];
         
@@ -102,25 +116,35 @@
     CGZhangHuZongLanTableViewCell *cell = [CGZhangHuZongLanTableViewCell cellForTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    CGZhangHuZongLanModel *ZHZLModel = [CGZhangHuZongLanModel objectWithKeyValues:[_result objectAtIndex:indexPath.row]];
+    _ZHZLModel = [CGZhangHuZongLanModel objectWithKeyValues:[_result objectAtIndex:indexPath.row]];
     
-    if ([ZHZLModel.countType isEqualToString:@"CNY"]) {
+    if ([_ZHZLModel.countType isEqualToString:@"CNY"]) {
         [cell.bgimgView setImage:[UIImage imageNamed:@"bgImgCNY"]];
         cell.countType.text = @"人民币总资产(CNY)";
-    }else if ([ZHZLModel.countType isEqualToString:@"USD"]) {
+    }else if ([_ZHZLModel.countType isEqualToString:@"USD"]) {
         [cell.bgimgView setImage:[UIImage imageNamed:@"bgImgUSD"]];
         cell.countType.text = @"美元总资产(USD)";
     }
     
-    [cell.eyeBtn setImage:[UIImage imageNamed:@"eye_close_white"] forState:UIControlStateNormal];
-    [cell.eyeBtn setImage:[UIImage imageNamed:@"eye_open_white"] forState:UIControlStateSelected];
+
+//    UIButton *button = [[UIButton alloc] init];
+//    button.frame = CGRectMake(SCREEN_WIDTH - 59 -21, 24, 21, 9);
+//    [button setImage:[UIImage imageNamed:@"eye_open_white"] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(eyeEvent:) forControlEvents:UIControlEventTouchUpInside];
+//    button.tag = indexPath.row;
+//    [cell addSubview:button];
+    
+    [cell.eyeBtn setImage:[UIImage imageNamed:@"eye_open_white"] forState:UIControlStateNormal];
+    [cell.eyeBtn setImage:[UIImage imageNamed:@"eye_close_white"] forState:UIControlStateSelected];
     [cell.eyeBtn addTarget:self action:@selector(eyeEvent:) forControlEvents:UIControlEventTouchUpInside];
     cell.eyeBtn.tag = indexPath.row;
     
-    cell.blance.text = ZHZLModel.blance;
-    cell.cardId.text = ZHZLModel.cardId;
-//    cell.blance.text = ZHZLModel.blance;
+    cell.closeAccount.tag = indexPath.row;
+    [cell.closeAccount addTarget:self action:@selector(closeAccountEvent:) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    cell.blance.text = _ZHZLModel.blance;
+    cell.cardId.text = [self getNewBankNumWitOldBankNum:_ZHZLModel.cardId];
     return cell;
 }
 
@@ -142,18 +166,117 @@
 }
 
 -(void)eyeEvent:(UIButton *)button {
-//    CGZhangHuZongLanModel *ZHZLModel = [CGZhangHuZongLanModel objectWithKeyValues:[_result objectAtIndex:button.tag]];
-    
-    button.selected = !button.selected;
-    if(button.selected){
-//        ZHZLModel.blance = @"****";
-//        [_tableView reloadData];
+    _ZHZLModel = [CGZhangHuZongLanModel objectWithKeyValues:[_result objectAtIndex:button.tag]];
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"blance%ld",(long)button.tag]]){
+        [[NSUserDefaults standardUserDefaults] setObject:_ZHZLModel.blance forKey:[NSString stringWithFormat:@"blance%ld",(long)button.tag]];
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:[NSString stringWithFormat:@"flag%ld",(long)button.tag]];
     }else{
+        if(![[NSString stringWithFormat:@"%@",[[_result objectAtIndex:button.tag] objectForKey:@"blance"]]   isEqualToString:@"****"]){
+            if([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"blance%ld",(long)button.tag]] floatValue] != [[[_result objectAtIndex:button.tag] objectForKey:@"blance"] floatValue]){
+                [[NSUserDefaults standardUserDefaults] setObject:[[_result objectAtIndex:button.tag] objectForKey:@"blance"] forKey:[NSString stringWithFormat:@"blance%ld",(long)button.tag]];
+            }
+        }
+        
+    }
+    button.selected = !button.selected;
+//    [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"flag%ld",(long)button.tag]]
+    
+    
+    if(button.selected){
+        
+//        NSLog(@"闭眼");
+//        _ZHZLModel.blance = @"****";
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:button.tag inSection:0];
+
+        NSDictionary *item = [_result objectAtIndex:button.tag];
+
+        NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:item];
+
+        [mutableItem setObject:@"****" forKey:@"blance"];
+        
+        [_result replaceObjectAtIndex:button.tag withObject:mutableItem];
+////        button.selected = NO;
+//        [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView reloadData];
+//        [button setImage:[UIImage imageNamed:@"eye_close_white"] forState:UIControlStateNormal];
+        
+//        if (sum == 0) {
+//            [self eyeEvent:button];
+//            sum = 1;
+//        }else{
+//            sum = 0;
+//        }
+        
+//        [[NSUserDefaults standardUserDefaults] setBool:false forKey:[NSString stringWithFormat:@"flag%ld",(long)button.tag]];
+        
+//        flag = false;
+    }else{
+//        NSLog(@"睁眼");
 //        _blance.text = ZHZLModel.blance;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:button.tag inSection:0];
+        
+        NSDictionary *item = [_result objectAtIndex:button.tag];
+        
+        NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:item];
+        
+        [mutableItem setObject:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"blance%ld",(long)button.tag]] forKey:@"blance"];
+        
+        [_result replaceObjectAtIndex:button.tag withObject:mutableItem];
+////        button.selected = YES;
+//        [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView reloadData];
+//        [button setImage:[UIImage imageNamed:@"eye_open_white"] forState:UIControlStateNormal];
+        
+//        [[NSUserDefaults standardUserDefaults] setBool:true forKey:[NSString stringWithFormat:@"flag%ld",(long)button.tag]];
+//        flag = true;
+//        if (sum == 0) {
+//            [self eyeEvent:button];
+//            sum = 1;
+//        }else{
+//            sum = 0;
+//        }
     }
     
     
     //    _blance.secureTextEntry = !_blance.secureTextEntry;
+}
+
+-(void)closeAccountEvent:(UIButton *)button {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认注销账户?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _ZHZLModel = [CGZhangHuZongLanModel objectWithKeyValues:[_result objectAtIndex:button.tag]];
+        [[CGAFHttpRequest shareRequest] logoutCountWithID:_ZHZLModel.id serverSuccessFn:^(id dict) {
+            if(dict){
+                
+                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                if ([[result objectForKey:@"code"] isEqualToString:@"fail"]) {
+                    [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+                }else{
+                    [self requestForm];
+                }
+                
+            }
+        } serverFailureFn:^(NSError *error) {
+            if(error){
+                NSLog(@"%@",error);
+            }
+        }];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:skipAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+
+
+-(void)createAccountClick{
+    CGCreatAccountViewController *vc = [[CGCreatAccountViewController alloc] init];
+    [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 
 @end

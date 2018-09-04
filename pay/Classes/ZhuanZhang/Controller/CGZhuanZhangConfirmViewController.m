@@ -51,22 +51,29 @@
             
             _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             NSLog(@"%@",_result);
-            _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
-            _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
-            
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
-            
-            [_tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
-            
-            //            _nameArray = [NSArray arrayWithObjects:@"USD",@"CNY",nil];
-            //            NSArray *_nameArray = [[NSArray alloc] init];
-            _array  = [[NSMutableArray alloc] init];
-            for (int i = 0; i < _result.count; i++) {
-                [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
+            if ([_result count] == 0) {
+                
+            }else{
+//                if(){
+//                    
+//                }
+                _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
+                _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
+                
+                [_tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
+                
+                //            _nameArray = [NSArray arrayWithObjects:@"USD",@"CNY",nil];
+                //            NSArray *_nameArray = [[NSArray alloc] init];
+                _array  = [[NSMutableArray alloc] init];
+                for (int i = 0; i < _result.count; i++) {
+                    [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
+                }
+                _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
             }
-            _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
-//                                [_tableView reloadData];
+//            [_tableView reloadData];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
@@ -151,6 +158,11 @@
 }
 
 - (void)confirmEvent{
+    if([_result count] == 0){
+        [MBProgressHUD showText:@"抱歉您没有付款账户,无法转账" toView:self.view];
+        return;
+    }
+    
     [self.view endEditing:YES];
     XLPasswordView *passwordView = [XLPasswordView passwordView];
     passwordView.delegate = self;

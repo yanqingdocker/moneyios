@@ -84,7 +84,7 @@
     NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject:[GlobalSingleton Instance].currentUser.phone forKey:@"receivecount"];//转入账户的手机号
+    [dic setObject:[GlobalSingleton Instance].currentUser.phone forKey:@"phone"];//转入账户的手机号
 //    [dic setObject:img forKey:@"img"];//头像
     [dic setObject:[GlobalSingleton Instance].currentUser.username forKey:@"username"];//用户名
     
@@ -192,7 +192,7 @@
         NSString * moneynum = [str substringFromIndex:1];
         
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:[GlobalSingleton Instance].currentUser.phone forKey:@"receivecount"];//转入账户的手机号
+        [dic setObject:[GlobalSingleton Instance].currentUser.phone forKey:@"phone"];//转入账户的手机号
         [dic setObject:moneynum forKey:@"moneynum"];//收款金额
 //        [dic setObject:[GlobalSingleton Instance].currentUser.img forKey:@"img"];//头像
         [dic setObject:[GlobalSingleton Instance].currentUser.username forKey:@"username"];//用户名

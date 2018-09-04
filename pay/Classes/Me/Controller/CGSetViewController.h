@@ -10,5 +10,6 @@
 #import "CGBaseViewController.h"
 
 @interface CGSetViewController : CGBaseViewController
+//@property (strong, nonatomic) NSString *defaultCountType;//默认类型
 
 @end

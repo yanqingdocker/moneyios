@@ -35,4 +35,5 @@
 - (void)startTimer:(UIButton *)btn;
 
 -(NSString *)convertToJsonData:(NSDictionary *)dict;//NSDictionary 转 NSString
+-(NSString *)getNewBankNumWitOldBankNum:(NSString *)bankNum;
 @end

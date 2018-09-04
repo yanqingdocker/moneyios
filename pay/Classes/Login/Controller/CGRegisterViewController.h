@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CGBaseViewController.h"
 
-@interface CGRegisterViewController : CGBaseViewController
+@interface CGRegisterViewController :CGBaseViewController
 
 @end

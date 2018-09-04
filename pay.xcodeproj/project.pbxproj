@@ -70,6 +70,11 @@
 		AD16925A2137E36300FFB382 /* CGZhangHuZongLanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692592137E36300FFB382 /* CGZhangHuZongLanViewController.m */; };
 		AD16925E2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD16925D2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m */; };
 		AD1692622137EA9800FFB382 /* CGZhangHuZongLanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */; };
+		AD1FE92D213E152F005B038D /* CGTextSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE92C213E152F005B038D /* CGTextSelectTableViewCell.m */; };
+		AD1FE930213E38CB005B038D /* CGPasswordSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE92F213E38CB005B038D /* CGPasswordSetViewController.m */; };
+		AD1FE933213E3C33005B038D /* CGLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE932213E3C33005B038D /* CGLoginPasswordViewController.m */; };
+		AD1FE936213E3C4D005B038D /* CGPaymentPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE935213E3C4D005B038D /* CGPaymentPasswordViewController.m */; };
+		AD1FE939213E7ADD005B038D /* CGFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE938213E7ADD005B038D /* CGFeedbackViewController.m */; };
 		AD26F0F52133B52400D48656 /* UIView+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EA2133B52300D48656 /* UIView+XLPasswordView.m */; };
 		AD26F0F62133B52400D48656 /* UIImage+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EB2133B52300D48656 /* UIImage+XLPasswordView.m */; };
 		AD26F0F72133B52400D48656 /* UIColor+XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0EC2133B52300D48656 /* UIColor+XLPasswordView.m */; };
@@ -80,10 +85,15 @@
 		AD26F0FE2133C94100D48656 /* CGJiaoYiDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0FD2133C94100D48656 /* CGJiaoYiDetailsViewController.m */; };
 		AD26F1022133E63300D48656 /* CGJiaoYiDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */; };
 		AD57350E2135028C00A1B0CF /* CGHuiDuiTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */; };
-		AD573511213507EC00A1B0CF /* CGBuyUSDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD573510213507EC00A1B0CF /* CGBuyUSDViewController.m */; };
 		AD57351421350BDC00A1B0CF /* CGAccountSelectiewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD57351321350BDC00A1B0CF /* CGAccountSelectiewController.m */; };
 		AD5735172135291B00A1B0CF /* CGBuyMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5735162135291B00A1B0CF /* CGBuyMoneyViewController.m */; };
 		AD57351A21354EF200A1B0CF /* CGZiXuanDuiHuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD57351921354EF200A1B0CF /* CGZiXuanDuiHuanViewController.m */; };
+		AD794A102138ED4F00DD34ED /* CGCreatAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794A0F2138ED4F00DD34ED /* CGCreatAccountViewController.m */; };
+		AD794A152139105700DD34ED /* CGBankCardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794A142139105700DD34ED /* CGBankCardListViewController.m */; };
+		AD794A18213914DC00DD34ED /* CGAddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794A17213914DC00DD34ED /* CGAddBankCardViewController.m */; };
+		AD794A1C2139286300DD34ED /* CGBankCardListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794A1B2139286300DD34ED /* CGBankCardListTableViewCell.m */; };
+		AD794A2021392E5F00DD34ED /* CGBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794A1F21392E5F00DD34ED /* CGBankCardModel.m */; };
+		AD794A23213936EC00DD34ED /* CGTitleContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794A22213936EC00DD34ED /* CGTitleContentTableViewCell.m */; };
 		AD7BDC13213656AB00B2F487 /* CGGetSingleRateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDC12213656AB00B2F487 /* CGGetSingleRateModel.m */; };
 		AD7BDC16213674CA00B2F487 /* CGHuiDuiSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDC15213674CA00B2F487 /* CGHuiDuiSuccessViewController.m */; };
 		AD7BDC1A21369EBB00B2F487 /* CGImageTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7BDC1921369EBB00B2F487 /* CGImageTextTableViewCell.m */; };
@@ -92,6 +102,9 @@
 		ADB901472132EB9A000E1E18 /* CGBillQueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB901462132EB9A000E1E18 /* CGBillQueryTableViewCell.m */; };
 		ADD2AF302131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */; };
 		ADD764742134072100B11B43 /* CGBillDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD764732134072100B11B43 /* CGBillDetailsViewController.m */; };
+		ADF6AC05213CCE29009F19BF /* CGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF6AC04213CCE29009F19BF /* CGViewController.m */; };
+		ADF6AC08213D1409009F19BF /* CGLoginTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF6AC07213D1409009F19BF /* CGLoginTabBarController.m */; };
+		ADF6AC0D213D4202009F19BF /* CGAccountDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF6AC0C213D4202009F19BF /* CGAccountDisplayViewController.m */; };
 		ADF7D689212F9F16008D18FA /* HMScannerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D67D212F9F16008D18FA /* HMScannerBorder.m */; };
 		ADF7D68A212F9F16008D18FA /* HMScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D67F212F9F16008D18FA /* HMScannerMaskView.m */; };
 		ADF7D68B212F9F16008D18FA /* HMScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF7D681212F9F16008D18FA /* HMScannerViewController.m */; };
@@ -251,6 +264,16 @@
 		AD16925D2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZhangHuZongLanTableViewCell.m; sourceTree = "<group>"; };
 		AD1692602137EA9800FFB382 /* CGZhangHuZongLanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGZhangHuZongLanModel.h; sourceTree = "<group>"; };
 		AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZhangHuZongLanModel.m; sourceTree = "<group>"; };
+		AD1FE92B213E152F005B038D /* CGTextSelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGTextSelectTableViewCell.h; sourceTree = "<group>"; };
+		AD1FE92C213E152F005B038D /* CGTextSelectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGTextSelectTableViewCell.m; sourceTree = "<group>"; };
+		AD1FE92E213E38CB005B038D /* CGPasswordSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGPasswordSetViewController.h; sourceTree = "<group>"; };
+		AD1FE92F213E38CB005B038D /* CGPasswordSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGPasswordSetViewController.m; sourceTree = "<group>"; };
+		AD1FE931213E3C33005B038D /* CGLoginPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGLoginPasswordViewController.h; sourceTree = "<group>"; };
+		AD1FE932213E3C33005B038D /* CGLoginPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGLoginPasswordViewController.m; sourceTree = "<group>"; };
+		AD1FE934213E3C4D005B038D /* CGPaymentPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGPaymentPasswordViewController.h; sourceTree = "<group>"; };
+		AD1FE935213E3C4D005B038D /* CGPaymentPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGPaymentPasswordViewController.m; sourceTree = "<group>"; };
+		AD1FE937213E7ADD005B038D /* CGFeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGFeedbackViewController.h; sourceTree = "<group>"; };
+		AD1FE938213E7ADD005B038D /* CGFeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGFeedbackViewController.m; sourceTree = "<group>"; };
 		AD26F0E72133B52300D48656 /* UIView+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XLPasswordView.h"; sourceTree = "<group>"; };
 		AD26F0E82133B52300D48656 /* UIImage+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+XLPasswordView.h"; sourceTree = "<group>"; };
 		AD26F0E92133B52300D48656 /* UIColor+XLPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+XLPasswordView.h"; sourceTree = "<group>"; };
@@ -271,14 +294,24 @@
 		AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGJiaoYiDetailsModel.m; sourceTree = "<group>"; };
 		AD57350C2135028C00A1B0CF /* CGHuiDuiTypeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGHuiDuiTypeViewController.h; sourceTree = "<group>"; };
 		AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGHuiDuiTypeViewController.m; sourceTree = "<group>"; };
-		AD57350F213507EC00A1B0CF /* CGBuyUSDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBuyUSDViewController.h; sourceTree = "<group>"; };
-		AD573510213507EC00A1B0CF /* CGBuyUSDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBuyUSDViewController.m; sourceTree = "<group>"; };
 		AD57351221350BDC00A1B0CF /* CGAccountSelectiewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGAccountSelectiewController.h; sourceTree = "<group>"; };
 		AD57351321350BDC00A1B0CF /* CGAccountSelectiewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGAccountSelectiewController.m; sourceTree = "<group>"; };
 		AD5735152135291B00A1B0CF /* CGBuyMoneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBuyMoneyViewController.h; sourceTree = "<group>"; };
 		AD5735162135291B00A1B0CF /* CGBuyMoneyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBuyMoneyViewController.m; sourceTree = "<group>"; };
 		AD57351821354EF200A1B0CF /* CGZiXuanDuiHuanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGZiXuanDuiHuanViewController.h; sourceTree = "<group>"; };
 		AD57351921354EF200A1B0CF /* CGZiXuanDuiHuanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZiXuanDuiHuanViewController.m; sourceTree = "<group>"; };
+		AD794A0E2138ED4F00DD34ED /* CGCreatAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGCreatAccountViewController.h; sourceTree = "<group>"; };
+		AD794A0F2138ED4F00DD34ED /* CGCreatAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGCreatAccountViewController.m; sourceTree = "<group>"; };
+		AD794A132139105700DD34ED /* CGBankCardListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBankCardListViewController.h; sourceTree = "<group>"; };
+		AD794A142139105700DD34ED /* CGBankCardListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBankCardListViewController.m; sourceTree = "<group>"; };
+		AD794A16213914DC00DD34ED /* CGAddBankCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGAddBankCardViewController.h; sourceTree = "<group>"; };
+		AD794A17213914DC00DD34ED /* CGAddBankCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGAddBankCardViewController.m; sourceTree = "<group>"; };
+		AD794A1A2139286300DD34ED /* CGBankCardListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBankCardListTableViewCell.h; sourceTree = "<group>"; };
+		AD794A1B2139286300DD34ED /* CGBankCardListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBankCardListTableViewCell.m; sourceTree = "<group>"; };
+		AD794A1E21392E5F00DD34ED /* CGBankCardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBankCardModel.h; sourceTree = "<group>"; };
+		AD794A1F21392E5F00DD34ED /* CGBankCardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBankCardModel.m; sourceTree = "<group>"; };
+		AD794A21213936EC00DD34ED /* CGTitleContentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGTitleContentTableViewCell.h; sourceTree = "<group>"; };
+		AD794A22213936EC00DD34ED /* CGTitleContentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGTitleContentTableViewCell.m; sourceTree = "<group>"; };
 		AD7BDC11213656AB00B2F487 /* CGGetSingleRateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGGetSingleRateModel.h; sourceTree = "<group>"; };
 		AD7BDC12213656AB00B2F487 /* CGGetSingleRateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGGetSingleRateModel.m; sourceTree = "<group>"; };
 		AD7BDC14213674CA00B2F487 /* CGHuiDuiSuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGHuiDuiSuccessViewController.h; sourceTree = "<group>"; };
@@ -295,6 +328,12 @@
 		ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGSaoMaZhuanZhangViewController.m; sourceTree = "<group>"; };
 		ADD764722134072100B11B43 /* CGBillDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBillDetailsViewController.h; sourceTree = "<group>"; };
 		ADD764732134072100B11B43 /* CGBillDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBillDetailsViewController.m; sourceTree = "<group>"; };
+		ADF6AC03213CCE29009F19BF /* CGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGViewController.h; sourceTree = "<group>"; };
+		ADF6AC04213CCE29009F19BF /* CGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGViewController.m; sourceTree = "<group>"; };
+		ADF6AC06213D1409009F19BF /* CGLoginTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGLoginTabBarController.h; sourceTree = "<group>"; };
+		ADF6AC07213D1409009F19BF /* CGLoginTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGLoginTabBarController.m; sourceTree = "<group>"; };
+		ADF6AC0B213D4202009F19BF /* CGAccountDisplayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGAccountDisplayViewController.h; sourceTree = "<group>"; };
+		ADF6AC0C213D4202009F19BF /* CGAccountDisplayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGAccountDisplayViewController.m; sourceTree = "<group>"; };
 		ADF7D67C212F9F16008D18FA /* HMScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScanner.h; sourceTree = "<group>"; };
 		ADF7D67D212F9F16008D18FA /* HMScannerBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerBorder.m; sourceTree = "<group>"; };
 		ADF7D67E212F9F16008D18FA /* HMScannerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerController.h; sourceTree = "<group>"; };
@@ -599,6 +638,8 @@
 		966E49002110389F00839CE7 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				ADF6AC09213D417A009F19BF /* Set */,
+				AD794A1121390FF000DD34ED /* BankCard */,
 				AD1692562137E36300FFB382 /* ZhangHuZongLan */,
 				AD7BDC1B2136A9B600B2F487 /* Email */,
 				96C8494921113DAE00CC7267 /* Controller */,
@@ -674,6 +715,8 @@
 				966E491721109CA100839CE7 /* CGInitProcess.m */,
 				966E49192110A5A700839CE7 /* CGTabBarController.h */,
 				966E491A2110A5A700839CE7 /* CGTabBarController.m */,
+				ADF6AC06213D1409009F19BF /* CGLoginTabBarController.h */,
+				ADF6AC07213D1409009F19BF /* CGLoginTabBarController.m */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -703,6 +746,8 @@
 				96E68EAE211998F800453A4A /* CGChongZhiViewController.m */,
 				964ABE3A212AE4900048FC2C /* CGBankCardTopUpViewController.h */,
 				964ABE3B212AE4900048FC2C /* CGBankCardTopUpViewController.m */,
+				ADF6AC03213CCE29009F19BF /* CGViewController.h */,
+				ADF6AC04213CCE29009F19BF /* CGViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -853,6 +898,8 @@
 			children = (
 				AD1692582137E36300FFB382 /* CGZhangHuZongLanViewController.h */,
 				AD1692592137E36300FFB382 /* CGZhangHuZongLanViewController.m */,
+				AD794A0E2138ED4F00DD34ED /* CGCreatAccountViewController.h */,
+				AD794A0F2138ED4F00DD34ED /* CGCreatAccountViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -873,6 +920,15 @@
 				AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		AD1FE92A213E14F0005B038D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AD1FE92B213E152F005B038D /* CGTextSelectTableViewCell.h */,
+				AD1FE92C213E152F005B038D /* CGTextSelectTableViewCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		AD26F0E52133B52300D48656 /* XLPasswordView */ = {
@@ -927,8 +983,6 @@
 			children = (
 				AD57350C2135028C00A1B0CF /* CGHuiDuiTypeViewController.h */,
 				AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */,
-				AD57350F213507EC00A1B0CF /* CGBuyUSDViewController.h */,
-				AD573510213507EC00A1B0CF /* CGBuyUSDViewController.m */,
 				AD57351221350BDC00A1B0CF /* CGAccountSelectiewController.h */,
 				AD57351321350BDC00A1B0CF /* CGAccountSelectiewController.m */,
 				AD5735152135291B00A1B0CF /* CGBuyMoneyViewController.h */,
@@ -939,6 +993,45 @@
 				AD7BDC15213674CA00B2F487 /* CGHuiDuiSuccessViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		AD794A1121390FF000DD34ED /* BankCard */ = {
+			isa = PBXGroup;
+			children = (
+				AD794A1D21392E3600DD34ED /* Model */,
+				AD794A192139283100DD34ED /* View */,
+				AD794A122139102100DD34ED /* Controller */,
+			);
+			path = BankCard;
+			sourceTree = "<group>";
+		};
+		AD794A122139102100DD34ED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AD794A132139105700DD34ED /* CGBankCardListViewController.h */,
+				AD794A142139105700DD34ED /* CGBankCardListViewController.m */,
+				AD794A16213914DC00DD34ED /* CGAddBankCardViewController.h */,
+				AD794A17213914DC00DD34ED /* CGAddBankCardViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AD794A192139283100DD34ED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AD794A1A2139286300DD34ED /* CGBankCardListTableViewCell.h */,
+				AD794A1B2139286300DD34ED /* CGBankCardListTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AD794A1D21392E3600DD34ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD794A1E21392E5F00DD34ED /* CGBankCardModel.h */,
+				AD794A1F21392E5F00DD34ED /* CGBankCardModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		AD7BDC102136560000B2F487 /* Model */ = {
@@ -955,6 +1048,8 @@
 			children = (
 				AD7BDC1821369EBB00B2F487 /* CGImageTextTableViewCell.h */,
 				AD7BDC1921369EBB00B2F487 /* CGImageTextTableViewCell.m */,
+				AD794A21213936EC00DD34ED /* CGTitleContentTableViewCell.h */,
+				AD794A22213936EC00DD34ED /* CGTitleContentTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -998,6 +1093,32 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		ADF6AC09213D417A009F19BF /* Set */ = {
+			isa = PBXGroup;
+			children = (
+				AD1FE92A213E14F0005B038D /* View */,
+				ADF6AC0A213D41A0009F19BF /* Controller */,
+			);
+			path = Set;
+			sourceTree = "<group>";
+		};
+		ADF6AC0A213D41A0009F19BF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ADF6AC0B213D4202009F19BF /* CGAccountDisplayViewController.h */,
+				ADF6AC0C213D4202009F19BF /* CGAccountDisplayViewController.m */,
+				AD1FE92E213E38CB005B038D /* CGPasswordSetViewController.h */,
+				AD1FE92F213E38CB005B038D /* CGPasswordSetViewController.m */,
+				AD1FE931213E3C33005B038D /* CGLoginPasswordViewController.h */,
+				AD1FE932213E3C33005B038D /* CGLoginPasswordViewController.m */,
+				AD1FE934213E3C4D005B038D /* CGPaymentPasswordViewController.h */,
+				AD1FE935213E3C4D005B038D /* CGPaymentPasswordViewController.m */,
+				AD1FE937213E7ADD005B038D /* CGFeedbackViewController.h */,
+				AD1FE938213E7ADD005B038D /* CGFeedbackViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		ADF7D67B212F9F16008D18FA /* QRCode */ = {
@@ -1194,18 +1315,22 @@
 			files = (
 				96C8494F2111676000CC7267 /* UIColor+ColorChange.m in Sources */,
 				ADF7D68A212F9F16008D18FA /* HMScannerMaskView.m in Sources */,
+				ADF6AC05213CCE29009F19BF /* CGViewController.m in Sources */,
 				AD26F0F52133B52400D48656 /* UIView+XLPasswordView.m in Sources */,
 				964ABE3C212AE4900048FC2C /* CGBankCardTopUpViewController.m in Sources */,
 				AD57351A21354EF200A1B0CF /* CGZiXuanDuiHuanViewController.m in Sources */,
 				964ABE312126CCDD0048FC2C /* LMJDropdownMenu.m in Sources */,
 				9667EA02211BF10C0024BFF3 /* CGNetworkingManager.m in Sources */,
+				AD1FE92D213E152F005B038D /* CGTextSelectTableViewCell.m in Sources */,
 				96996E64211D6219008D7EAC /* CGFindPWSViewController.m in Sources */,
 				AD7BDC1F2136AA1200B2F487 /* CGMyEmailViewController.m in Sources */,
 				AD1692492137887300FFB382 /* CGInBoxModel.m in Sources */,
 				AD26F0FB2133B52400D48656 /* XLPasswordView.m in Sources */,
 				96531BB7211AD8BA009613AF /* CGBudgetMonthTableViewCell.m in Sources */,
 				9667EA08211C61310024BFF3 /* CGRegisterViewController.m in Sources */,
+				ADF6AC0D213D4202009F19BF /* CGAccountDisplayViewController.m in Sources */,
 				AD7BDC222136BD2000B2F487 /* CGSendMessageViewController.m in Sources */,
+				AD1FE936213E3C4D005B038D /* CGPaymentPasswordViewController.m in Sources */,
 				96E68EA321184CEA00453A4A /* CGTiXianResultsAlertView.m in Sources */,
 				AD57351421350BDC00A1B0CF /* CGAccountSelectiewController.m in Sources */,
 				AD16923E213780C900FFB382 /* CGOutBoxViewController.m in Sources */,
@@ -1220,14 +1345,17 @@
 				965256F3212D588B0026827A /* CGBillQueryViewController.m in Sources */,
 				96E68E942117E38400453A4A /* CGTiXianAlipayViewController.m in Sources */,
 				964ABE43212AE9830048FC2C /* CGTitleAndTextTableViewCell.m in Sources */,
+				AD794A18213914DC00DD34ED /* CGAddBankCardViewController.m in Sources */,
 				96C782DA2113F63500EC6EEB /* CGBounceView.m in Sources */,
 				96E68EA0211833EA00453A4A /* CGTiXianTiKuanViewController.m in Sources */,
 				AD16923B213780B200FFB382 /* CGInBoxViewController.m in Sources */,
+				AD794A2021392E5F00DD34ED /* CGBankCardModel.m in Sources */,
 				966E49142110896100839CE7 /* CGLoginViewController.m in Sources */,
 				ADD764742134072100B11B43 /* CGBillDetailsViewController.m in Sources */,
 				96219446212524EB00A7AFCC /* CGGuidePagesViewController.m in Sources */,
 				ADF7D68C212F9F16008D18FA /* HMScanner.m in Sources */,
 				ADF7D68E212F9F16008D18FA /* HMScanerCardViewController.m in Sources */,
+				AD794A152139105700DD34ED /* CGBankCardListViewController.m in Sources */,
 				AD169242213780F600FFB382 /* CGInBoxTableViewCell.m in Sources */,
 				ADF7D692212F9F9E008D18FA /* CGShouKuanMaViewController.m in Sources */,
 				AD26F0FA2133B52400D48656 /* XLPasswordInputView.m in Sources */,
@@ -1238,14 +1366,16 @@
 				966E491B2110A5A700839CE7 /* CGTabBarController.m in Sources */,
 				AD7BDC1A21369EBB00B2F487 /* CGImageTextTableViewCell.m in Sources */,
 				964ABE40212AE7E00048FC2C /* CGSelectAccountTableViewCell.m in Sources */,
+				AD794A102138ED4F00DD34ED /* CGCreatAccountViewController.m in Sources */,
+				AD794A1C2139286300DD34ED /* CGBankCardListTableViewCell.m in Sources */,
 				965256E8212D0DEB0026827A /* CGJiaoFeiTypeViewController.m in Sources */,
 				9621944A2125719F00A7AFCC /* MBProgressHUD+Extension.m in Sources */,
-				AD573511213507EC00A1B0CF /* CGBuyUSDViewController.m in Sources */,
 				96531BBA211ADF69009613AF /* CGZhuanZhangJiLuViewController.m in Sources */,
 				964ABE36212AA98C0048FC2C /* CGHuiLvTableViewCell.m in Sources */,
 				AD26F1022133E63300D48656 /* CGJiaoYiDetailsModel.m in Sources */,
 				962B2BFA212BB91C00F2F030 /* GlobalSingleton.m in Sources */,
 				96C782D32112D35E00EC6EEB /* CGTiXianViewController.m in Sources */,
+				AD1FE930213E38CB005B038D /* CGPasswordSetViewController.m in Sources */,
 				96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */,
 				AD26F0F72133B52400D48656 /* UIColor+XLPasswordView.m in Sources */,
 				AD16925E2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m in Sources */,
@@ -1258,14 +1388,18 @@
 				96C8494821113DA600CC7267 /* CGHomeViewController.m in Sources */,
 				AD26F0F82133B52400D48656 /* XLRandomKeyboard.m in Sources */,
 				966E490C2110523D00839CE7 /* CGBaseViewController.m in Sources */,
+				AD1FE939213E7ADD005B038D /* CGFeedbackViewController.m in Sources */,
 				96E68E9A21181BA400453A4A /* CGTopUpDetailViewController.m in Sources */,
 				966E48C721102E0A00839CE7 /* AppDelegate.m in Sources */,
 				AD5735172135291B00A1B0CF /* CGBuyMoneyViewController.m in Sources */,
+				ADF6AC08213D1409009F19BF /* CGLoginTabBarController.m in Sources */,
+				AD794A23213936EC00DD34ED /* CGTitleContentTableViewCell.m in Sources */,
 				96E68EA8211942D700453A4A /* CGHuaFeiChongZhiViewController.m in Sources */,
 				ADD2AF302131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m in Sources */,
 				96E68E972117F51800453A4A /* CGAccountBalanceTableViewCell.m in Sources */,
 				AD26F0F62133B52400D48656 /* UIImage+XLPasswordView.m in Sources */,
 				9682199221216E2C00A05C8F /* CGHuiLvViewController.m in Sources */,
+				AD1FE933213E3C33005B038D /* CGLoginPasswordViewController.m in Sources */,
 				AD57350E2135028C00A1B0CF /* CGHuiDuiTypeViewController.m in Sources */,
 				AD7BDC16213674CA00B2F487 /* CGHuiDuiSuccessViewController.m in Sources */,
 				AD16924C2137889000FFB382 /* CGOutBoxModel.m in Sources */,
@@ -1320,6 +1454,7 @@
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 /* End PBXVariantGroup section */
 
@@ -1441,6 +1576,7 @@
 			baseConfigurationReference = 074D168A7B1870C6B2FA5B2E /* Pods-pay.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C775AJX9C7;
@@ -1468,6 +1604,7 @@
 			baseConfigurationReference = D1404783A06137CFC7BA5CFC /* Pods-pay.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C775AJX9C7;

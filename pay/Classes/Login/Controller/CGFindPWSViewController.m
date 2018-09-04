@@ -7,12 +7,17 @@
 //
 
 #import "CGFindPWSViewController.h"
-#import "CGLoginViewController.h"
 #import "CGResetpPSWViewController.h"
+#import "LMJDropdownMenu.h"
 
-@interface CGFindPWSViewController ()<UITextFieldDelegate>{
+@interface CGFindPWSViewController ()<UITextFieldDelegate,LMJDropdownMenuDelegate>{
     UITextField *_telphone;
     UITextField *_check;
+    LMJDropdownMenu *dropdownMenu;
+    UIButton * loginBtn;
+    NSUInteger telphonelength;
+    NSUInteger checklength;
+
 }
 @property (strong, nonatomic) UIButton *getCheckBtn;
 @end
@@ -21,77 +26,107 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    telphonelength = 0;
+    checklength = 0;
 }
 
 -(void)initNav{
-    // 在主线程异步加载，使下面的方法最后执行，防止其他的控件挡住了导航栏
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 隐藏系统导航栏
-        self.navigationController.navigationBar.hidden = YES;
-        // 创建假的导航栏
-        UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 44)];
-        [self.view addSubview:navView];
-        // 创建导航栏的titleLabel
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0,44)];
-        titleLabel.text = @"找回密码";
-        [titleLabel sizeToFit];
-        titleLabel.frame = CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - titleLabel.frame.size.width / 2, 0, titleLabel.frame.size.width, 44);
-        [navView addSubview:titleLabel];
-        // 创建导航栏左按钮
-        UIButton *left= [UIButton buttonWithType:UIButtonTypeSystem];
-        [left setImage:[UIImage imageNamed:@"cancel-left"] forState:UIControlStateNormal];
-        [left addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-        [navView addSubview:left];
-        left.frame = CGRectMake(10, 10, 20, 20);
-    });
-}
-
-- (void) goBack{
-    [ self dismissViewControllerAnimated: YES completion: nil ];
+    self.navigationItem.title = @"找回密码";
+    [self setBackButton:YES];
 }
 
 - (void) initUI{
+    
+    UIImageView * bgImageView = [[UIImageView alloc] init];
+    bgImageView.frame = CGRectMake(0 , -NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [bgImageView setImage:[UIImage imageNamed:@"bgLoginImg"]];
+    bgImageView.userInteractionEnabled = YES;
+    [self.view addSubview:bgImageView];
+    
     UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor whiteColor];
+//    bgView.backgroundColor = [UIColor whiteColor];
     bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:bgView];
     
-    //    UILabel *pinzhengLab = [[UILabel alloc] init];
-    //    pinzhengLab.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    UIImageView *phoneIcon = [[UIImageView alloc] init];
+    phoneIcon.frame = CGRectMake(40 , 169, 18, 18);
+    phoneIcon.image = [UIImage imageNamed:@"phoneIcon"];
+    [bgView addSubview:phoneIcon];
+    
+    dropdownMenu = [[LMJDropdownMenu alloc] init];
+    [dropdownMenu setFrame:CGRectMake(52, 171, 110, 13)];
+    [dropdownMenu setMenuTitles:countries rowHeight:30];
+    dropdownMenu.delegate = self;
+    [dropdownMenu.mainBtn setTitle:@"选择国家" forState:UIControlStateNormal];
+    [dropdownMenu.mainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    dropdownMenu.mainBtn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    [bgView addSubview:dropdownMenu];
+    
+    UILabel *line1 = [[UILabel alloc] init];
+    line1.frame = CGRectMake(40, 196, SCREEN_WIDTH - 40*2, 3);
+    line1.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:line1];
+    
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary]; // 创建属性字典
+    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:14]; // 设置font
+    attrs[NSForegroundColorAttributeName] = [UIColor whiteColor]; // 设置颜色
+    NSAttributedString *accountplace = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:attrs]; // 初始化富文本占位字符串
+    
+    NSAttributedString *checkplace = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:attrs]; // 初始化富文本占位字符串
     
     _telphone = [[UITextField alloc] init];
-    _telphone.frame = CGRectMake(100, 208, 170, 44);
-    _telphone.placeholder = @"请输入手机号";
-    _telphone.clearButtonMode = UITextFieldViewModeNever;
+    _telphone.frame = CGRectMake(145, 172, SCREEN_WIDTH - 145 - 15 - 17 -5, 11);
+    _telphone.textColor = [UIColor whiteColor];
+    _telphone.attributedPlaceholder = accountplace;
+    _telphone.clearButtonMode = UITextFieldViewModeAlways;
     _telphone.delegate = self;
     _telphone.font = [UIFont systemFontOfSize:14];
     _telphone.borderStyle = UITextBorderStyleNone;
     [bgView addSubview:_telphone];
     
+    UIImageView *checkIcon = [[UIImageView alloc] init];
+    checkIcon.frame = CGRectMake(40 , 237, 18, 18);
+    checkIcon.image = [UIImage imageNamed:@"checkIcon"];
+    [bgView addSubview:checkIcon];
+    
     _check = [[UITextField alloc] init];
-    _check.frame = CGRectMake(100, 268, 170, 44);
-    _check.placeholder = @"请输入验证码";
-    _check.clearButtonMode = UITextFieldViewModeNever;
+    _check.frame = CGRectMake(64, 240, 130, 11);
+    _check.textColor = [UIColor whiteColor];
+    _check.attributedPlaceholder = checkplace;
+//    _check.clearButtonMode = UITextFieldViewModeNever;
     _check.delegate = self;
     _check.font = [UIFont systemFontOfSize:14];
     _check.borderStyle = UITextBorderStyleNone;
     [bgView addSubview:_check];
     
+    UILabel *shuline = [[UILabel alloc] init];
+    shuline.frame = CGRectMake(SCREEN_WIDTH - 13 -110 -35, 239, 1, 13);
+    shuline.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:shuline];
+    
     _getCheckBtn = [[UIButton alloc] init];
-    _getCheckBtn.frame = CGRectMake(280, 268, 110, 44);
-    [_getCheckBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    _getCheckBtn.frame = CGRectMake(SCREEN_WIDTH - 110 -35, 239, 110, 14);
+    [_getCheckBtn setTitleColor:RGBCOLOR(216,40,40) forState:UIControlStateNormal];
     [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [_getCheckBtn addTarget:self action:@selector(getCheckClick) forControlEvents:UIControlEventTouchUpInside];
+    _getCheckBtn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
     [bgView addSubview:_getCheckBtn];
     
-    //登陆按钮
-    UIButton * loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    loginBtn.frame = CGRectMake(15, 505, SCREEN_WIDTH - 30, 44);
+    UILabel *line2 = [[UILabel alloc] init];
+    line2.frame = CGRectMake(40, 265, SCREEN_WIDTH - 40*2, 3);
+    line2.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:line2];
+    
+    //下一步按钮
+    loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    loginBtn.frame = CGRectMake(30, 317, SCREEN_WIDTH - 80, 44);
     [loginBtn setTitle:@"下一步" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    loginBtn.backgroundColor = RGBCOLOR(226, 81, 74);
+    loginBtn.backgroundColor = RGBCOLOR(204,38,38);
     loginBtn.layer.cornerRadius = 10.0;
+    loginBtn.alpha = 0.6;
+    loginBtn.userInteractionEnabled = NO;
     [loginBtn addTarget:self action:@selector(nextClick) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:loginBtn];
 }
@@ -100,7 +135,12 @@
     [[CGAFHttpRequest shareRequest] checkPhoneWithtelphone:_telphone.text
                                            serverSuccessFn:^(id dict)
      {
-         [self startTimer:_getCheckBtn];
+         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+         if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
+             [MBProgressHUD showText:@"请输入正确的手机" toView:self.view];
+         }else{
+             [self startTimer:_getCheckBtn];
+         }
          
      }serverFailureFn:^(NSError *error){
          if(error){
@@ -115,16 +155,38 @@
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             NSLog(@"%@",result);
             
-            CGResetpPSWViewController *vc = [[CGResetpPSWViewController alloc] init];
-            vc.telphone = _telphone.text;
-            [ self presentViewController:vc animated: YES completion:nil];
+            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
+                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+            }else{
+                loginBtn.enabled = NO;
+                CGResetpPSWViewController *vc = [[CGResetpPSWViewController alloc] init];
+                vc.telphone = _telphone.text;
+                [self pushViewControllerHiddenTabBar:vc animated:YES];
+            }
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);
         }
     }];
+}
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if([textField isEqual:_telphone]){
+        telphonelength = textField.text.length - range.length + string.length;
+    }else if([textField isEqual:_check]){
+        checklength = textField.text.length - range.length + string.length;
+    }
     
+    if (telphonelength > 0 && checklength > 0 ) {
+        loginBtn.userInteractionEnabled = YES;
+        loginBtn.alpha = 1;
+        //        loginBtn.backgroundColor = RGBCOLOR(204, 38, 38);
+    } else {
+        loginBtn.userInteractionEnabled = NO;
+        loginBtn.alpha = 0.6;
+        //        loginBtn.backgroundColor = RGBCOLOR(226, 81, 74);
+    }
+    return YES;
 }
 
 @end

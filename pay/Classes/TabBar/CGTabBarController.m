@@ -11,6 +11,8 @@
 #import "CGMeRootViewController.h"
 #import "CGBaseViewController.h"
 
+#import "CGLoginViewController.h"
+
 @interface CGTabBarController ()<UITabBarControllerDelegate>
 {
     NSInteger   currentTabIndex;
@@ -50,7 +52,7 @@
     [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
 
     NSArray *tabBarTitle = @[@"首页", @"我的"];
-
+//    self.viewControllers = @[[[self class] baseNavigationController:@"CGLoginViewController"],
     self.viewControllers = @[[[self class] baseNavigationController:@"CGHomeViewController"],
 //                             [[self class] baseNavigationControllerWithoutTabar:@"XMCloudChatListViewController"],
 //                             [[self class] baseNavigationControllerWithoutTabar:@"XMAddressBookRootController"],

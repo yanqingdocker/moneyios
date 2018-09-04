@@ -34,35 +34,8 @@
 - (void)requestForm{
     [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
         if(dict){
-            
-            
             _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             NSLog(@"%@",_result);
-//            for (int i = 0; i<_result.count; i++) {
-//                if(![[[_result objectAtIndex:i] objectForKey:@"countType"] isEqualToString:@"CNY"]){
-//                    NSLog(@"没有人民币账户,无法买入人民币");
-//                }
-//                if(![[[_result objectAtIndex:i] objectForKey:@"countType"] isEqualToString:@"USD"]){
-//                    NSLog(@"没有美元账户,无法买入美元");
-//                }
-//            }
-            
-            //            _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
-            //            _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
-            //
-            //            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            //            NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
-            //
-            //            [_tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
-            //
-            //            //            _nameArray = [NSArray arrayWithObjects:@"USD",@"CNY",nil];
-            //            //            NSArray *_nameArray = [[NSArray alloc] init];
-            //            _array  = [[NSMutableArray alloc] init];
-            //            for (int i = 0; i < _result.count; i++) {
-            //                [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
-            //            }
-            //            _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
-            //                                [_tableView reloadData];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
@@ -167,7 +140,7 @@
             vc.buyType = @"USD";
             [self pushViewControllerHiddenTabBar:vc animated:YES];
         }else{
-            [MBProgressHUD showText:@"抱歉您当前没有美元账户,无法买入美元" toView:self.view];
+            [MBProgressHUD showText:@"抱歉您没有美元账户,无法买入美元" toView:self.view];
         }
         
         
@@ -188,7 +161,7 @@
             vc.buyType = @"CNY";
             [self pushViewControllerHiddenTabBar:vc animated:YES];
         }else{
-            [MBProgressHUD showText:@"抱歉您当前没有人民币账户,无法买入人民币" toView:self.view];
+            [MBProgressHUD showText:@"抱歉您没有人民币账户,无法买入人民币" toView:self.view];
         }
     }else if(btn.tag == 2){
         if (_result.count < 2) {

@@ -325,6 +325,12 @@
 //    [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //    [_nameText resignFirstResponder];
+    [self.view endEditing:YES];
+}
+
 - (void)selectAccount{
     
 }

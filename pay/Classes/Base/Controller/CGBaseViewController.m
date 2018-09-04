@@ -160,7 +160,7 @@
 
 - (void)startTimer:(UIButton *)btn {
     btn.enabled = NO;
-    __block NSInteger timeOut = 3; /// 重新获取验证码时长
+    __block NSInteger timeOut = 60; /// 重新获取验证码时长
     self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
     dispatch_source_set_timer(self.timer, DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
     dispatch_source_set_event_handler(self.timer, ^{
@@ -218,6 +218,36 @@
     //去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
+    
+}
+
+//银行卡中间隐藏,四位一空格
+-(NSString *)getNewBankNumWitOldBankNum:(NSString *)bankNum
+{
+    NSMutableString *mutableStr;
+    if (bankNum.length) {
+        mutableStr = [NSMutableString stringWithString:bankNum];
+        for (int i = 0 ; i < mutableStr.length; i ++) {
+            if (i>3&&i<mutableStr.length - 4) {
+                [mutableStr replaceCharactersInRange:NSMakeRange(i, 1) withString:@"*"];
+            }
+        }
+        NSString *text = mutableStr;
+        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789\b"];
+        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSString *newString = @"";
+        while (text.length > 0) {
+            NSString *subString = [text substringToIndex:MIN(text.length, 4)];
+            newString = [newString stringByAppendingString:subString];
+            if (subString.length == 4) {
+                newString = [newString stringByAppendingString:@" "];
+            }
+            text = [text substringFromIndex:MIN(text.length, 4)];
+        }
+        newString = [newString stringByTrimmingCharactersInSet:[characterSet invertedSet]];
+        return newString;
+    }
+    return bankNum;
     
 }
 

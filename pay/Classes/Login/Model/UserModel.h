@@ -28,6 +28,7 @@
 @property(nonatomic,copy)NSString *leavel;  //等级
 @property(nonatomic,copy)NSString *num;  //???
 @property(nonatomic,copy)NSString *type;  //类型
+@property(nonatomic,copy)NSString *defaultcount;  //默认账户类型
 
 //@property(nonatomic,copy) NSString *bankacco;   //银行卡号                      同上
 //@property(nonatomic,copy)NSString *sessionkey;        //登录成功返回的                   同上

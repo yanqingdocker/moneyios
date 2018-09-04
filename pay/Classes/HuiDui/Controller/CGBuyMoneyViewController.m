@@ -27,9 +27,8 @@
     [self requestForm];
 }
 
-//这么请求有问题啊,但是后台也不好改,有空再想想怎么优化吧
 - (void)requestForm{
-    [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@%@",_sellType,_buyType] serverSuccessFn:^(id dict) {
+    [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@:%@",_sellType,_buyType] serverSuccessFn:^(id dict) {
         if(dict){
             
             
@@ -37,26 +36,12 @@
             NSLog(@"%@",_result);
             
             
-            _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"buyPic"]];
+            _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"message"]];
             
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
-            [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@%@",_buyType,_sellType] serverSuccessFn:^(id dict) {
-                if(dict){
-                    
-                    
-                    _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                    NSLog(@"%@",_result);
-                    
-                    _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"sellPic"]];
-                }
-            } serverFailureFn:^(NSError *error) {
-                if(error){
-                    NSLog(@"%@",error);
-                    
-                }
-            }];
+            NSLog(@"%@",error);
         }
     }];
     
@@ -106,6 +91,7 @@
     _huilvLab.textColor = RGBCOLOR(102, 102, 102);
     _huilvLab.font = [UIFont systemFontOfSize:12];
     _huilvLab.textAlignment = NSTextAlignmentRight;
+    _huilvLab.text = @"";
     [bgView addSubview:_huilvLab];
     [_huilvLab mas_remakeConstraints:^(MASConstraintMaker *make){
         make.right.equalTo(bgView.mas_right).offset(-24);
@@ -118,12 +104,10 @@
     if([_buyType isEqualToString:@"USD"]){
         moneyIcon.image = [UIImage imageNamed:@"selectUSD"];
         selectLab.text = @"买入美元(USD)";
-        _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"buyPic"]];//有点搞不清楚哪个用买入哪个用卖出
     }
     else if([_buyType isEqualToString:@"CNY"]){
         moneyIcon.image = [UIImage imageNamed:@"selectCNY"];
         selectLab.text = @"买入人民币(CNY)";
-        _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"sellPic"]];
     }
     
     UILabel *line = [[UILabel alloc] init];
@@ -217,16 +201,16 @@
     
     float huilv =  [textField.text floatValue];
     
-    if([_buyType isEqualToString:@"USD"]){
-        
-        float huilv2 = [[_result objectForKey:@"buyPic"] floatValue];
+//    if([_buyType isEqualToString:@"USD"]){
+    
+        float huilv2 = [[_result objectForKey:@"message"] floatValue];
         _duihuanAmount.text = [NSString stringWithFormat:@"%0.4f",huilv / huilv2];
-    }
-    if([_buyType isEqualToString:@"CNY"]){
-        
-        float huilv2 = [[_result objectForKey:@"sellPic"] floatValue];
-        _duihuanAmount.text = [NSString stringWithFormat:@"%0.4f",huilv * huilv2];
-    }
+//    }
+//    if([_buyType isEqualToString:@"CNY"]){
+//
+//        float huilv2 = [[_result objectForKey:@"message"] floatValue];
+//        _duihuanAmount.text = [NSString stringWithFormat:@"%0.4f",huilv * huilv2];
+//    }
     
 }
 

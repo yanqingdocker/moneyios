@@ -138,7 +138,7 @@
         tempView;
     });
     
-    UILabel *titleLabel = ({
+    _titleLabel = ({
         UILabel *tempLabel = [[UILabel alloc] init];
         tempLabel.backgroundColor = [UIColor clearColor];
         tempLabel.text = @"输入密码";
@@ -151,7 +151,7 @@
         tempLabel.xl_centerY = 45 * xl_autoSizeScaleY * 0.5;
         tempLabel;
     });
-    [self.inputContainerView addSubview:titleLabel];
+    [self.inputContainerView addSubview:_titleLabel];
     
     UIView *separateView = ({
         UIView *tempView = [[UIView alloc] init];

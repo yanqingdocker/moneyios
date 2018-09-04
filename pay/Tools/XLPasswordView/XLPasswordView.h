@@ -64,4 +64,6 @@
  */
 - (void)clearPassword;
 
+@property (nonatomic ,strong)UILabel *titleLabel;
+
 @end

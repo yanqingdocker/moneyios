@@ -39,6 +39,10 @@
        serverSuccessFn:(void(^)(id dict))successFn
        serverFailureFn:(void(^)(NSError *error))failureFn;
 
+#pragma mark - 用户退出
+- (void)logoutWithserverSuccessFn:(void(^)(id dict))successFn
+                  serverFailureFn:(void(^)(NSError *error))failureFn;
+
 #pragma mark - 找回密码
 - (void)findpswWithtelphone:(NSString *)telphone
                    checknum:(NSString *)checknum
@@ -56,6 +60,11 @@
                         newpassword:(NSString *)newpassword
                     serverSuccessFn:(void(^)(id dict))successFn
                     serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 更改显示默认账户类型
+- (void)updatedefaultcountWithcounttype:(NSString *)counttype
+                        serverSuccessFn:(void(^)(id dict))successFn
+                        serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 实名认证
 - (void)authenticationWithdatas:(NSString *)datas
@@ -173,7 +182,7 @@
               serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 解绑银行卡接口
-- (void)bindBankCardWithID:(NSString *)ID
+- (void)unbindWithID:(NSString *)ID
            serverSuccessFn:(void(^)(id dict))successFn
            serverFailureFn:(void(^)(NSError *error))failureFn;
 
@@ -258,4 +267,20 @@
                        paypwd:(NSString *)paypwd
               serverSuccessFn:(void(^)(id dict))successFn
               serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 认证原始支付密码
+- (void)authCountpwdWithid:(NSString *)ID
+                    payPwd:(NSString *)payPwd
+           serverSuccessFn:(void(^)(id dict))successFn
+           serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 修改支付密码
+- (void)updateCountpwdWithid:(NSString *)ID
+                      payPwd:(NSString *)payPwd
+             serverSuccessFn:(void(^)(id dict))successFn
+             serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 获取我的页面信息
+- (void)getPersonCountWithserverSuccessFn:(void(^)(id dict))successFn
+                          serverFailureFn:(void(^)(NSError *error))failureFn;
 @end

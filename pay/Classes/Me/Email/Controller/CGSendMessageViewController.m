@@ -62,7 +62,7 @@
     contentView.layer.borderColor = RGBCOLOR(203, 203, 228).CGColor;
     [self.view addSubview:contentView];
     
-    _content = [[UITextView alloc] initWithFrame:CGRectMake(16, 14, SCREEN_WIDTH - 16*2, 146 - 14*2)];
+    _content = [[UITextView alloc] initWithFrame:CGRectMake(16, 14, SCREEN_WIDTH - 16*2, 100 - 14*2)];
     _content.delegate = self;
 //    _content. = @"请输入邮件主题";
     _content.font = [UIFont systemFontOfSize:12];
@@ -101,31 +101,60 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
-    //内容（滚动视图）高度大于一定数值时
-    
-    if (textView.contentSize.height >120)
-        
-    {
-        
-        //删除最后一行的第一个字符，以便减少一行。
-        
-        textView.text = [textView.text substringToIndex:[textView.text length]-1];
-        
-        return NO;
-        
-    }
-    
-    
-    
+//    if ([self countTheStrLength:textView.text]>10)
+//    {
+//        [MBProgressHUD showText:@"输入太多请减少" toView:self.view];
+//    }
+
+//    //内容（滚动视图）高度大于一定数值时
+//
+//    if (textView.contentSize.height >120)
+//
+//    {
+//
+//        //删除最后一行的第一个字符，以便减少一行。
+//
+//        textView.text = [textView.text substringToIndex:[textView.text length]-1];
+//
+//        return NO;
+//
+//    }
     return YES;
-    
+
 }
 
+//计算字符串长度
+//- (int)countTheStrLength:(NSString*)strtemp
+//{
+//    int strlength = 0;
+//    char* p = (char*)[strtemp cStringUsingEncoding:NSUnicodeStringEncoding];
+//    for (int i=0 ; i<[strtemp lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++) {
+//
+//        if (*p) {
+//            p++;
+//            strlength++;
+//        }else{
+//            p++;
+//        }
+//    }
+//    return (strlength+1)/2;
+//}
+
 -(void)confirmEvent{
-    [[CGAFHttpRequest shareRequest] sendCardWithreceivecount:_phone.text title:_theme.text content:_contentLab.text serverSuccessFn:^(id dict) {
+    [[CGAFHttpRequest shareRequest] sendCardWithreceivecount:_phone.text title:_theme.text content:_content.text serverSuccessFn:^(id dict) {
         if(dict){
-//            NSDictionary *_result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-//            NSLog(@"%@",_result);
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            if ([[result objectForKey:@"code"] isEqualToString:@"fail"]) {
+                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+            }else{
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"发送邮件成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+                [alertController addAction:skipAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+            
         }
     } serverFailureFn:^(NSError *error) {
         if(error){

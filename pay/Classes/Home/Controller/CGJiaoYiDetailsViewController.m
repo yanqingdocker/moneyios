@@ -55,6 +55,14 @@
 - (void)initNav{
     self.navigationItem.title = @"交易详情";
     [self setBackButton:YES];
+    
+    UIButton *completeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    completeBtn.frame = CGRectMake(0, 0, 50, 12);
+    completeBtn.titleLabel.font = [UIFont systemFontOfSize: 12];
+    [completeBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [completeBtn addTarget:self action:@selector(completeEven) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:completeBtn];
 }
 
 -(void)initUI{
@@ -179,6 +187,8 @@
     
     return cell;
 }
-
+- (void)completeEven{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 @end

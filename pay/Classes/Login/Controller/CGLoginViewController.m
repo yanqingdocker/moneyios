@@ -13,7 +13,12 @@
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+Extension.h"
 
+#import "CGHomeViewController.h"
+
 #import "LMJDropdownMenu.h"
+
+//删
+#import "CGViewController.h"
 
 @interface CGLoginViewController ()<UITextFieldDelegate,MBProgressHUDDelegate,LMJDropdownMenuDelegate>
 {
@@ -53,6 +58,21 @@
 //    [self initUI];
 //    CGTabBarController *vc = [[CGTabBarController alloc] init];
 //    getAppWindow().rootViewController = vc;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden=YES;
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self topBar];
 }
 
 - (void)initNav {
@@ -343,15 +363,15 @@
     
 //    NSLog(@"你选择了：%@",dropdownMenu.mainBtn.titleLabel.text);
     
-//    _account.text = @"13950357177";
-//    _password.text = @"123456";
+    _account.text = @"13950357177";
+    _password.text = @"111111";
 
     
 //    _account.text = @"18193412366";
 //    _password.text = @"123456";
     
-    _account.text = @"17759513665";
-    _password.text = @"123456";
+//    _account.text = @"17759513665";
+//    _password.text = @"123456";
 //    [MBProgressHUD showHUD];
     
     [[CGAFHttpRequest shareRequest] loginWithphone:_account.text password:_password.text serverSuccessFn:^(id dict) {
@@ -363,13 +383,40 @@
             single.currentUser = [UserModel objectWithKeyValues:result];
             
             single.currentUser.login = YES;
-            CGTabBarController *vc = [[CGTabBarController alloc] init];
-            getAppWindow().rootViewController = vc;
+//            CGTabBarController *vc = [[CGTabBarController alloc] init];
+//            getAppWindow().rootViewController = vc;
+            
+            
+//            self.tabBarController.tabBar.hidden=NO;
+//            CGHomeViewController *vc = [[CGHomeViewController alloc] init];
+//            [self pushViewControllerHiddenTabBar:vc animated:YES];
+            
+//            self.hidesBottomBarWhenPushed = YES;
+            
+            
+            self.tabBarController.tabBar.hidden=NO;
+
+            CGHomeViewController * vc = [[CGHomeViewController alloc]init];
+            
+//            [ self presentViewController:vc animated: NO completion:nil];
+            
+//            [self pushViewControllerHiddenTabBar:vc animated:YES];
+            
+            
+            [self.navigationController pushViewController:vc animated:NO];
+            
+//            [self dismissViewControllerAnimated:NO completion:^{
+                CGTabBarController *tabbar = [[CGTabBarController alloc] init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = tabbar;
+//            }];
+            
+            
+//            self.hidesBottomBarWhenPushed = NO;
             
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
-//            NSLog(@"%@",error);
+            NSLog(@"%@",error);
         }
     }];
 }
@@ -378,7 +425,8 @@
 
 -(void)resetClick{
     CGFindPWSViewController *vc = [[CGFindPWSViewController alloc] init];
-    [ self presentViewController:vc animated: YES completion:nil];
+    [self pushViewControllerHiddenTabBar:vc animated:YES];
+//    [ self presentViewController:vc animated: YES completion:nil];
 //    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 //    
 //    //alpha 0.0  白色   alpha 1 ：黑色   alpha 0～1 ：遮罩颜色，逐渐
@@ -450,7 +498,8 @@
 }
 -(void)registerClick{
     CGRegisterViewController *vc = [[CGRegisterViewController alloc] init];
-    [ self presentViewController:vc animated: YES completion:nil];
+//    [ self presentViewController:vc animated: YES completion:nil];
+    [self pushViewControllerHiddenTabBar:vc animated:YES];
 //    [[CGAFHttpRequest shareRequest] queryAllWithserverSuccessFn:^(id dict) {
 ////        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
 //        NSLog(@"%@",dict);

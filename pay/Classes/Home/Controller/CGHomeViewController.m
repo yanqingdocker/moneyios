@@ -41,19 +41,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    self.tabBarController.tabBar.hidden=NO;
+//    CGHomeViewController *tabbar = [[CGHomeViewController alloc] init];
+//    [UIApplication sharedApplication].keyWindow.rootViewController = tabbar;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     // 开启跑马灯
     [_horizontalMarquee marqueeOfSettingWithState:MarqueeStart_H];
+//    self.tabBarController.tabBar.hidden=NO;
+
 }
 
 
 - (void)initNav
 {
+//    self.tabBarController.tabBar.hidden=NO;
+    
+
     [self topBar];
     self.navigationItem.title=@"南方兑换";
+    [self.navigationItem setHidesBackButton:YES];
+//    self.tabBarController.tabBar.hidden=NO;
+    
+    
+
 }
 
 - (void)initUI
@@ -325,9 +337,9 @@
 
         NSDictionary *params =  [stringValue JSONObject];
 
-        NSLog(@"%@",[params objectForKey:@"receivecount"]);
+        NSLog(@"%@",[params objectForKey:@"phone"]);
 
-        [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:[params objectForKey:@"receivecount"] serverSuccessFn:^(id dict) {
+        [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:[params objectForKey:@"phone"] serverSuccessFn:^(id dict) {
             if(dict){
                 NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
                 NSLog(@"%@",result);
@@ -339,7 +351,7 @@
 //                        vc.params = result;
                 vc.moneynum = [params objectForKey:@"moneynum"];
                 vc.imgdata = data;
-                vc.receivecount = [params objectForKey:@"receivecount"];
+                vc.receivecount = [params objectForKey:@"phone"];
                 vc.username = [params objectForKey:@"username"];//[result objectForKey:@"username"]
                 [self pushViewControllerHiddenTabBar:vc animated:YES];
             }

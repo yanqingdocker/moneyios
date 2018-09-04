@@ -77,6 +77,20 @@
                         showHUD:YES];
 }
 
+#pragma mark - 用户退出
+- (void)logoutWithserverSuccessFn:(void(^)(id dict))successFn
+       serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,LOGOUT]
+                     WithParams:nil
+                        success:successFn
+                        failure:failureFn
+                        showHUD:YES];
+}
+
+
+
 #pragma mark - 找回密码
 - (void)findpswWithtelphone:(NSString *)telphone
                    checknum:(NSString *)checknum
@@ -124,14 +138,30 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
-    params[@"oldpassword"] = oldpassword;//手机号码
-    params[@"newpassword"] = newpassword;//用户密码
+    params[@"oldpassword"] = oldpassword;//旧密码
+    params[@"newpassword"] = newpassword;//新密码
     
     [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,RESETPWDMODE]
                      WithParams:params
                         success:successFn
                         failure:failureFn
                         showHUD:YES];
+}
+
+#pragma mark - 更改显示默认账户类型
+- (void)updatedefaultcountWithcounttype:(NSString *)counttype
+        serverSuccessFn:(void(^)(id dict))successFn
+        serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"counttype"] = counttype;//账户类型
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,UPDATEDEFAULTCOUNT]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:NO];
 }
 
 #pragma mark - 实名认证
@@ -191,7 +221,7 @@
     params[@"countType"] = countType;//账户类型(USD,CNY)
     params[@"payPwd"] = payPwd;//支付密码
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,CREATECOUNT]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,CREATECOUNT]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -248,7 +278,7 @@
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
-    params[@"ID"] = ID;//id
+    params[@"id"] = ID;//id
     
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,LOGOUTCOUNT]
                      WithParams:params
@@ -348,7 +378,7 @@
 - (void)queryWithserverSuccessFn:(void(^)(id dict))successFn
                               serverFailureFn:(void(^)(NSError *error))failureFn
 {
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERY]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERY]
                     WithParams:nil
                        success:successFn
                        failure:failureFn
@@ -483,7 +513,7 @@
                      WithParams:params
                         success:successFn
                         failure:failureFn
-                        showHUD:YES];
+                        showHUD:NO];
 }
 
 #pragma mark - 绑定银行卡接口
@@ -496,7 +526,7 @@
     
     params[@"datas"] = datas;
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,BINDBANKCARD]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,BINDBANKCARD]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -504,14 +534,14 @@
 }
 
 #pragma mark - 解绑银行卡接口
-- (void)bindBankCardWithID:(NSString *)ID
+- (void)unbindWithID:(NSString *)ID
               serverSuccessFn:(void(^)(id dict))successFn
               serverFailureFn:(void(^)(NSError *error))failureFn
 {
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
-    params[@"ID"] = ID;
+    params[@"id"] = ID;
     
     [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,UNBIND]
                      WithParams:params
@@ -778,6 +808,53 @@
     params[@"paypwd"] = paypwd;//指出账户密码
     
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,APPLYVIP]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
+}
+
+#pragma mark - 认证原始支付密码
+- (void)authCountpwdWithid:(NSString *)ID
+                      payPwd:(NSString *)payPwd
+              serverSuccessFn:(void(^)(id dict))successFn
+              serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"id"] = ID;//账户id
+    params[@"payPwd"] = payPwd;//账户原密码
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,AUTHCOUNTPWD]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
+}
+
+#pragma mark - 修改支付密码
+- (void)updateCountpwdWithid:(NSString *)ID
+                    payPwd:(NSString *)payPwd
+           serverSuccessFn:(void(^)(id dict))successFn
+           serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"id"] = ID;//账户id
+    params[@"payPwd"] = payPwd;//账户原密码
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,UPDATECOUNTPWD]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
+}
+
+#pragma mark - 获取我的页面信息
+- (void)getPersonCountWithserverSuccessFn:(void(^)(id dict))successFn
+             serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,GETPERSONCOUNT]
                     WithParams:nil
                        success:successFn
                        failure:failureFn

@@ -13,6 +13,10 @@
 
 #import "CGGuidePagesViewController.h"
 
+#import "CGTabBarController.h"
+
+#import "CGLoginTabBarController.h"
+
 @interface AppDelegate ()<selectDelegate>
 @property (nonatomic,strong) CGInitProcess* cgInitProcess;
 @end
@@ -22,6 +26,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+    
     
     
     //如果程序窗口为nil，初始化为当前屏幕大小
@@ -62,7 +68,8 @@
 
 - (void)clickEnter
 {
-    CGLoginViewController *loginView = [[CGLoginViewController alloc] init];
+//    CGTabBarController *loginView = [[CGTabBarController alloc] init];
+    CGLoginTabBarController *loginView = [[CGLoginTabBarController alloc] init];
     _window.rootViewController = loginView;
     [self.window makeKeyAndVisible];
 //    CGLoginViewController *vc = [[CGLoginViewController alloc] init];

@@ -8,6 +8,8 @@
 
 #import "CGInitProcess.h"
 #import "CGGuidePagesViewController.h"
+#import "CGTabBarController.h"
+#import "CGLoginTabBarController.h"
 @interface CGInitProcess ()<selectDelegate>
 @end
 @implementation CGInitProcess
@@ -42,7 +44,7 @@
     
     
     
-    NSArray *images = @[@"bgLoginImg", @"bgLoginImg", @"bgLoginImg"];
+    NSArray *images = @[@"引导页1", @"引导页2", @"引导页3"];
     BOOL y = [CGGuidePagesViewController isShow];
     if (y) {
         CGGuidePagesViewController *CG = [[CGGuidePagesViewController alloc] init];
@@ -52,8 +54,13 @@
         [CG guidePageControllerWithImages:images];
         [application.delegate.window makeKeyAndVisible];
     }else{
-        _cgLoginViewController = [[CGLoginViewController alloc]init];
-        application.delegate.window.rootViewController = _cgLoginViewController;
+        
+        CGLoginTabBarController *vc = [[CGLoginTabBarController alloc] init];
+        application.delegate.window.rootViewController = vc;
+//        getAppWindow().rootViewController = vc;
+        
+//        _cgLoginViewController = [[CGLoginViewController alloc]init];
+//        application.delegate.window.rootViewController = _cgLoginViewController;
         
         [application.delegate.window makeKeyAndVisible];
 

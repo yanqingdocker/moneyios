@@ -8,6 +8,12 @@
 
 #import "CGSetViewController.h"
 #import "CGMyProfileViewController.h"
+#import "CGAccountDisplayViewController.h"
+#import "CGPasswordSetViewController.h"
+#import "CGBankCardListViewController.h"
+#import "CGLoginViewController.h"
+#import "CGLoginTabBarController.h"
+#import "CGFeedbackViewController.h"
 
 @interface CGSetViewController ()<UITableViewDataSource,UITableViewDelegate>{
     UITableView *_tableView;
@@ -20,12 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-//    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-//        statusBar.backgroundColor = [UIColor blackColor];
-//        self.navigationController.navigationBar.translucent = NO;
-//    }
 }
 
 - (void)initNav{
@@ -96,7 +96,7 @@
     }
     if (indexPath.section == 1){
         if(indexPath.row == 0){
-            cell.textLabel.text = @"密码设置";
+        cell.textLabel.text = @"密码设置";
         }
         if(indexPath.row == 1){
             cell.textLabel.text = @"银行卡管理";
@@ -125,37 +125,35 @@
 
         }
         if(indexPath.row == 1){
-//            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-//            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            CGAccountDisplayViewController *vc = [[CGAccountDisplayViewController alloc] init];
+//            vc.defaultCountType = _defaultCountType;
+            [self pushViewControllerHiddenTabBar:vc animated:YES];
 
         }
     }
     if (indexPath.section == 1){
         if(indexPath.row == 0){
-//            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-//            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            CGPasswordSetViewController *vc = [[CGPasswordSetViewController alloc] init];
+            [self pushViewControllerHiddenTabBar:vc animated:YES];
 
         }
         if(indexPath.row == 1){
-//            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-//            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            CGBankCardListViewController *vc = [[CGBankCardListViewController alloc] init];
+            [self pushViewControllerHiddenTabBar:vc animated:YES];
 
         }
         if(indexPath.row == 2){
-//            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-//            [self pushViewControllerHiddenTabBar:txvc animated:YES];
-
         }
     }
     if (indexPath.section == 2){
         if(indexPath.row == 0){
-//            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-//            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            CGFeedbackViewController *vc = [[CGFeedbackViewController alloc] init];
+            [self pushViewControllerHiddenTabBar:vc animated:YES];
 
         }
         if(indexPath.row == 1){
-//            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-//            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+//            CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
+//            [self pushViewControllerHiddenTabBar:vc animated:YES];
 
         }
     }
@@ -163,7 +161,21 @@
 }
 
 -(void)logOutClick{
-    
+    [[CGAFHttpRequest shareRequest] logoutWithserverSuccessFn:^(id dict) {
+        if(dict){
+            
+            CGLoginViewController * vc = [[CGLoginViewController alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:NO];
+            
+            CGLoginTabBarController *tabbar = [[CGLoginTabBarController alloc] init];
+            [UIApplication sharedApplication].keyWindow.rootViewController = tabbar;
+        }
+    } serverFailureFn:^(NSError *error) {
+        if(error){
+            NSLog(@"%@",error);
+        }
+    }];
 }
 
 @end

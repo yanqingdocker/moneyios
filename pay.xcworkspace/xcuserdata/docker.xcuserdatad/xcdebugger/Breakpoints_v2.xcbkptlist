@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "pay/Classes/Home/Controller/CGHomeViewController.m"
-            timestampString = "557207830.028921"
+            filePath = "pay/Classes/TabBar/CGInitProcess.m"
+            timestampString = "557669402.9333971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
-            landmarkName = "-saomafuClick"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "-startupProcessWithApplication:andOptions:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "pay/Classes/Home/Controller/CGHomeViewController.m"
-            timestampString = "557207830.028981"
+            filePath = "pay/Classes/Me/Set/Controller/CGLoginPasswordViewController.m"
+            timestampString = "557747161.860575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
-            landmarkName = "-saomafuClick"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "-submitClick"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "pay/Classes/Me/ZhangHuZongLan/Controller/CGZhangHuZongLanViewController.m"
-            timestampString = "557324875.944461"
+            filePath = "pay/Classes/Me/Controller/CGSetViewController.m"
+            timestampString = "557747161.860777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-eyeEvent:"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "-logOutClick"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -7,103 +7,137 @@
 //
 
 #import "CGRegisterViewController.h"
-#import "CGLoginViewController.h"
+#import "LMJDropdownMenu.h"
 
-@interface CGRegisterViewController ()<UITextFieldDelegate>{
+@interface CGRegisterViewController ()<UITextFieldDelegate,LMJDropdownMenuDelegate>{
     UITextField *_telphone;
     UITextField *_check;
     UITextField *_password;
     UITextField *_passwordcheck;
+    LMJDropdownMenu * dropdownMenu;
+    UIButton * loginBtn;
+    NSUInteger telphonelength ;
+    NSUInteger checklength ;
+    NSUInteger passwordlength ;
+    NSUInteger passwordchecklength ;
 }
 
 @property (strong, nonatomic) UIButton *getCheckBtn;
-//@property (nonatomic, strong) dispatch_source_t timer;
 @end
 
 @implementation CGRegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    telphonelength = 0;
+    checklength = 0;
+    passwordlength = 0;
+    passwordchecklength = 0;
 }
 
 -(void)initNav{
-    // 在主线程异步加载，使下面的方法最后执行，防止其他的控件挡住了导航栏
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 隐藏系统导航栏
-        self.navigationController.navigationBar.hidden = YES;
-        // 创建假的导航栏
-        UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 44)];
-        [self.view addSubview:navView];
-        // 创建导航栏的titleLabel
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0,44)];
-        titleLabel.text = @"注册";
-        [titleLabel sizeToFit];
-        titleLabel.frame = CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - titleLabel.frame.size.width / 2, 0, titleLabel.frame.size.width, 44);
-        [navView addSubview:titleLabel];
-        // 创建导航栏右边按钮
-//        UIButton *right= [UIButton buttonWithType:UIButtonTypeSystem];
-//        [right setTitle:@"下一页" forState:UIControlStateNormal];
-//        right.frame = CGRectMake(300, 0, 100, 44);
-//        [right addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
-//        [navView addSubview:right];
-        // 创建导航栏左按钮
-        UIButton *left= [UIButton buttonWithType:UIButtonTypeSystem];
-//        [left setTitle:@"上一页" forState:UIControlStateNormal];
-        [left setImage:[UIImage imageNamed:@"cancel-left"] forState:UIControlStateNormal];
-        [left addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-        [navView addSubview:left];
-//        [left.widthAnchor constraintEqualToConstant:20].active = YES;
-//        [left.heightAnchor constraintEqualToConstant:20].active = YES;
-        left.frame = CGRectMake(10, 10, 20, 20);
-    });
-}
-
-- (void) goBack{
-//    CGLoginViewController *vc = [[CGLoginViewController alloc] init];
-//    [ self presentViewController:vc animated: YES completion:nil];
-    [ self dismissViewControllerAnimated: YES completion: nil ];
+    self.navigationItem.title = @"注册";
+    [self setBackButton:YES];
 }
 
 - (void) initUI{
+    
+    UIImageView * bgImageView = [[UIImageView alloc] init];
+    bgImageView.frame = CGRectMake(0 , -NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [bgImageView setImage:[UIImage imageNamed:@"bgLoginImg"]];
+    bgImageView.userInteractionEnabled = YES;
+    [self.view addSubview:bgImageView];
+    
     UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor whiteColor];
+//    bgView.backgroundColor = [UIColor whiteColor];
     bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:bgView];
     
-//    UILabel *pinzhengLab = [[UILabel alloc] init];
-//    pinzhengLab.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    UIImageView *phoneIcon = [[UIImageView alloc] init];
+    phoneIcon.frame = CGRectMake(40 , 99, 18, 18);
+    phoneIcon.image = [UIImage imageNamed:@"phoneIcon"];
+    [bgView addSubview:phoneIcon];
+    
+    dropdownMenu = [[LMJDropdownMenu alloc] init];
+    [dropdownMenu setFrame:CGRectMake(52, 101, 110, 13)];
+    [dropdownMenu setMenuTitles:countries rowHeight:30];
+    dropdownMenu.delegate = self;
+    [dropdownMenu.mainBtn setTitle:@"选择国家" forState:UIControlStateNormal];
+    [dropdownMenu.mainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    dropdownMenu.mainBtn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    [bgView addSubview:dropdownMenu];
+    
+    UILabel *line1 = [[UILabel alloc] init];
+    line1.frame = CGRectMake(40, 126, SCREEN_WIDTH - 40*2, 3);
+    line1.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:line1];
+    
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary]; // 创建属性字典
+    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:14]; // 设置font
+    attrs[NSForegroundColorAttributeName] = [UIColor whiteColor]; // 设置颜色
+    NSAttributedString *accountplace = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:attrs]; // 初始化富文本占位字符串
+    
+    NSAttributedString *checkplace = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:attrs]; // 初始化富文本占位字符串
+    
+    NSAttributedString *passwordplace = [[NSAttributedString alloc] initWithString:@"请输入您的密码" attributes:attrs]; // 初始化富文本占位字符串
+    
+    NSAttributedString *passwordcheckplace = [[NSAttributedString alloc] initWithString:@"请再次输入您的密码" attributes:attrs]; // 初始化富文本占位字符串
     
     _telphone = [[UITextField alloc] init];
-    _telphone.frame = CGRectMake(100, 208, 170, 44);
-    _telphone.placeholder = @"请输入手机号";
-    _telphone.clearButtonMode = UITextFieldViewModeNever;
+    _telphone.frame = CGRectMake(145, 102, SCREEN_WIDTH - 145 - 15 - 17 -5, 11);
+    _telphone.textColor = [UIColor whiteColor];
+    _telphone.attributedPlaceholder = accountplace;
+    _telphone.clearButtonMode = UITextFieldViewModeAlways;
     _telphone.delegate = self;
     _telphone.font = [UIFont systemFontOfSize:14];
     _telphone.borderStyle = UITextBorderStyleNone;
     [bgView addSubview:_telphone];
     
+    UIImageView *checkIcon = [[UIImageView alloc] init];
+    checkIcon.frame = CGRectMake(40 , 153, 18, 18);
+    checkIcon.image = [UIImage imageNamed:@"checkIcon"];
+    [bgView addSubview:checkIcon];
+    
     _check = [[UITextField alloc] init];
-    _check.frame = CGRectMake(100, 268, 170, 44);
-    _check.placeholder = @"请输入验证码";
+    _check.frame = CGRectMake(64, 156, 130, 11);
+    _check.textColor = [UIColor whiteColor];
+    _check.attributedPlaceholder = checkplace;
     _check.clearButtonMode = UITextFieldViewModeNever;
     _check.delegate = self;
     _check.font = [UIFont systemFontOfSize:14];
     _check.borderStyle = UITextBorderStyleNone;
     [bgView addSubview:_check];
     
+    UILabel *shuline = [[UILabel alloc] init];
+    shuline.frame = CGRectMake(SCREEN_WIDTH - 13 -110 -35, 155, 1, 13);
+    shuline.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:shuline];
+    
     _getCheckBtn = [[UIButton alloc] init];
-    _getCheckBtn.frame = CGRectMake(180, 268, 180, 44);
-    [_getCheckBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    _getCheckBtn.frame = CGRectMake(SCREEN_WIDTH - 110 -35, 155, 110, 14);
+    [_getCheckBtn setTitleColor:RGBCOLOR(216,40,40) forState:UIControlStateNormal];
     [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [_getCheckBtn addTarget:self action:@selector(getCheckClick) forControlEvents:UIControlEventTouchUpInside];
+    _getCheckBtn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
     [bgView addSubview:_getCheckBtn];
+    
+    UILabel *line2 = [[UILabel alloc] init];
+    line2.frame = CGRectMake(40, 181, SCREEN_WIDTH - 40*2, 3);
+    line2.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:line2];
+    
+    UIImageView *pswIcon = [[UIImageView alloc] init];
+    pswIcon.frame = CGRectMake(40 , 210, 18, 18);
+    pswIcon.image = [UIImage imageNamed:@"pwdIcon"];
+    [bgView addSubview:pswIcon];
     
     //密码
     _password = [[UITextField alloc] init];
-    _password.frame = CGRectMake(100, 328, 170, 44);
+    _password.frame = CGRectMake(64, 215, 170+72, 13);
     _password.font = [UIFont systemFontOfSize:14];
-    _password.placeholder = @"请输入您的密码";
+    _password.textColor = [UIColor whiteColor];
+    _password.attributedPlaceholder = passwordplace;
+    _password.clearButtonMode = UITextFieldViewModeAlways;
     _password.secureTextEntry = YES;
     _password.borderStyle = UITextBorderStyleNone;
     _password.returnKeyType = UIReturnKeyDone;
@@ -113,17 +147,29 @@
     
     //明暗文按钮
     UIButton *eyeIcon = [[UIButton alloc] init];
-    eyeIcon.frame = CGRectMake(SCREEN_WIDTH - 40, 405, 15, 15);
+    eyeIcon.frame = CGRectMake(SCREEN_WIDTH - 43 - 18, 213, 18, 18);
     [eyeIcon setImage:[UIImage imageNamed:@"eye_close"] forState:UIControlStateNormal];
     [eyeIcon setImage:[UIImage imageNamed:@"eye_open"] forState:UIControlStateSelected];
     eyeIcon.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [eyeIcon addTarget:self action:@selector(eyeEvent:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:eyeIcon];
     
+    UILabel *line3 = [[UILabel alloc] init];
+    line3.frame = CGRectMake(40, 237, SCREEN_WIDTH - 40*2, 3);
+    line3.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:line3];
+    
+    UIImageView *pswIcon2 = [[UIImageView alloc] init];
+    pswIcon2.frame = CGRectMake(40 , 269, 18, 18);
+    pswIcon2.image = [UIImage imageNamed:@"pwdIcon2"];
+    [bgView addSubview:pswIcon2];
+    
     _passwordcheck = [[UITextField alloc] init];
-    _passwordcheck.frame = CGRectMake(100, 388, 170, 44);
+    _passwordcheck.frame = CGRectMake(64, 272, 170+72, 13);
     _passwordcheck.font = [UIFont systemFontOfSize:14];
-    _passwordcheck.placeholder = @"请再次输入您的密码";
+    _passwordcheck.attributedPlaceholder = passwordcheckplace;
+    _passwordcheck.clearButtonMode = UITextFieldViewModeAlways;
+    _passwordcheck.textColor = [UIColor whiteColor];
     _passwordcheck.secureTextEntry = YES;
     _passwordcheck.borderStyle = UITextBorderStyleNone;
     _passwordcheck.returnKeyType = UIReturnKeyDone;
@@ -133,20 +179,28 @@
     
     //明暗文按钮
     UIButton *eyeIcon2 = [[UIButton alloc] init];
-    eyeIcon2.frame = CGRectMake(SCREEN_WIDTH - 40, 405, 15, 15);
+    eyeIcon2.frame = CGRectMake(SCREEN_WIDTH - 43 - 18, 272, 18, 18);
     [eyeIcon2 setImage:[UIImage imageNamed:@"eye_close"] forState:UIControlStateNormal];
     [eyeIcon2 setImage:[UIImage imageNamed:@"eye_open"] forState:UIControlStateSelected];
     eyeIcon2.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [eyeIcon2 addTarget:self action:@selector(eyeEvent2:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:eyeIcon2];
     
-    //登陆按钮
-    UIButton * loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    loginBtn.frame = CGRectMake(15, 505, SCREEN_WIDTH - 30, 44);
+    UILabel *line4 = [[UILabel alloc] init];
+    line4.frame = CGRectMake(40, 297, SCREEN_WIDTH - 40*2, 3);
+    line4.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:line4];
+    
+    //注册按钮
+    loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    loginBtn.frame = CGRectMake(40, 340, SCREEN_WIDTH - 80, 44);
     [loginBtn setTitle:@"注册" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    loginBtn.backgroundColor = RGBCOLOR(226, 81, 74);
+//    loginBtn.backgroundColor = RGBCOLOR(226, 81, 74);
+    loginBtn.backgroundColor = RGBCOLOR(204, 38, 38);
     loginBtn.layer.cornerRadius = 10.0;
+    loginBtn.userInteractionEnabled = NO;
+    loginBtn.alpha=0.6;//透明度
     [loginBtn addTarget:self action:@selector(nextClick) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:loginBtn];
 }
@@ -165,8 +219,12 @@
     [[CGAFHttpRequest shareRequest] checkPhoneWithtelphone:_telphone.text
                                            serverSuccessFn:^(id dict)
      {
-         
-         [self startTimer:_getCheckBtn];
+         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+         if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
+             [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+         }else{
+             [self startTimer:_getCheckBtn];
+         }
          
      }serverFailureFn:^(NSError *error){
          if(error){
@@ -176,11 +234,23 @@
 }
 
 - (void)nextClick{
+    [self.view endEditing:YES];
     [[CGAFHttpRequest shareRequest] registerWithphone:_telphone.text password:_password.text checkNum:_check.text serverSuccessFn:^(id dict) {
         if(dict){
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             NSLog(@"%@",result);
-            [self goBack];
+            
+            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
+                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+            }else{
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"注册成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    loginBtn.enabled = NO;
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+                [alertController addAction:skipAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
@@ -189,46 +259,25 @@
     }];
 }
 
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if([textField isEqual:_telphone]){
+        telphonelength = textField.text.length - range.length + string.length;
+    }else if([textField isEqual:_check]){
+        checklength = textField.text.length - range.length + string.length;
+    }else if([textField isEqual:_password]){
+        passwordlength = textField.text.length - range.length + string.length;
+    }else if([textField isEqual:_passwordcheck]){
+        passwordchecklength = textField.text.length - range.length + string.length;
+    }
+    
+    if (telphonelength > 0 && checklength > 0 && passwordlength > 0 && passwordchecklength > 0) {
+        loginBtn.userInteractionEnabled = YES;
+        loginBtn.alpha = 1;
+    } else {
+        loginBtn.userInteractionEnabled = NO;
+        loginBtn.alpha = 0.6;
+    }
+    return YES;
+}
 
-//- (void)startTimer {
-//    __block NSInteger timeOut = 59; /// 重新获取验证码时长
-//    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
-//    dispatch_source_set_timer(self.timer, DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
-//    dispatch_source_set_event_handler(self.timer, ^{
-//        if (timeOut > 0) {
-//            /// 开始计时
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                /// 设置倒计时样式
-//                [UIView beginAnimations:nil context:nil];
-//                [UIView setAnimationDuration:1.0];
-//                [_getCheckBtn setTitle:[NSString stringWithFormat:@"%ld秒后重新发送",(long)timeOut] forState:UIControlStateNormal];
-//                [UIView commitAnimations];
-//            });
-//            timeOut --;
-//        } else {
-//            /// 销毁计时器
-//            [self cancelTimer];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                _getCheckBtn.enabled = YES;
-//            });
-//
-//        }
-//    });
-//    dispatch_source_set_cancel_handler(self.timer, ^{
-//        /// 设置重新获取样式
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            /// 设置倒计时样式
-//            [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-//            [_getCheckBtn setTitle:@"获取验证码" forState:UIControlStateDisabled];
-//        });
-//    });
-//    dispatch_resume(self.timer);
-//}
-//
-//- (void)cancelTimer {
-//    if (self.timer) {
-//        dispatch_source_cancel(self.timer);
-//        self.timer = nil;
-//    }
-//}
 @end

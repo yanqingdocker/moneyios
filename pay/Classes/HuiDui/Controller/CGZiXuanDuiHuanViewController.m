@@ -29,6 +29,8 @@
     
     CGGetSingleRateModel *model;
     NSString *_huilvStr;
+    
+    float _huilv;
 }
 @end
 
@@ -40,37 +42,23 @@
     
 }
 
-//这么请求有问题啊,但是后台也不好改,有空再想想怎么优化吧
+
 - (void)requestForm{
-    [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@%@",_sellType,_buyType] serverSuccessFn:^(id dict) {
+    [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@:%@",_sellType,_buyType] serverSuccessFn:^(id dict) {
         if(dict){
 
 
             _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             NSLog(@"%@",_result);
             
-            model = [CGGetSingleRateModel objectWithKeyValues:_result];
+//            model = [CGGetSingleRateModel objectWithKeyValues:_result];
             
-            _huilvLab.text = [NSString stringWithFormat:@"当前汇率：%@",model.buyPic];
-
+            _huilvLab.text = [NSString stringWithFormat:@"当前汇率：%@",[_result objectForKey:@"message"]];
+            _huilv = [[_result objectForKey:@"message"] floatValue];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
-            [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@%@",_buyType,_sellType] serverSuccessFn:^(id dict) {
-                if(dict){
-
-
-                    _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                    NSLog(@"%@",_result);
-                    model = [CGGetSingleRateModel objectWithKeyValues:_result];
-                    _huilvLab.text = [NSString stringWithFormat:@"当前汇率：%@",model.sellPic];
-                }
-            } serverFailureFn:^(NSError *error) {
-                if(error){
-                    NSLog(@"%@",error);
-
-                }
-            }];
+            NSLog(@"%@",error);
         }
     }];
     
@@ -272,16 +260,16 @@
     
     float huilv =  [textField.text floatValue];
     
-    if([_buyType isEqualToString:@"USD"]){
-        
-        float huilv2 = [[_result objectForKey:@"buyPic"] floatValue];
+//    if([_buyType isEqualToString:@"USD"]){
+//
+        float huilv2 = _huilv;
         _duihuanAmount.text = [NSString stringWithFormat:@"%0.4f",huilv / huilv2];
-    }
-    if([_buyType isEqualToString:@"CNY"]){
-        
-        float huilv2 = [[_result objectForKey:@"sellPic"] floatValue];
-        _duihuanAmount.text = [NSString stringWithFormat:@"%0.4f",huilv * huilv2];
-    }
+//    }
+//    if([_buyType isEqualToString:@"CNY"]){
+//
+//        float huilv2 = [[_result objectForKey:@"sellPic"] floatValue];
+//        _duihuanAmount.text = [NSString stringWithFormat:@"%0.4f",huilv * huilv2];
+//    }
     
 }
 
@@ -385,6 +373,7 @@
     if ([dropdownMenuLeft.mainBtn.titleLabel.text isEqualToString:dropdownMenuRight.mainBtn.titleLabel.text]) {
         
         _huilvLab.text = [NSString stringWithFormat:@"当前汇率：%@",@"1"];
+        _huilv = 1;
     }else{
         _sellType = dropdownMenuLeft.mainBtn.titleLabel.text;
         _buyType = dropdownMenuRight.mainBtn.titleLabel.text;

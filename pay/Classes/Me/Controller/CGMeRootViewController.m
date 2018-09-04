@@ -10,6 +10,8 @@
 #import "CGSetViewController.h"//设置
 #import "CGMyEmailViewController.h"//我的信箱
 #import "CGZhangHuZongLanViewController.h"//账户总览
+#import "CGBillQueryViewController.h"//账单查询 收支记录
+#import "CGBankCardListViewController.h"//银行卡列表
 
 @interface CGMeRootViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIButton *_headImgBtn;//头像
@@ -21,7 +23,11 @@
     UILabel *_RMBtotalAssets;//折合总资产
     UILabel *_income;//收入
     UILabel *_spending;//支出
-    UserModel *usermodel;
+    UILabel *srLine;//收入线
+    UILabel *zcLine;//支出线
+//    UserModel *usermodel;
+    
+    NSMutableArray *_dataArray;
 }
 
 @property (nonatomic,strong) UIImagePickerController *imagePicker;
@@ -39,8 +45,53 @@
 //    
 //    [self.view addSubview:statusBarView];
     
+    _dataArray = [[NSMutableArray alloc] init];
+}
+
+- (void)requestForm{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{//getuser
+            [[CGAFHttpRequest shareRequest] getPersonCountWithserverSuccessFn:^(id dict) {
+                if(dict){
+                    
+                    _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    
+                    NSLog(@"%@",_dataArray);
+//                    usermodel = [UserModel objectWithKeyValues:_dataArray];
+                    if(![[[_dataArray objectAtIndex:0] objectForKey:@"img"] isEqualToString:@""]){
+                        NSData *data=[[NSData alloc] initWithBase64EncodedString:[[_dataArray objectAtIndex:0] objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                        
+                        [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+                    }
+                    
+                    _nameLab.text = [[_dataArray objectAtIndex:1] objectForKey:@"username"];
+                    _lastLoginLab.text = [[_dataArray objectAtIndex:1] objectForKey:@"time"];//最后登录时间
+                    _totalAssets.text = [[_dataArray objectAtIndex:1] objectForKey:@"num"];//总资产
+                    _RMBtotalAssets.text = [[_dataArray objectAtIndex:1] objectForKey:@"title"];//总资产秒杀文字
+//                    _defaultCountType = usermodel.defaultcount;
+                    
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:[GlobalSingleton Instance].currentUser.defaultcount forKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]];
+                    _income.text = [[_dataArray objectAtIndex:1] objectForKey:@"inmoney"];//收入
+                    _spending.text = [[_dataArray objectAtIndex:1] objectForKey:@"outmoney"];//支出
+                    
+                    float xian1 = [[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue]/([[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue] + [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]);
+                    
+                    float xian2 = [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]/([[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue] + [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]);
+                    
+                    srLine.frame = CGRectMake(41, 109, xian1 * (SCREEN_WIDTH - 41*2), 5);
+                    zcLine.frame = CGRectMake(41 + srLine.frame.size.width, 109, xian2 * (SCREEN_WIDTH - 41*2), 5);
+                }
+            } serverFailureFn:^(NSError *error) {
+                if(error){
+                    NSLog(@"%@",error);
+                }
+            }];
+        });
+    });
     
 }
+
 - (void)initNav{
     
 }
@@ -63,14 +114,9 @@
     [setBtn addTarget:self action:@selector(setClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:setBtn];
     
-    NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
     
     _headImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 48/2, 69, 48, 48)];
-    if(data == nil){
-        [_headImgBtn setImage:[UIImage imageNamed:@"headImg"] forState:UIControlStateNormal];
-    }else{
-        [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-    }
+    [_headImgBtn setImage:[UIImage imageNamed:@"headImg"] forState:UIControlStateNormal];
          
      
     [_headImgBtn addTarget:self action:@selector(headClick) forControlEvents:UIControlEventTouchUpInside];
@@ -118,7 +164,7 @@
 //        botBtn.backgroundColor = [UIColor redColor];
 //        [botBtn setTitle:[NSString stringWithFormat:@"银行卡%d",index] forState:UIControlStateNormal];
         botBtn.tag = 1000+index;
-//        [botBtn addTarget:self action:@selector(botBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [botBtn addTarget:self action:@selector(bankCardClick:) forControlEvents:UIControlEventTouchUpInside];
         [topView addSubview:botBtn];
         
         
@@ -249,11 +295,11 @@
         [benyueshouzhiView addSubview:_spending];
         
         
-        UILabel *srLine = [[UILabel alloc] initWithFrame:CGRectMake(41, 109, 0.62 * (SCREEN_WIDTH - 41*2), 5)];
+        srLine = [[UILabel alloc] initWithFrame:CGRectMake(41, 109, 0.62 * (SCREEN_WIDTH - 41*2), 5)];
         [srLine setBackgroundColor:[UIColor colorWithRed:202.0f/255.0f green:8.0f/255.0f blue:8.0f/255.0f alpha:1.0f]];
         [benyueshouzhiView addSubview:srLine];
         
-        UILabel *zcLine = [[UILabel alloc] initWithFrame:CGRectMake(41 + srLine.frame.size.width, 109, 0.38 * (SCREEN_WIDTH - 41*2), 5)];
+        zcLine = [[UILabel alloc] initWithFrame:CGRectMake(41 + srLine.frame.size.width, 109, 0.38 * (SCREEN_WIDTH - 41*2), 5)];
         [zcLine setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:154.0f/255.0f blue:153.0f/255.0f alpha:1.0f]];
         [benyueshouzhiView addSubview:zcLine];
 //        26362/(26362 + 16112)
@@ -383,6 +429,7 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self requestForm];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -420,6 +467,7 @@
 
 -(void)setClick{
     CGSetViewController *vc = [[CGSetViewController alloc] init];
+//    vc.defaultCountType = _defaultCountType;
     [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 
@@ -429,10 +477,27 @@
         CGMyEmailViewController *vc = [[CGMyEmailViewController alloc] init];
         [self pushViewControllerHiddenTabBar:vc animated:YES];
     }
+    if(btn.tag == 2002){
+        CGBillQueryViewController *vc = [[CGBillQueryViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+    }
     if(btn.tag == 2003){
         CGZhangHuZongLanViewController *vc = [[CGZhangHuZongLanViewController alloc] init];
         [self pushViewControllerHiddenTabBar:vc animated:YES];
     }
+    
+}
+
+-(void)bankCardClick:(UIButton *)btn
+{
+    if(btn.tag == 1000){
+        CGBankCardListViewController *vc = [[CGBankCardListViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
+    }
+//    if(btn.tag == 2003){
+//        CGZhangHuZongLanViewController *vc = [[CGZhangHuZongLanViewController alloc] init];
+//        [self pushViewControllerHiddenTabBar:vc animated:YES];
+//    }
     
 }
 @end
