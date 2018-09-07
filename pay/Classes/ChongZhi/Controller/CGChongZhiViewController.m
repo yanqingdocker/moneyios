@@ -52,7 +52,7 @@
 }
 
 - (void)initUI{
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 + 15, SCREEN_WIDTH, SCREEN_HEIGHT-44-66 -30)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 + 15, SCREEN_WIDTH, 527)];//SCREEN_HEIGHT-44-66 -30
     bgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bgView];
     
@@ -102,12 +102,7 @@
         }
         [cellView addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        cellView.frame = CGRectMake(X+50, Y+top, W, H);
-//        CGSize titleSize = cellView.titleLabel.bounds.size;
-//        CGSize imageSize = cellView.imageView.bounds.size;
-//        CGFloat interval = 1.0;
-//        [cellView setImageEdgeInsets:UIEdgeInsetsMake(0,0, titleSize.height + interval, -(titleSize.width + interval))];
-//        [cellView setTitleEdgeInsets:UIEdgeInsetsMake(imageSize.height + interval, -(imageSize.width + interval), 0, 0)];
+        cellView.frame = CGRectMake(X+rankMargin/2, Y+top, W, H);
         
         [bgView addSubview:cellView];
     }

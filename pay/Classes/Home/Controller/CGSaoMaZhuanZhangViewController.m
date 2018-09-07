@@ -324,30 +324,30 @@
 - (void)passwordView:(XLPasswordView *)passwordView didFinishInput:(NSString *)password
 {
 //    NSLog(@"输入密码位数已满,在这里做一些事情,例如自动校验密码");
-    [[CGAFHttpRequest shareRequest] switchWithcountid:_accountID receivecount:_receivecount moneynum:_moneynum payPwd:password serverSuccessFn:^(id dict) {
-        if(dict){
-            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-                [passwordView clearPassword];
-            }
-            if([[result objectForKey:@"code"] isEqualToString:@"success"]){
-//                [passwordView hidePasswordView];
-//                [MBProgressHUD showText:@"转账成功" toView:self.view];
-                CGJiaoYiDetailsViewController *vc = [[CGJiaoYiDetailsViewController alloc] init];
-                vc.liushuiID = [result objectForKey:@"message"];
-                [self pushViewControllerHiddenTabBar:vc animated:YES];
-            }
-            
-            
-            
-        }
-    } serverFailureFn:^(NSError *error) {
-        if(error){
-            NSLog(@"%@",error);
-        }
-    }];
+//    [[CGAFHttpRequest shareRequest] switchWithcountid:_accountID receivecount:_receivecount moneynum:_moneynum payPwd:password receivetype:_type serverSuccessFn:^(id dict) {
+//        if(dict){
+//            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            
+//            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
+//                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+//                [passwordView clearPassword];
+//            }
+//            if([[result objectForKey:@"code"] isEqualToString:@"success"]){
+////                [passwordView hidePasswordView];
+////                [MBProgressHUD showText:@"转账成功" toView:self.view];
+//                CGJiaoYiDetailsViewController *vc = [[CGJiaoYiDetailsViewController alloc] init];
+//                vc.liushuiID = [result objectForKey:@"message"];
+//                [self pushViewControllerHiddenTabBar:vc animated:YES];
+//            }
+//            
+//            
+//            
+//        }
+//    } serverFailureFn:^(NSError *error) {
+//        if(error){
+//            NSLog(@"%@",error);
+//        }
+//    }];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

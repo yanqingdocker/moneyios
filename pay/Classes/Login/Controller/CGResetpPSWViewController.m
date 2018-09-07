@@ -42,7 +42,6 @@
     [self.view addSubview:bgImageView];
     
     UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor whiteColor];
     bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:bgView];
     
@@ -61,16 +60,15 @@
     
     //密码
     _password = [[UITextField alloc] init];
-    _password.frame = CGRectMake(64, 171, 170+72, 13);
+    _password.frame = CGRectMake(64, 155, SCREEN_WIDTH - 64 - 43 -18 - 5, 44);
     _password.font = [UIFont systemFontOfSize:14];
     _password.textColor = [UIColor whiteColor];
     _password.attributedPlaceholder = passwordplace;
     _password.secureTextEntry = YES;
     _password.borderStyle = UITextBorderStyleNone;
     _password.clearButtonMode = UITextFieldViewModeAlways;
-    _password.returnKeyType = UIReturnKeyDone;
+    _password.autocorrectionType = UITextAutocorrectionTypeNo;
     _password.delegate = self;
-    _password.inputView = [[UIView alloc]init];
     [bgView addSubview:_password];
     
     //明暗文按钮
@@ -93,16 +91,15 @@
     [bgView addSubview:pswIcon2];
     
     _passwordcheck = [[UITextField alloc] init];
-    _passwordcheck.frame = CGRectMake(64, 242, 170+72, 13);
+    _passwordcheck.frame = CGRectMake(64, 228, SCREEN_WIDTH - 64 - 43 -18 - 5, 44);
     _passwordcheck.font = [UIFont systemFontOfSize:14];
     _passwordcheck.attributedPlaceholder = passwordcheckplace;
     _passwordcheck.textColor = [UIColor whiteColor];
     _passwordcheck.clearButtonMode = UITextFieldViewModeAlways;
     _passwordcheck.secureTextEntry = YES;
     _passwordcheck.borderStyle = UITextBorderStyleNone;
-    _passwordcheck.returnKeyType = UIReturnKeyDone;
+    _passwordcheck.autocorrectionType = UITextAutocorrectionTypeNo;
     _passwordcheck.delegate = self;
-    _passwordcheck.inputView = [[UIView alloc]init];
     [bgView addSubview:_passwordcheck];
     
     //明暗文按钮
@@ -184,4 +181,10 @@
     }
     return YES;
 }
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
 @end

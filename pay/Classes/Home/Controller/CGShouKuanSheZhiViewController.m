@@ -23,6 +23,8 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (strong, nonatomic) NSString *amountType;
+@property (strong, nonatomic) NSMutableArray *result;
+@property (strong, nonatomic) NSString *countType;
 
 @end
 
@@ -38,29 +40,33 @@
 - (void)requestForm{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[CGAFHttpRequest shareRequest] queryMoneyTypeWithserverSuccessFn:^(id dict) {
+            
+            [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
                 if(dict){
                     
-                    NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
                     
-                    NSLog(@"%@",result);
+                    _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    NSLog(@"%@",_result);
                     
-                    NSArray * allkeys = [result allKeys];
-                    NSLog(@"allkeys %@",allkeys);
-                    
-                    for (int i = 0; i < allkeys.count; i++)
-                    {
-                        NSString * key = [allkeys objectAtIndex:i];
+                    if([[[_result objectAtIndex:0] objectForKey:@"code"] isEqualToString:@"fail"]){
+                        [MBProgressHUD showText:[[_result objectAtIndex:0] objectForKey:@"message"] toView:self.view];
+                    }else{
                         
-                        //如果你的字典中存储的多种不同的类型,那么最好用id类型去接受它
-                        id obj  = [result objectForKey:key];
-                        NSLog(@"obj %@",obj);
-                        [_dataArray addObject:[NSString stringWithFormat:@"%@(%@)",obj,key]];
+                        _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
+                        //                    _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
+                        
+                        
+                        _dataArray  = [[NSMutableArray alloc] init];
+                        for (int i = 0; i < _result.count; i++) {
+                            [_dataArray addObject:[NSString stringWithFormat:@"%@",[[_result objectAtIndex:i] objectForKey:@"countType"]]];
+                        }
+//                        _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
+                        
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+                        
+                        [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+
                     }
-                    _amountType = _dataArray[0];
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
-                    
-                    [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     
                 }
             } serverFailureFn:^(NSError *error) {
@@ -130,7 +136,7 @@
     if(indexPath.row == 1){
         cell.textLabel.text = @"收款账户";
         if([_dataArray count] > 0){
-            cell.detailTextLabel.text = _amountType;
+            cell.detailTextLabel.text = _countType;
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -160,7 +166,7 @@
 //            }
 //        }
         
-        blockSelf.amountType = str;
+        blockSelf.countType = str;
         [blockSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
 }
@@ -173,11 +179,11 @@
         return;
     }
     //    _submitBtn.enabled = NO;
-    if([_amountType rangeOfString:@"CNY"].location !=NSNotFound){
-        _selectbankcardblock([NSString stringWithFormat:@"¥%@",_amount.text]);//
+    if([_countType rangeOfString:@"CNY"].location !=NSNotFound){
+        _selectbankcardblock([NSString stringWithFormat:@"¥%@",_amount.text],_countType);//
     }
-    if([_amountType rangeOfString:@"USD"].location !=NSNotFound){
-        _selectbankcardblock([NSString stringWithFormat:@"$%@",_amount.text]);//
+    if([_countType rangeOfString:@"USD"].location !=NSNotFound){
+        _selectbankcardblock([NSString stringWithFormat:@"$%@",_amount.text],_countType);//
     }
     [self goBack];
 }

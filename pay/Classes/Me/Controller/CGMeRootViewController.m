@@ -49,36 +49,40 @@
 }
 
 - (void)requestForm{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+    
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{//getuser
             [[CGAFHttpRequest shareRequest] getPersonCountWithserverSuccessFn:^(id dict) {
                 if(dict){
-                    
+
                     _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                    
+
                     NSLog(@"%@",_dataArray);
 //                    usermodel = [UserModel objectWithKeyValues:_dataArray];
-                    if(![[[_dataArray objectAtIndex:0] objectForKey:@"img"] isEqualToString:@""]){
-                        NSData *data=[[NSData alloc] initWithBase64EncodedString:[[_dataArray objectAtIndex:0] objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                        
-                        [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-                    }
-                    
+//                    if(![[[_dataArray objectAtIndex:0] objectForKey:@"img"] isEqualToString:@""]){
+//                        NSData *data=[[NSData alloc] initWithBase64EncodedString:[[_dataArray objectAtIndex:0] objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+//
+//                        [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+//                    }
+                    NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                    [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
                     _nameLab.text = [[_dataArray objectAtIndex:1] objectForKey:@"username"];
                     _lastLoginLab.text = [[_dataArray objectAtIndex:1] objectForKey:@"time"];//最后登录时间
                     _totalAssets.text = [[_dataArray objectAtIndex:1] objectForKey:@"num"];//总资产
-                    _RMBtotalAssets.text = [[_dataArray objectAtIndex:1] objectForKey:@"title"];//总资产秒杀文字
+                    _RMBtotalAssets.text = [[_dataArray objectAtIndex:1] objectForKey:@"title"];//总资产描述文字
 //                    _defaultCountType = usermodel.defaultcount;
-                    
-                    
+
+
                     [[NSUserDefaults standardUserDefaults] setObject:[GlobalSingleton Instance].currentUser.defaultcount forKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]];
                     _income.text = [[_dataArray objectAtIndex:1] objectForKey:@"inmoney"];//收入
                     _spending.text = [[_dataArray objectAtIndex:1] objectForKey:@"outmoney"];//支出
-                    
+
                     float xian1 = [[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue]/([[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue] + [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]);
-                    
+
                     float xian2 = [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]/([[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue] + [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]);
-                    
+
                     srLine.frame = CGRectMake(41, 109, xian1 * (SCREEN_WIDTH - 41*2), 5);
                     zcLine.frame = CGRectMake(41 + srLine.frame.size.width, 109, xian2 * (SCREEN_WIDTH - 41*2), 5);
                 }
@@ -355,20 +359,26 @@
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
     NSString *encodedImageStr = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
+    [GlobalSingleton Instance].currentUser.img = encodedImageStr;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
     //上传头像
     [[CGAFHttpRequest shareRequest] uploadimgAllWithimg:encodedImageStr serverSuccessFn:^(id dict) {
         if(dict){
-            
             NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            
+
             NSLog(@"%@",dataArray);
-            
+
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"error:%@",error);
         }
     }];
+
+        });
+    });
 }
 
 

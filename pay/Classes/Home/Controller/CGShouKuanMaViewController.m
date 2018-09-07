@@ -30,28 +30,19 @@
 
 - (void)requestForm{
     
-    [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
-        if(dict){
-            
-            
-            NSDictionary *_result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",_result);
-            
-//            _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
-//            //            _nameArray = [NSArray arrayWithObjects:@"USD",@"CNY",nil];
-//            //            NSArray *_nameArray = [[NSArray alloc] init];
-//            _array  = [[NSMutableArray alloc] init];
-//            for (int i = 0; i < _result.count; i++) {
-//                [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
-//            }
-//            _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
-//            [_tableView reloadData];
-        }
-    } serverFailureFn:^(NSError *error) {
-        if(error){
-            NSLog(@"%@",error);
-        }
-    }];
+//    [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
+//        if(dict){
+//            
+//            
+//            NSDictionary *_result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",_result);
+//            
+//        }
+//    } serverFailureFn:^(NSError *error) {
+//        if(error){
+//            NSLog(@"%@",error);
+//        }
+//    }];
     
     
 }
@@ -66,7 +57,7 @@
 - (void)initUI
 {
     UIView *bgView = [[UIView alloc] init];
-    bgView.frame = CGRectMake(15, 15, SCREEN_WIDTH - 15*2, 480);
+    bgView.frame = CGRectMake(15, 15, SCREEN_WIDTH - 15*2, SCREEN_HEIGHT - 240);
     bgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bgView];
     
@@ -85,7 +76,8 @@
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:[GlobalSingleton Instance].currentUser.phone forKey:@"phone"];//转入账户的手机号
-//    [dic setObject:img forKey:@"img"];//头像
+    [dic setObject:@"" forKey:@"type"];//资金类型
+    [dic setObject:@"0" forKey:@"num"];//收款金额
     [dic setObject:[GlobalSingleton Instance].currentUser.username forKey:@"username"];//用户名
     
     if(data == nil){
@@ -109,7 +101,7 @@
     }];
     
     _amountLab = [[UILabel alloc] init];
-//    _amountLab.text = @"12232414";
+//    _amountLab.text = @"";
     _amountLab.textColor = [UIColor blackColor];
     _amountLab.textAlignment = NSTextAlignmentCenter;
     _amountLab.font = [UIFont systemFontOfSize:22];
@@ -156,6 +148,13 @@
         make.width.mas_equalTo(@80);
     }];
     
+    [bgView mas_remakeConstraints:^(MASConstraintMaker *make){
+        make.top.equalTo(self.view).offset(15);
+        make.left.equalTo(self.view).offset(15);
+        make.right.equalTo(self.view).offset(-15);
+        make.bottom.equalTo(divider.mas_bottom).offset(20);
+    }];
+    
     UIButton *jiaoyijiluBtn = [[UIButton alloc] init];
     [jiaoyijiluBtn setTitle:@"交易记录" forState:UIControlStateNormal];
     [jiaoyijiluBtn addTarget:self action:@selector(jiaoyijiluClick) forControlEvents:UIControlEventTouchUpInside];
@@ -188,13 +187,13 @@
 
 -(void)receivingsetClick{
     CGShouKuanSheZhiViewController *vc = [[CGShouKuanSheZhiViewController alloc] init];
-    vc.selectbankcardblock = ^(NSString *str){
+    vc.selectbankcardblock = ^(NSString *str,NSString *type){
         NSString * moneynum = [str substringFromIndex:1];
         
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:[GlobalSingleton Instance].currentUser.phone forKey:@"phone"];//转入账户的手机号
-        [dic setObject:moneynum forKey:@"moneynum"];//收款金额
-//        [dic setObject:[GlobalSingleton Instance].currentUser.img forKey:@"img"];//头像
+        [dic setObject:type forKey:@"type"];//资金类型
+        [dic setObject:moneynum forKey:@"num"];//收款金额
         [dic setObject:[GlobalSingleton Instance].currentUser.username forKey:@"username"];//用户名
         
         
@@ -211,18 +210,18 @@
 //    CGShouKuanSheZhiViewController *vc = [[CGShouKuanSheZhiViewController alloc] init];
 //    [self pushViewControllerHiddenTabBar:vc animated:YES];
     
-    [[CGAFHttpRequest shareRequest] queryCountWithID:@"61" serverSuccessFn:^(id dict) {
-        if(dict){
-            
-            
-            NSDictionary *_result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",_result);
-            
-        }
-    } serverFailureFn:^(NSError *error) {
-        if(error){
-            NSLog(@"%@",error);
-        }
-    }];
+//    [[CGAFHttpRequest shareRequest] queryCountWithID: serverSuccessFn:^(id dict) {
+//        if(dict){
+//
+//
+//            NSDictionary *_result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",_result);
+//
+//        }
+//    } serverFailureFn:^(NSError *error) {
+//        if(error){
+//            NSLog(@"%@",error);
+//        }
+//    }];
 }
 @end

@@ -15,8 +15,8 @@
 #ifndef __OPTIMIZE__  //debug release 判断
 //测试地址
 //登录模块
-#define BASEURL             @"http://47.52.196.190"//基础地址
-//#define BASEURL             @"http://192.168.31.12:8082"//yanqing地址
+//#define BASEURL             @"http://47.52.196.190"//基础地址
+#define BASEURL             @"http://192.168.31.12:8082"//yanqing地址
 //#define BASEURL             @"http://192.168.1.3:8082"//自己家地址
 #define CHECKPHONE          @"/user/checkPhone"//获取验证码
 #define REGISTER            @"/user/register"//用户注册
@@ -49,6 +49,8 @@
 #define QUERY               @"/bank/query"//查询单个用户下的所有银行卡
 #define QUERYCOUNT          @"/count/queryCount"//查询单个账户
 #define OPERAQUERYBYUSERID  @"/opera/queryByUserid"//查询账户业务记录
+#define QUERYBYDATE         @"/opera/queryByDate"//根据日期查询账单
+#define QUERYBYTYPE         @"/opera/queryByType"//根据交易类型查询账单
 #define QUERYMESSAGE        @"/message/queryMessage"//查询单个信息接口
 #define QUERYMONEYTYPE      @"/count/queryMoneyType"//查询所有货币类型
 #define GETUSER             @"/user/getuser"//查询单个账户

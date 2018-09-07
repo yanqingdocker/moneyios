@@ -15,5 +15,6 @@
 @property (nonatomic,strong)NSString *cellTextLabel2;
 @property (nonatomic,strong)NSString *amount;
 @property (nonatomic,strong)NSString *phoneNum;
+@property (nonatomic,strong)NSMutableArray *dataArray;
 - (void)showInView:(UIView *)view;
 @end

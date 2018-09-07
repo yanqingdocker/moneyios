@@ -251,4 +251,11 @@
     
 }
 
+#pragma mark - 界面居中布局
+- (void)viewToCenterXWithView:(UIView *)view {
+    CGPoint point = view.center;
+    point.x = CGRectGetWidth(self.view.bounds)*.5f;
+    view.center = point;
+}
+
 @end

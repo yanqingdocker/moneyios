@@ -199,7 +199,12 @@
             }else{
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"开通账户成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self.navigationController popViewControllerAnimated:YES];
+                    if([_from isEqualToString:@"noAccount"]){
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    }else{
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    
                 }];
                 [alertController addAction:skipAction];
                 [self presentViewController:alertController animated:YES completion:nil];

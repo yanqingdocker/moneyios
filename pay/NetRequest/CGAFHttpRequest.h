@@ -142,6 +142,16 @@
 - (void)operaQueryByUseridWithserverSuccessFn:(void(^)(id dict))successFn
                               serverFailureFn:(void(^)(NSError *error))failureFn;
 
+#pragma mark - 根据日期查询账单
+- (void)queryByDateWithdate:(NSString *)date
+            serverSuccessFn:(void(^)(id dict))successFn
+            serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 根据交易类型查询账单
+- (void)queryByTypeWithtype:(NSString *)type
+                        serverSuccessFn:(void(^)(id dict))successFn
+                  serverFailureFn:(void(^)(NSError *error))failureFn;
+
 #pragma mark - 查询单个信息接口
 - (void)queryMessageWithserverID:(NSString *)ID
                        SuccessFn:(void(^)(id dict))successFn
@@ -161,6 +171,7 @@
 - (void)payMentWithcountId:(NSString *)countId
                    cardNum:(NSString *)cardNum
                      phone:(NSString *)phone
+                    payPwd:(NSString *)payPwd
            serverSuccessFn:(void(^)(id dict))successFn
            serverFailureFn:(void(^)(NSError *error))failureFn;
 
@@ -226,6 +237,7 @@
              receivecount:(NSString *)receivecount
                  moneynum:(NSString *)moneynum
                    payPwd:(NSString *)payPwd
+              receivetype:(NSString *)receivetype
           serverSuccessFn:(void(^)(id dict))successFn
           serverFailureFn:(void(^)(NSError *error))failureFn;
 

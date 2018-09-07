@@ -10,6 +10,6 @@
 #import "CGBaseViewController.h"
 
 @interface CGShouKuanSheZhiViewController : CGBaseViewController
-@property(nonatomic,strong)void(^selectbankcardblock)(NSString *);
+@property(nonatomic,strong)void(^selectbankcardblock)(NSString *,NSString *);
 
 @end

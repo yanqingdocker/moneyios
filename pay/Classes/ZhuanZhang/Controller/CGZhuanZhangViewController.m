@@ -122,7 +122,7 @@
     _alipayAccount = [[UITextField alloc] init];
     _alipayAccount.frame = CGRectMake(144, 12, SCREEN_WIDTH - 144 -35, 16);
     _alipayAccount.font = [UIFont systemFontOfSize:18];
-    _alipayAccount.placeholder = @"支付宝账户";
+    _alipayAccount.placeholder = @"手机号";
     _alipayAccount.delegate = self;
     [bgView addSubview:_alipayAccount];
 

@@ -14,10 +14,12 @@
 #import "CGLoginViewController.h"
 #import "CGLoginTabBarController.h"
 #import "CGFeedbackViewController.h"
+#import "XGPush.h"
 
-@interface CGSetViewController ()<UITableViewDataSource,UITableViewDelegate>{
+@interface CGSetViewController ()<UITableViewDataSource,UITableViewDelegate,XGPushTokenManagerDelegate>{
     UITableView *_tableView;
     NSDictionary * _dataArray;
+//    NSString *defaultCountType;
 }
 
 @end
@@ -125,8 +127,9 @@
 
         }
         if(indexPath.row == 1){
+            
             CGAccountDisplayViewController *vc = [[CGAccountDisplayViewController alloc] init];
-//            vc.defaultCountType = _defaultCountType;
+//            vc.defaultCountType = defaultCountType;
             [self pushViewControllerHiddenTabBar:vc animated:YES];
 
         }
@@ -163,7 +166,7 @@
 -(void)logOutClick{
     [[CGAFHttpRequest shareRequest] logoutWithserverSuccessFn:^(id dict) {
         if(dict){
-            
+            [[XGPushTokenManager defaultTokenManager] unbindWithIdentifer:[GlobalSingleton Instance].currentUser.userid type:XGPushTokenBindTypeAccount];
             CGLoginViewController * vc = [[CGLoginViewController alloc]init];
             
             [self.navigationController pushViewController:vc animated:NO];

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CGBaseViewController.h"
 
-@interface CGBounceView : UIViewController
+@interface CGBounceView : CGBaseViewController
 @property(nonatomic,strong)void(^selectbankcardblock)(NSString *);
 @property (nonatomic,strong)NSArray *tuanModel;
 @property (nonatomic,strong)NSString *BVtitle;

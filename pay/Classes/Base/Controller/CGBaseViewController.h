@@ -36,4 +36,6 @@
 
 -(NSString *)convertToJsonData:(NSDictionary *)dict;//NSDictionary 转 NSString
 -(NSString *)getNewBankNumWitOldBankNum:(NSString *)bankNum;
+#pragma mark - 界面居中布局
+- (void)viewToCenterXWithView:(UIView *)view ;
 @end

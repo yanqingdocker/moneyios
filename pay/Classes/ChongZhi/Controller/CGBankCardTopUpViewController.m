@@ -146,22 +146,22 @@
     }];
     
 
-    [[CGAFHttpRequest shareRequest] rechargeWithtradeMoney:_amount payType:@"CNY" countId:@"688485602369"  serverSuccessFn:^(id dict) {
-        if(dict){
-            
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",result);
-            //            self.model=[ComDeAllocationModel mj_objectWithKeyValues:dict];
-//            UserModel *usermodel = [UserModel objectWithKeyValues:result];
-//            usermodel.login = YES;
-            
-            
-            
-        }
-    } serverFailureFn:^(NSError *error) {
-        if(error){
-            NSLog(@"%@",error);
-        }
-    }];
+//    [[CGAFHttpRequest shareRequest] rechargeWithtradeMoney:_amount payType:@"CNY" countId:@"688485602369"  serverSuccessFn:^(id dict) {
+//        if(dict){
+//            
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//            //            self.model=[ComDeAllocationModel mj_objectWithKeyValues:dict];
+////            UserModel *usermodel = [UserModel objectWithKeyValues:result];
+////            usermodel.login = YES;
+//            
+//            
+//            
+//        }
+//    } serverFailureFn:^(NSError *error) {
+//        if(error){
+//            NSLog(@"%@",error);
+//        }
+//    }];
 }
 @end

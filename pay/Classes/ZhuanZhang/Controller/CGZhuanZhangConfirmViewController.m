@@ -30,16 +30,24 @@
     NSString *_countType;
     UIImageView *_headImgView;
     CGBounceView *_accountBV;
+//    BOOL flag;
 }
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *array;
+@property (nonatomic, assign) BOOL flag;
+
 @end
 
 @implementation CGZhuanZhangConfirmViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if([_moneynum isEqualToString:@"0"]){
+        _flag = YES;
+    }else{
+        _flag = NO;
+    }
     // Do any additional setup after loading the view.
     [self requestForm];
 }
@@ -47,39 +55,68 @@
 -(void)requestForm{
     [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
         if(dict){
-            
-            
+
+
             _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             NSLog(@"%@",_result);
             if ([_result count] == 0) {
-                
+
             }else{
-//                if(){
-//                    
+//                if([[[_result objectAtIndex:1] objectForKey:@"code"] isEqualToString:@"fail"]){
+//                    [MBProgressHUD showText:[[_result objectAtIndex:0] objectForKey:@"message"] toView:self.view];
+//                }else{
+
+                    _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
+                    
+                    if([_type isEqualToString:@""]){
+                        _type = _countType;
+                    }
+                    _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
+
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                    NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
+
+                    [_tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
+
+                    _array  = [[NSMutableArray alloc] init];
+                    for (int i = 0; i < _result.count; i++) {
+                        [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
+                    }
+                    _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
 //                }
-                _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
-                _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
-                
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
-                
-                [_tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
-                
-                //            _nameArray = [NSArray arrayWithObjects:@"USD",@"CNY",nil];
-                //            NSArray *_nameArray = [[NSArray alloc] init];
-                _array  = [[NSMutableArray alloc] init];
-                for (int i = 0; i < _result.count; i++) {
-                    [_array addObject:[NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:i] objectForKey:@"cardId"],[[_result objectAtIndex:i] objectForKey:@"countType"]]];
-                }
-                _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:0] objectForKey:@"id"]];
             }
-//            [_tableView reloadData];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);
         }
     }];
+    
+//    [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:_receivecount serverSuccessFn:^(id dict) {
+//        if(dict){
+//            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//
+//            NSData *data=[[NSData alloc] initWithBase64EncodedString:[result objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+//
+////            _imgdata = data;
+//
+//            _headImgView.image = [UIImage imageWithData:data];
+//
+////            CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
+////            vc.moneynum = [params objectForKey:@"num"];
+////            vc.imgdata = data;
+////            vc.type = [params objectForKey:@"type"];
+////            vc.receivecount = [params objectForKey:@"phone"];
+////            vc.username = [params objectForKey:@"username"];//[result objectForKey:@"username"]
+////            [self pushViewControllerHiddenTabBar:vc animated:YES];
+//        }
+//    } serverFailureFn:^(NSError *error) {
+//        if(error){
+//            NSLog(@"%@",error);
+//        }
+//    }];
+
 }
 
 - (void)initNav{
@@ -158,22 +195,46 @@
 }
 
 - (void)confirmEvent{
+    
+    [self.view endEditing:YES];
+    if([_moneynum isEqualToString:@"0"]){
+        [MBProgressHUD showText:@"请输入转账金额" toView:self.view];
+        return;
+    }
+    
     if([_result count] == 0){
         [MBProgressHUD showText:@"抱歉您没有付款账户,无法转账" toView:self.view];
         return;
     }
     
-    [self.view endEditing:YES];
-    XLPasswordView *passwordView = [XLPasswordView passwordView];
-    passwordView.delegate = self;
-    [passwordView showPasswordInView:self.view];
+    if(![_type isEqualToString:_countType]){
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"将通过当日汇率,兑换相应货币后转账" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            XLPasswordView *passwordView = [XLPasswordView passwordView];
+            passwordView.delegate = self;
+            [passwordView showPasswordInView:self.view];
+            
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
+        [alertController addAction:skipAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        XLPasswordView *passwordView = [XLPasswordView passwordView];
+        passwordView.delegate = self;
+        [passwordView showPasswordInView:self.view];
+    }
+    
+    
     
 }
 
 - (void)passwordView:(XLPasswordView *)passwordView didFinishInput:(NSString *)password
 {
     //    NSLog(@"输入密码位数已满,在这里做一些事情,例如自动校验密码");
-    [[CGAFHttpRequest shareRequest] switchWithcountid:_accountID receivecount:_receivecount moneynum:_moneynum payPwd:password serverSuccessFn:^(id dict) {
+    [[CGAFHttpRequest shareRequest] switchWithcountid:_accountID receivecount:_receivecount moneynum:_moneynum payPwd:password receivetype:_type serverSuccessFn:^(id dict) {
         if(dict){
             NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
             
@@ -232,19 +293,37 @@
         cell.titleLab.font = [UIFont systemFontOfSize:11];
         cell.contentText.keyboardType =UIKeyboardTypeDecimalPad;
         
-        if([_countType isEqualToString:@"CNY"]){
+        if([_type isEqualToString:@"CNY"]){
 //            cell.countType = @"CNYIcon";
             cell.img.image = [UIImage imageNamed:@"CNYIcon"];
         }
-        if([_countType isEqualToString:@"USD"]){
+        else if([_type isEqualToString:@"USD"]){
             //            cell.countType = @"CNYIcon";
             cell.img.image = [UIImage imageNamed:@"USDIcon"];
         }
+        else{
+            
+            if([_countType isEqualToString:@"CNY"]){
+                //            cell.countType = @"CNYIcon";
+                cell.img.image = [UIImage imageNamed:@"CNYIcon"];
+            }
+            else if([_countType isEqualToString:@"USD"]){
+                //            cell.countType = @"CNYIcon";
+                cell.img.image = [UIImage imageNamed:@"USDIcon"];
+            }
+        }
         
-        cell.contentText.text = _moneynum;
-        cell.contentText.tag = 1001;
-        cell.contentText.placeholder = @"0.00";
-        cell.contentText.delegate =self;
+        
+        if([_moneynum isEqualToString:@"0"]){
+            cell.contentText.enabled = _flag;
+            cell.contentText.tag = 1001;
+            cell.contentText.placeholder = @"0.00";
+            cell.contentText.delegate =self;
+
+        }else{
+            cell.contentText.text = _moneynum;
+            cell.contentText.enabled = _flag;
+        }
         return cell;
     }
     if (indexPath.row == 1) {
@@ -253,7 +332,12 @@
         //            cell.detailTextLabel.text = _amountType;
         //
         //        }
-        cell.detailTextLabel.text = _account;
+//        if (_type) {
+            cell.detailTextLabel.text = _account;
+//        }else{
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",_typeArray[0]];
+//        }
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     if (indexPath.row == 2) {
@@ -266,7 +350,7 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    [self.view endEditing:YES];
     if (indexPath.row == 1){
         [self selectbankcard];
         
@@ -274,7 +358,7 @@
 }
 
 - (void)selectbankcard{
-    
+
     _accountBV = [[CGBounceView alloc]init];
     _accountBV.BVtitle = @"选择账户";
     _accountBV.tuanModel = _array;
@@ -283,27 +367,30 @@
     _accountBV.selectbankcardblock = ^(NSString *str){
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
-        
+
         for(int i = 0; i < blockSelf.array.count ;i++){
             if([blockSelf.array[i] isEqualToString:str]){
                 _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:i] objectForKey:@"id"]];
                 _countType = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:i] objectForKey:@"countType"]];
+                if(blockSelf.flag){
+                    _type = _countType;
+                }
+                
             }
         }
-        
+
         _account = str;
         [blockSelf.tableView reloadRowsAtIndexPaths:@[indexPath,indexPath1] withRowAnimation:UITableViewRowAnimationNone];
     };
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //    [_nameText resignFirstResponder];
     [self.view endEditing:YES];
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
 //    _amount = textField.text;
     if(textField.tag == 1001){
-        
+
         _moneynum = textField.text;
     }
 }

@@ -412,6 +412,36 @@
                        showHUD:YES];
 }
 
+#pragma mark - 根据日期查询账单
+- (void)queryByDateWithdate:(NSString *)date
+          serverSuccessFn:(void(^)(id dict))successFn
+                              serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"date"] = date;//日期
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYBYDATE]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
+}
+
+#pragma mark - 根据交易类型查询账单
+- (void)queryByTypeWithtype:(NSString *)type
+                      serverSuccessFn:(void(^)(id dict))successFn
+                       serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"type"] = type;//类型
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYBYTYPE]
+                    WithParams:params
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
+}
+
 #pragma mark - 查询单个信息接口
 - (void)queryMessageWithserverID:(NSString *)ID
                      SuccessFn:(void(^)(id dict))successFn
@@ -455,6 +485,7 @@
 - (void)payMentWithcountId:(NSString *)countId
                    cardNum:(NSString *)cardNum
                      phone:(NSString *)phone
+                     payPwd:(NSString *)payPwd
            serverSuccessFn:(void(^)(id dict))successFn
            serverFailureFn:(void(^)(NSError *error))failureFn
 {
@@ -463,8 +494,10 @@
     params[@"countId"] = countId;//账户id
     params[@"cardNum"] = cardNum;//充值金额
     params[@"phone"] = phone;//充值手机号
+    params[@"payPwd"] = payPwd;//支付密码
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,REGISTER]
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,PAYMENT]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -665,6 +698,7 @@
               receivecount:(NSString *)receivecount
                  moneynum:(NSString *)moneynum
                    payPwd:(NSString *)payPwd
+             receivetype:(NSString *)receivetype
           serverSuccessFn:(void(^)(id dict))successFn
           serverFailureFn:(void(^)(NSError *error))failureFn
 {
@@ -674,6 +708,7 @@
     params[@"receivecount"] = receivecount;///转入账户的手机号
     params[@"moneynum"] = moneynum;//待转金额
     params[@"payPwd"] = payPwd;//支付密码
+    params[@"receivetype"] = receivetype;//转账类型(对方设置的情况,使用对方设置的付款类型)
     
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,SWITCH]
                     WithParams:params

@@ -76,12 +76,13 @@
     NSAttributedString *checkplace = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:attrs]; // 初始化富文本占位字符串
     
     _telphone = [[UITextField alloc] init];
-    _telphone.frame = CGRectMake(145, 172, SCREEN_WIDTH - 145 - 15 - 17 -5, 11);
+    _telphone.frame = CGRectMake(145, 156, SCREEN_WIDTH - 145 - 15 - 17 -5, 44);
     _telphone.textColor = [UIColor whiteColor];
     _telphone.attributedPlaceholder = accountplace;
     _telphone.clearButtonMode = UITextFieldViewModeAlways;
     _telphone.delegate = self;
     _telphone.font = [UIFont systemFontOfSize:14];
+    _telphone.keyboardType = UIKeyboardTypeNumberPad;
     _telphone.borderStyle = UITextBorderStyleNone;
     [bgView addSubview:_telphone];
     
@@ -91,13 +92,14 @@
     [bgView addSubview:checkIcon];
     
     _check = [[UITextField alloc] init];
-    _check.frame = CGRectMake(64, 240, 130, 11);
+    _check.frame = CGRectMake(64, 224, 130, 44);
     _check.textColor = [UIColor whiteColor];
     _check.attributedPlaceholder = checkplace;
-//    _check.clearButtonMode = UITextFieldViewModeNever;
+//    _check.clearButtonMode = UITextFieldViewModeAlways;
     _check.delegate = self;
     _check.font = [UIFont systemFontOfSize:14];
     _check.borderStyle = UITextBorderStyleNone;
+    _check.keyboardType = UIKeyboardTypeNumberPad;
     [bgView addSubview:_check];
     
     UILabel *shuline = [[UILabel alloc] init];
@@ -187,6 +189,11 @@
         //        loginBtn.backgroundColor = RGBCOLOR(226, 81, 74);
     }
     return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 @end

@@ -10,5 +10,5 @@
 #import "CGBaseViewController.h"
 
 @interface CGCreatAccountViewController : CGBaseViewController
-
+@property (nonatomic ,strong )NSString *from;
 @end

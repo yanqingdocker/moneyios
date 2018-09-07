@@ -7,7 +7,8 @@
 //
 
 #import "CGMyProfileViewController.h"
-
+#import "UserModel.h"
+#import "CGCheckPhoneViewController.h"
 @interface CGMyProfileViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UITableView *_tableView;
     NSDictionary *_dataArray;
@@ -15,6 +16,7 @@
 }
 
 @property (nonatomic,strong) UIImagePickerController *imagePicker;
+@property (nonatomic,strong) UserModel *userModel;
 @end
 
 @implementation CGMyProfileViewController
@@ -33,7 +35,7 @@
                 if(dict){
                     
                     _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                    
+                    _userModel = [UserModel objectWithKeyValues:_dataArray];
 //                    _dataArray = result[6];
                     NSLog(@"%@",_dataArray);
 
@@ -125,6 +127,7 @@
             [cell addSubview:_headImgView];
         }
         if(indexPath.row == 1){
+            cell.accessoryType = UITableViewCellAccessoryNone;
             cell.textLabel.text = @"用户名";
             if(_dataArray){
                 cell.detailTextLabel.text = [_dataArray objectForKey:@"username"];
@@ -180,35 +183,34 @@
     
     if (indexPath.section == 0){
         if(indexPath.row == 0){
-            //            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-            //            [self pushViewControllerHiddenTabBar:txvc animated:YES];
             [self headClick];
         }
         if(indexPath.row == 1){
-            //            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-            //            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            //            CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
+            //            [self pushViewControllerHiddenTabBar:vc animated:YES];
             
         }
         if(indexPath.row == 2){
-            //            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-            //            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            CGCheckPhoneViewController *vc = [[CGCheckPhoneViewController alloc] init];
+            vc.phone = _userModel.phone;
+            [self pushViewControllerHiddenTabBar:vc animated:YES];
             
         }
     }
     if (indexPath.section == 1){
         if(indexPath.row == 0){
-            //            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-            //            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            //            CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
+            //            [self pushViewControllerHiddenTabBar:vc animated:YES];
             
         }
         if(indexPath.row == 1){
-            //            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-            //            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            //            CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
+            //            [self pushViewControllerHiddenTabBar:vc animated:YES];
             
         }
         if(indexPath.row == 2){
-            //            CGTiXianViewController *txvc = [[CGTiXianViewController alloc] init];
-            //            [self pushViewControllerHiddenTabBar:txvc animated:YES];
+            //            CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
+            //            [self pushViewControllerHiddenTabBar:vc animated:YES];
             
         }
     }
@@ -243,7 +245,7 @@
     }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击了取消");
+//        NSLog(@"点击了取消");
     }];
     
     [actionSheet addAction:cameraAction];

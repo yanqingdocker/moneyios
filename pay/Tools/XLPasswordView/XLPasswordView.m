@@ -217,7 +217,11 @@
         randomKeyboard.xl_width = XLScreenW;
         randomKeyboard.xl_height = XLScreenW * 0.6;
         randomKeyboard.xl_x = 0;
-        randomKeyboard.xl_y = 224 * xl_autoSizeScaleY;
+        if(IS_IPHONE_X){
+            randomKeyboard.xl_y = 224 * xl_autoSizeScaleY - 64;
+        }else{
+            randomKeyboard.xl_y = 224 * xl_autoSizeScaleY;
+        }
         [self.inputContainerView addSubview:randomKeyboard];
         randomKeyboard;
     });

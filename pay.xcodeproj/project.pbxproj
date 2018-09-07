@@ -70,6 +70,13 @@
 		AD16925A2137E36300FFB382 /* CGZhangHuZongLanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692592137E36300FFB382 /* CGZhangHuZongLanViewController.m */; };
 		AD16925E2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD16925D2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m */; };
 		AD1692622137EA9800FFB382 /* CGZhangHuZongLanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */; };
+		AD1C3CDA213F97DC0061B0B1 /* ITContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1C3CC8213F97DC0061B0B1 /* ITContainerController.m */; };
+		AD1C3CDB213F97DC0061B0B1 /* ITBottomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1C3CCC213F97DC0061B0B1 /* ITBottomAnimation.m */; };
+		AD1C3CDC213F97DC0061B0B1 /* ITCenterAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1C3CCE213F97DC0061B0B1 /* ITCenterAnimation.m */; };
+		AD1C3CDD213F97DC0061B0B1 /* ITAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1C3CD0213F97DC0061B0B1 /* ITAnimation.m */; };
+		AD1C3CDE213F97DC0061B0B1 /* ITDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1C3CD3213F97DC0061B0B1 /* ITDatePicker.m */; };
+		AD1C3CDF213F97DC0061B0B1 /* ITAlertBox.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1C3CD8213F97DC0061B0B1 /* ITAlertBox.m */; };
+		AD1C3CE0213F97DC0061B0B1 /* ITPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1C3CD9213F97DC0061B0B1 /* ITPickerView.m */; };
 		AD1FE92D213E152F005B038D /* CGTextSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE92C213E152F005B038D /* CGTextSelectTableViewCell.m */; };
 		AD1FE930213E38CB005B038D /* CGPasswordSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE92F213E38CB005B038D /* CGPasswordSetViewController.m */; };
 		AD1FE933213E3C33005B038D /* CGLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1FE932213E3C33005B038D /* CGLoginPasswordViewController.m */; };
@@ -84,6 +91,7 @@
 		AD26F0FB2133B52400D48656 /* XLPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0F42133B52300D48656 /* XLPasswordView.m */; };
 		AD26F0FE2133C94100D48656 /* CGJiaoYiDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F0FD2133C94100D48656 /* CGJiaoYiDetailsViewController.m */; };
 		AD26F1022133E63300D48656 /* CGJiaoYiDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */; };
+		AD42F12021424C3E000CD43E /* CGNoAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD42F11F21424C3E000CD43E /* CGNoAccountViewController.m */; };
 		AD57350E2135028C00A1B0CF /* CGHuiDuiTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */; };
 		AD57351421350BDC00A1B0CF /* CGAccountSelectiewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD57351321350BDC00A1B0CF /* CGAccountSelectiewController.m */; };
 		AD5735172135291B00A1B0CF /* CGBuyMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5735162135291B00A1B0CF /* CGBuyMoneyViewController.m */; };
@@ -102,6 +110,13 @@
 		ADB901472132EB9A000E1E18 /* CGBillQueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB901462132EB9A000E1E18 /* CGBillQueryTableViewCell.m */; };
 		ADD2AF302131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */; };
 		ADD764742134072100B11B43 /* CGBillDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD764732134072100B11B43 /* CGBillDetailsViewController.m */; };
+		ADEACF402140C045002DFB78 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEACF3F2140C045002DFB78 /* CoreTelephony.framework */; };
+		ADEACF422140C056002DFB78 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEACF412140C055002DFB78 /* SystemConfiguration.framework */; };
+		ADEACF442140C065002DFB78 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEACF432140C065002DFB78 /* UserNotifications.framework */; };
+		ADEACF462140C085002DFB78 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEACF452140C085002DFB78 /* libz.tbd */; };
+		ADEACF482140C091002DFB78 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEACF472140C091002DFB78 /* libsqlite3.tbd */; };
+		ADEACF512140C9A9002DFB78 /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEACF502140C9A8002DFB78 /* libXG-SDK.a */; };
+		ADEACF542141111A002DFB78 /* CGCheckPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADEACF532141111A002DFB78 /* CGCheckPhoneViewController.m */; };
 		ADF6AC05213CCE29009F19BF /* CGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF6AC04213CCE29009F19BF /* CGViewController.m */; };
 		ADF6AC08213D1409009F19BF /* CGLoginTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF6AC07213D1409009F19BF /* CGLoginTabBarController.m */; };
 		ADF6AC0D213D4202009F19BF /* CGAccountDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF6AC0C213D4202009F19BF /* CGAccountDisplayViewController.m */; };
@@ -264,6 +279,22 @@
 		AD16925D2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZhangHuZongLanTableViewCell.m; sourceTree = "<group>"; };
 		AD1692602137EA9800FFB382 /* CGZhangHuZongLanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGZhangHuZongLanModel.h; sourceTree = "<group>"; };
 		AD1692612137EA9800FFB382 /* CGZhangHuZongLanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGZhangHuZongLanModel.m; sourceTree = "<group>"; };
+		AD1C3CC8213F97DC0061B0B1 /* ITContainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITContainerController.m; sourceTree = "<group>"; };
+		AD1C3CC9213F97DC0061B0B1 /* ITContainerControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITContainerControllerProtocol.h; sourceTree = "<group>"; };
+		AD1C3CCA213F97DC0061B0B1 /* ITContainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITContainerController.h; sourceTree = "<group>"; };
+		AD1C3CCC213F97DC0061B0B1 /* ITBottomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITBottomAnimation.m; sourceTree = "<group>"; };
+		AD1C3CCD213F97DC0061B0B1 /* ITAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITAnimation.h; sourceTree = "<group>"; };
+		AD1C3CCE213F97DC0061B0B1 /* ITCenterAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITCenterAnimation.m; sourceTree = "<group>"; };
+		AD1C3CCF213F97DC0061B0B1 /* ITBottomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITBottomAnimation.h; sourceTree = "<group>"; };
+		AD1C3CD0213F97DC0061B0B1 /* ITAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITAnimation.m; sourceTree = "<group>"; };
+		AD1C3CD1213F97DC0061B0B1 /* ITCenterAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITCenterAnimation.h; sourceTree = "<group>"; };
+		AD1C3CD3213F97DC0061B0B1 /* ITDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITDatePicker.m; sourceTree = "<group>"; };
+		AD1C3CD4213F97DC0061B0B1 /* ITAlertBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITAlertBox.h; sourceTree = "<group>"; };
+		AD1C3CD5213F97DC0061B0B1 /* ITPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITPickerView.h; sourceTree = "<group>"; };
+		AD1C3CD6213F97DC0061B0B1 /* ITAppMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITAppMacro.h; sourceTree = "<group>"; };
+		AD1C3CD7213F97DC0061B0B1 /* ITDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITDatePicker.h; sourceTree = "<group>"; };
+		AD1C3CD8213F97DC0061B0B1 /* ITAlertBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITAlertBox.m; sourceTree = "<group>"; };
+		AD1C3CD9213F97DC0061B0B1 /* ITPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITPickerView.m; sourceTree = "<group>"; };
 		AD1FE92B213E152F005B038D /* CGTextSelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGTextSelectTableViewCell.h; sourceTree = "<group>"; };
 		AD1FE92C213E152F005B038D /* CGTextSelectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGTextSelectTableViewCell.m; sourceTree = "<group>"; };
 		AD1FE92E213E38CB005B038D /* CGPasswordSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGPasswordSetViewController.h; sourceTree = "<group>"; };
@@ -292,6 +323,8 @@
 		AD26F0FD2133C94100D48656 /* CGJiaoYiDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGJiaoYiDetailsViewController.m; sourceTree = "<group>"; };
 		AD26F1002133E63300D48656 /* CGJiaoYiDetailsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGJiaoYiDetailsModel.h; sourceTree = "<group>"; };
 		AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGJiaoYiDetailsModel.m; sourceTree = "<group>"; };
+		AD42F11E21424C3E000CD43E /* CGNoAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGNoAccountViewController.h; sourceTree = "<group>"; };
+		AD42F11F21424C3E000CD43E /* CGNoAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGNoAccountViewController.m; sourceTree = "<group>"; };
 		AD57350C2135028C00A1B0CF /* CGHuiDuiTypeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGHuiDuiTypeViewController.h; sourceTree = "<group>"; };
 		AD57350D2135028C00A1B0CF /* CGHuiDuiTypeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGHuiDuiTypeViewController.m; sourceTree = "<group>"; };
 		AD57351221350BDC00A1B0CF /* CGAccountSelectiewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGAccountSelectiewController.h; sourceTree = "<group>"; };
@@ -328,6 +361,16 @@
 		ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGSaoMaZhuanZhangViewController.m; sourceTree = "<group>"; };
 		ADD764722134072100B11B43 /* CGBillDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGBillDetailsViewController.h; sourceTree = "<group>"; };
 		ADD764732134072100B11B43 /* CGBillDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGBillDetailsViewController.m; sourceTree = "<group>"; };
+		ADEACF3F2140C045002DFB78 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		ADEACF412140C055002DFB78 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		ADEACF432140C065002DFB78 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		ADEACF452140C085002DFB78 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		ADEACF472140C091002DFB78 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		ADEACF492140C0A7002DFB78 /* pay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pay.entitlements; sourceTree = "<group>"; };
+		ADEACF4F2140C9A8002DFB78 /* XGPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XGPush.h; sourceTree = "<group>"; };
+		ADEACF502140C9A8002DFB78 /* libXG-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libXG-SDK.a"; sourceTree = "<group>"; };
+		ADEACF522141111A002DFB78 /* CGCheckPhoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGCheckPhoneViewController.h; sourceTree = "<group>"; };
+		ADEACF532141111A002DFB78 /* CGCheckPhoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGCheckPhoneViewController.m; sourceTree = "<group>"; };
 		ADF6AC03213CCE29009F19BF /* CGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGViewController.h; sourceTree = "<group>"; };
 		ADF6AC04213CCE29009F19BF /* CGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGViewController.m; sourceTree = "<group>"; };
 		ADF6AC06213D1409009F19BF /* CGLoginTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGLoginTabBarController.h; sourceTree = "<group>"; };
@@ -359,8 +402,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADEACF482140C091002DFB78 /* libsqlite3.tbd in Frameworks */,
+				ADEACF462140C085002DFB78 /* libz.tbd in Frameworks */,
+				ADEACF442140C065002DFB78 /* UserNotifications.framework in Frameworks */,
+				ADEACF422140C056002DFB78 /* SystemConfiguration.framework in Frameworks */,
+				ADEACF402140C045002DFB78 /* CoreTelephony.framework in Frameworks */,
 				96C782CB2112A5AB00EC6EEB /* JhtMarquee.framework in Frameworks */,
 				4BF45B24846B135165BFADAF /* libPods-pay.a in Frameworks */,
+				ADEACF512140C9A9002DFB78 /* libXG-SDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +442,11 @@
 		87B1CE0098D28D71199B3311 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADEACF472140C091002DFB78 /* libsqlite3.tbd */,
+				ADEACF452140C085002DFB78 /* libz.tbd */,
+				ADEACF432140C065002DFB78 /* UserNotifications.framework */,
+				ADEACF412140C055002DFB78 /* SystemConfiguration.framework */,
+				ADEACF3F2140C045002DFB78 /* CoreTelephony.framework */,
 				96C782CA2112A5AA00EC6EEB /* JhtMarquee.framework */,
 				5EAEAC6E5792182B3FB64691 /* libPods-pay.a */,
 			);
@@ -517,6 +571,7 @@
 		966E48C421102E0A00839CE7 /* pay */ = {
 			isa = PBXGroup;
 			children = (
+				ADEACF492140C0A7002DFB78 /* pay.entitlements */,
 				966E48D321102E0D00839CE7 /* Info.plist */,
 				966E48FD2110325800839CE7 /* Classes */,
 				966E48FC2110325100839CE7 /* Config */,
@@ -581,6 +636,8 @@
 		966E48FB2110324100839CE7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				ADEACF4E2140C9A8002DFB78 /* XGPush */,
+				AD1C3CC6213F97DC0061B0B1 /* ITAlertBox */,
 				AD26F0E52133B52300D48656 /* XLPasswordView */,
 				ADF7D67B212F9F16008D18FA /* QRCode */,
 				964ABE2F2126CCDD0048FC2C /* LMJDropdownMenu.h */,
@@ -806,6 +863,8 @@
 				ADD2AF2F2131A4C00031E3E8 /* CGSaoMaZhuanZhangViewController.m */,
 				AD26F0FC2133C94100D48656 /* CGJiaoYiDetailsViewController.h */,
 				AD26F0FD2133C94100D48656 /* CGJiaoYiDetailsViewController.m */,
+				AD42F11E21424C3E000CD43E /* CGNoAccountViewController.h */,
+				AD42F11F21424C3E000CD43E /* CGNoAccountViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -815,10 +874,6 @@
 			children = (
 				96C8494A21113DE400CC7267 /* CGMeRootViewController.h */,
 				96C8494B21113DE400CC7267 /* CGMeRootViewController.m */,
-				964ABE37212AC4B10048FC2C /* CGSetViewController.h */,
-				964ABE38212AC4B10048FC2C /* CGSetViewController.m */,
-				965256F4212D619D0026827A /* CGMyProfileViewController.h */,
-				965256F5212D619D0026827A /* CGMyProfileViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -922,6 +977,53 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AD1C3CC6213F97DC0061B0B1 /* ITAlertBox */ = {
+			isa = PBXGroup;
+			children = (
+				AD1C3CC7213F97DC0061B0B1 /* Controller */,
+				AD1C3CCB213F97DC0061B0B1 /* Model */,
+				AD1C3CD2213F97DC0061B0B1 /* View */,
+			);
+			path = ITAlertBox;
+			sourceTree = "<group>";
+		};
+		AD1C3CC7213F97DC0061B0B1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AD1C3CC8213F97DC0061B0B1 /* ITContainerController.m */,
+				AD1C3CC9213F97DC0061B0B1 /* ITContainerControllerProtocol.h */,
+				AD1C3CCA213F97DC0061B0B1 /* ITContainerController.h */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AD1C3CCB213F97DC0061B0B1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD1C3CCC213F97DC0061B0B1 /* ITBottomAnimation.m */,
+				AD1C3CCD213F97DC0061B0B1 /* ITAnimation.h */,
+				AD1C3CCE213F97DC0061B0B1 /* ITCenterAnimation.m */,
+				AD1C3CCF213F97DC0061B0B1 /* ITBottomAnimation.h */,
+				AD1C3CD0213F97DC0061B0B1 /* ITAnimation.m */,
+				AD1C3CD1213F97DC0061B0B1 /* ITCenterAnimation.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AD1C3CD2213F97DC0061B0B1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AD1C3CD3213F97DC0061B0B1 /* ITDatePicker.m */,
+				AD1C3CD4213F97DC0061B0B1 /* ITAlertBox.h */,
+				AD1C3CD5213F97DC0061B0B1 /* ITPickerView.h */,
+				AD1C3CD6213F97DC0061B0B1 /* ITAppMacro.h */,
+				AD1C3CD7213F97DC0061B0B1 /* ITDatePicker.h */,
+				AD1C3CD8213F97DC0061B0B1 /* ITAlertBox.m */,
+				AD1C3CD9213F97DC0061B0B1 /* ITPickerView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		AD1FE92A213E14F0005B038D /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,6 +1067,13 @@
 			children = (
 				AD26F1002133E63300D48656 /* CGJiaoYiDetailsModel.h */,
 				AD26F1012133E63300D48656 /* CGJiaoYiDetailsModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AD42F11D21421E31000CD43E /* Model */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1095,9 +1204,39 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		ADEACF4E2140C9A8002DFB78 /* XGPush */ = {
+			isa = PBXGroup;
+			children = (
+				ADEACF4F2140C9A8002DFB78 /* XGPush.h */,
+				ADEACF502140C9A8002DFB78 /* libXG-SDK.a */,
+			);
+			path = XGPush;
+			sourceTree = "<group>";
+		};
+		ADEACF552141115C002DFB78 /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				AD42F11D21421E31000CD43E /* Model */,
+				ADEACF562141118C002DFB78 /* Controller */,
+			);
+			path = MyProfile;
+			sourceTree = "<group>";
+		};
+		ADEACF562141118C002DFB78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				965256F4212D619D0026827A /* CGMyProfileViewController.h */,
+				965256F5212D619D0026827A /* CGMyProfileViewController.m */,
+				ADEACF522141111A002DFB78 /* CGCheckPhoneViewController.h */,
+				ADEACF532141111A002DFB78 /* CGCheckPhoneViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		ADF6AC09213D417A009F19BF /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				ADEACF552141115C002DFB78 /* MyProfile */,
 				AD1FE92A213E14F0005B038D /* View */,
 				ADF6AC0A213D41A0009F19BF /* Controller */,
 			);
@@ -1107,6 +1246,8 @@
 		ADF6AC0A213D41A0009F19BF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				964ABE37212AC4B10048FC2C /* CGSetViewController.h */,
+				964ABE38212AC4B10048FC2C /* CGSetViewController.m */,
 				ADF6AC0B213D4202009F19BF /* CGAccountDisplayViewController.h */,
 				ADF6AC0C213D4202009F19BF /* CGAccountDisplayViewController.m */,
 				AD1FE92E213E38CB005B038D /* CGPasswordSetViewController.h */,
@@ -1210,6 +1351,14 @@
 				TargetAttributes = {
 					966E48C121102E0A00839CE7 = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					966E48D921102E0E00839CE7 = {
 						CreatedOnToolsVersion = 9.3;
@@ -1315,10 +1464,12 @@
 			files = (
 				96C8494F2111676000CC7267 /* UIColor+ColorChange.m in Sources */,
 				ADF7D68A212F9F16008D18FA /* HMScannerMaskView.m in Sources */,
+				AD1C3CDC213F97DC0061B0B1 /* ITCenterAnimation.m in Sources */,
 				ADF6AC05213CCE29009F19BF /* CGViewController.m in Sources */,
 				AD26F0F52133B52400D48656 /* UIView+XLPasswordView.m in Sources */,
 				964ABE3C212AE4900048FC2C /* CGBankCardTopUpViewController.m in Sources */,
 				AD57351A21354EF200A1B0CF /* CGZiXuanDuiHuanViewController.m in Sources */,
+				AD1C3CDB213F97DC0061B0B1 /* ITBottomAnimation.m in Sources */,
 				964ABE312126CCDD0048FC2C /* LMJDropdownMenu.m in Sources */,
 				9667EA02211BF10C0024BFF3 /* CGNetworkingManager.m in Sources */,
 				AD1FE92D213E152F005B038D /* CGTextSelectTableViewCell.m in Sources */,
@@ -1368,6 +1519,7 @@
 				964ABE40212AE7E00048FC2C /* CGSelectAccountTableViewCell.m in Sources */,
 				AD794A102138ED4F00DD34ED /* CGCreatAccountViewController.m in Sources */,
 				AD794A1C2139286300DD34ED /* CGBankCardListTableViewCell.m in Sources */,
+				AD1C3CE0213F97DC0061B0B1 /* ITPickerView.m in Sources */,
 				965256E8212D0DEB0026827A /* CGJiaoFeiTypeViewController.m in Sources */,
 				9621944A2125719F00A7AFCC /* MBProgressHUD+Extension.m in Sources */,
 				96531BBA211ADF69009613AF /* CGZhuanZhangJiLuViewController.m in Sources */,
@@ -1375,9 +1527,11 @@
 				AD26F1022133E63300D48656 /* CGJiaoYiDetailsModel.m in Sources */,
 				962B2BFA212BB91C00F2F030 /* GlobalSingleton.m in Sources */,
 				96C782D32112D35E00EC6EEB /* CGTiXianViewController.m in Sources */,
+				AD1C3CDA213F97DC0061B0B1 /* ITContainerController.m in Sources */,
 				AD1FE930213E38CB005B038D /* CGPasswordSetViewController.m in Sources */,
 				96E68EAF211998F800453A4A /* CGChongZhiViewController.m in Sources */,
 				AD26F0F72133B52400D48656 /* UIColor+XLPasswordView.m in Sources */,
+				AD42F12021424C3E000CD43E /* CGNoAccountViewController.m in Sources */,
 				AD16925E2137E4A700FFB382 /* CGZhangHuZongLanTableViewCell.m in Sources */,
 				AD1692622137EA9800FFB382 /* CGZhangHuZongLanModel.m in Sources */,
 				96C8494C21113DE400CC7267 /* CGMeRootViewController.m in Sources */,
@@ -1408,6 +1562,10 @@
 				ADF7D689212F9F16008D18FA /* HMScannerBorder.m in Sources */,
 				96531BB2211A92F1009613AF /* CGZhuanZhangConfirmViewController.m in Sources */,
 				96E68E9D2118208F00453A4A /* CGTopUpDetailTableViewCell.m in Sources */,
+				AD1C3CDE213F97DC0061B0B1 /* ITDatePicker.m in Sources */,
+				AD1C3CDF213F97DC0061B0B1 /* ITAlertBox.m in Sources */,
+				AD1C3CDD213F97DC0061B0B1 /* ITAnimation.m in Sources */,
+				ADEACF542141111A002DFB78 /* CGCheckPhoneViewController.m in Sources */,
 				965256F6212D619D0026827A /* CGMyProfileViewController.m in Sources */,
 				966E491821109CA100839CE7 /* CGInitProcess.m in Sources */,
 				96E68EAC21197E6700453A4A /* CGConfirmPaymentView.m in Sources */,
@@ -1577,6 +1735,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = pay/pay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C775AJX9C7;
@@ -1590,6 +1749,13 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/pay/Tools/sdk",
+					"$(PROJECT_DIR)/pay/Tools/sdk/extesion",
+					"$(PROJECT_DIR)/pay/Tools/sdk/idfa",
+					"$(PROJECT_DIR)/pay/Tools/XGPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cgaf.pay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1605,6 +1771,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = pay/pay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C775AJX9C7;
@@ -1618,6 +1785,13 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/pay/Tools/sdk",
+					"$(PROJECT_DIR)/pay/Tools/sdk/extesion",
+					"$(PROJECT_DIR)/pay/Tools/sdk/idfa",
+					"$(PROJECT_DIR)/pay/Tools/XGPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cgaf.pay;
 				PRODUCT_NAME = "$(TARGET_NAME)";

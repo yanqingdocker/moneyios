@@ -13,6 +13,7 @@
     UITableView *_tableView;
     NSMutableArray * _dataArray;
     NSArray * allkeys;
+    NSString * defaultCountType;
 }
 @property (assign, nonatomic) NSIndexPath *selIndex;//单选，当前选中的行
 @end
@@ -28,26 +29,48 @@
 
 
 - (void)requestForm{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{//queryMoneyTypeWithserverSuccessFn
-            [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{//queryMoneyTypeWithserverSuccessFn
+    
+    
+            [[CGAFHttpRequest shareRequest] getuserWithserverSuccessFn:^(id dict) {
                 if(dict){
+
+                    NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+
+                    NSLog(@"%@",dataArray);//defaultcount
+                    defaultCountType = [dataArray objectForKey:@"defaultcount"];
+                    [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
+                        if(dict){
+                            
+                            _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                            
+                            NSLog(@"%@",_dataArray);
+                            //                    allkeys = [_dataArray allKeys];
+                            
+                            [_tableView reloadData];
+                        }
+                    } serverFailureFn:^(NSError *error) {
+                        if(error){
+                            NSLog(@"%@",error);
+                        }
+                    }];
                     
-                    _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                    
-                    NSLog(@"%@",_dataArray);
-//                    allkeys = [_dataArray allKeys];
-                    
-                    [_tableView reloadData];
                 }
             } serverFailureFn:^(NSError *error) {
                 if(error){
                     NSLog(@"%@",error);
                 }
             }];
-        });
-    });
+//
+//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//        });
+//        dispatch_async(dispatch_get_main_queue(), ^{//queryMoneyTypeWithserverSuccessFn
     
+//        });
+    
+//    });
 }
 - (void)initNav{
     self.navigationItem.title = @"账户设置";
@@ -97,7 +120,11 @@
 //        weakCell.selectImg.image = [UIImage imageNamed:@"addIcon"];
 //    }
     
-    if ([[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]]]) {
+    
+//    if ([[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]]]) {
+//        weakCell.selectImg.image = [UIImage imageNamed:@"selectIcon"];
+//    }
+    if ([[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:defaultCountType]) {
         weakCell.selectImg.image = [UIImage imageNamed:@"selectIcon"];
     }
     //当上下滑动时因为cell复用，需要判断哪个选择了

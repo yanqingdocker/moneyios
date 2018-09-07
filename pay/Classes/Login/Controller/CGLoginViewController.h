@@ -10,5 +10,5 @@
 
 
 @interface CGLoginViewController : CGBaseViewController
-
+-(void) updateNotification:(NSString *) str;
 @end

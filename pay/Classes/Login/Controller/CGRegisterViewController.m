@@ -49,7 +49,6 @@
     [self.view addSubview:bgImageView];
     
     UIView *bgView = [[UIView alloc] init];
-//    bgView.backgroundColor = [UIColor whiteColor];
     bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:bgView];
     
@@ -84,13 +83,14 @@
     NSAttributedString *passwordcheckplace = [[NSAttributedString alloc] initWithString:@"请再次输入您的密码" attributes:attrs]; // 初始化富文本占位字符串
     
     _telphone = [[UITextField alloc] init];
-    _telphone.frame = CGRectMake(145, 102, SCREEN_WIDTH - 145 - 15 - 17 -5, 11);
+    _telphone.frame = CGRectMake(145, 86, SCREEN_WIDTH - 145 - 15 - 17 -5, 44);
     _telphone.textColor = [UIColor whiteColor];
     _telphone.attributedPlaceholder = accountplace;
     _telphone.clearButtonMode = UITextFieldViewModeAlways;
     _telphone.delegate = self;
     _telphone.font = [UIFont systemFontOfSize:14];
     _telphone.borderStyle = UITextBorderStyleNone;
+    _telphone.keyboardType = UIKeyboardTypeNumberPad;
     [bgView addSubview:_telphone];
     
     UIImageView *checkIcon = [[UIImageView alloc] init];
@@ -99,13 +99,14 @@
     [bgView addSubview:checkIcon];
     
     _check = [[UITextField alloc] init];
-    _check.frame = CGRectMake(64, 156, 130, 11);
+    _check.frame = CGRectMake(64, 140, 130, 44);
     _check.textColor = [UIColor whiteColor];
     _check.attributedPlaceholder = checkplace;
     _check.clearButtonMode = UITextFieldViewModeNever;
     _check.delegate = self;
     _check.font = [UIFont systemFontOfSize:14];
     _check.borderStyle = UITextBorderStyleNone;
+    _check.keyboardType = UIKeyboardTypeNumberPad;
     [bgView addSubview:_check];
     
     UILabel *shuline = [[UILabel alloc] init];
@@ -133,16 +134,15 @@
     
     //密码
     _password = [[UITextField alloc] init];
-    _password.frame = CGRectMake(64, 215, 170+72, 13);
+    _password.frame = CGRectMake(64, 199, SCREEN_WIDTH - 64 - 43 -18 - 5, 44);
     _password.font = [UIFont systemFontOfSize:14];
     _password.textColor = [UIColor whiteColor];
     _password.attributedPlaceholder = passwordplace;
     _password.clearButtonMode = UITextFieldViewModeAlways;
     _password.secureTextEntry = YES;
     _password.borderStyle = UITextBorderStyleNone;
-    _password.returnKeyType = UIReturnKeyDone;
+    _password.autocorrectionType = UITextAutocorrectionTypeNo;
     _password.delegate = self;
-    _password.inputView = [[UIView alloc]init];
     [bgView addSubview:_password];
     
     //明暗文按钮
@@ -165,16 +165,16 @@
     [bgView addSubview:pswIcon2];
     
     _passwordcheck = [[UITextField alloc] init];
-    _passwordcheck.frame = CGRectMake(64, 272, 170+72, 13);
+    _passwordcheck.frame = CGRectMake(64, 256, SCREEN_WIDTH - 64 - 43 -18 - 5, 44);
     _passwordcheck.font = [UIFont systemFontOfSize:14];
     _passwordcheck.attributedPlaceholder = passwordcheckplace;
     _passwordcheck.clearButtonMode = UITextFieldViewModeAlways;
     _passwordcheck.textColor = [UIColor whiteColor];
     _passwordcheck.secureTextEntry = YES;
     _passwordcheck.borderStyle = UITextBorderStyleNone;
-    _passwordcheck.returnKeyType = UIReturnKeyDone;
+    _passwordcheck.autocorrectionType = UITextAutocorrectionTypeNo;
     _passwordcheck.delegate = self;
-    _passwordcheck.inputView = [[UIView alloc]init];
+//    _passwordcheck.inputView = [[UIView alloc]init];
     [bgView addSubview:_passwordcheck];
     
     //明暗文按钮
@@ -278,6 +278,11 @@
         loginBtn.alpha = 0.6;
     }
     return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 @end
