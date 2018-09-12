@@ -141,13 +141,11 @@
 
 - (void)nextClick{
     [[CGAFHttpRequest shareRequest] resetpwdWithtelphone:self.telphone password:_password.text serverSuccessFn:^(id dict) {
-        if(dict){
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+        
+            NSDictionary *result = dict[@"data"];
             NSLog(@"%@",result);
             
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-            }else{
+        
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"重置密码成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     loginBtn.enabled = NO;
@@ -155,9 +153,9 @@
                 }];
                 [alertController addAction:skipAction];
                 [self presentViewController:alertController animated:YES completion:nil];
-            }
+            
         
-        }
+        
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);

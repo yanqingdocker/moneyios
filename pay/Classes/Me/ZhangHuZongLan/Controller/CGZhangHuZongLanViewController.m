@@ -44,7 +44,7 @@
     [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
         if(dict){
             
-            NSMutableArray *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSMutableArray *result = dict[@"data"];
             _result = [result mutableCopy];
             NSLog(@"%@",_result);
             
@@ -249,11 +249,10 @@
         [[CGAFHttpRequest shareRequest] logoutCountWithID:_ZHZLModel.id serverSuccessFn:^(id dict) {
             if(dict){
                 
-                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                if ([[result objectForKey:@"code"] isEqualToString:@"fail"]) {
-                    [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-                }else{
+//                NSDictionary *result = dict[@"data"];
+                if ([[dict objectForKey:@"code"] isEqualToString:@"1004"]) {
                     [self requestForm];
+                    
                 }
                 
             }

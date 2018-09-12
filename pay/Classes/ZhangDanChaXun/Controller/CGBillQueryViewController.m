@@ -10,6 +10,7 @@
 #import "CGBillQueryTableViewCell.h"
 #import "CGBillDetailsViewController.h"
 #import "ITDatePicker.h"
+#import "MJRefresh.h"
 
 @interface CGBillQueryViewController ()<UITableViewDelegate,UITableViewDataSource,ITAlertBoxDelegate,UIGestureRecognizerDelegate>{
     UITapGestureRecognizer *_tapGesture;
@@ -27,12 +28,17 @@
 }
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UITableView *typeTableView;
+@property (nonatomic, assign) NSInteger page;//当前页
+@property (strong, nonatomic) NSString *queryType;
+@property (strong, nonatomic) NSString *queryDate;
 
 @end
 
 @implementation CGBillQueryViewController
 
 - (void)viewDidLoad {
+    _queryDate = nil;
+    _queryType = nil;
     [super viewDidLoad];
     result = [[NSMutableArray alloc] init];
     [self requestForm];
@@ -42,17 +48,39 @@
 - (void)requestForm{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[CGAFHttpRequest shareRequest] operaQueryByUseridWithserverSuccessFn:^(id dict) {
-                if(dict){
-                    
-                    result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            [[CGAFHttpRequest shareRequest] operaQueryByUseridWithpage:_page serverSuccessFn:^(id dict) {
+                
+                _tableView.footer.hidden = NO;
+                [_tableView.header endRefreshing];
+                
+                [_tableView.footer endRefreshing];
+                if([dict[@"code"] integerValue] == 1004){
+                    if(_page == 0){
+                        [result removeAllObjects];
+                    }
+                    [result addObjectsFromArray:dict[@"data"]];
                     
                     NSLog(@"%@",result);
                     [_tableView reloadData];
+                    
+                    //如果已经加载到最后一页
+                    if([dict[@"data"] count] == 0){
+                        [_tableView.footer noticeNoMoreData];
+                        if(_page == 0){
+                            _tableView.footer.hidden = YES;
+                        }
+                        
+                    }
                 }
+                
+                
             } serverFailureFn:^(NSError *error) {
                 if(error){
                     NSLog(@"%@",error);
+                    
+                    [_tableView.header endRefreshing];
+                    
+                    [_tableView.footer endRefreshing];
                 }
             }];
         });
@@ -96,12 +124,49 @@
     _tableView=[[UITableView alloc]initWithFrame:tableframe style:UITableViewStylePlain];
     _tableView.delegate=self;
     _tableView.dataSource=self;
-    _tableView.bounces = NO;
+//    _tableView.bounces = NO;
     _tableView.estimatedRowHeight = 0;
     _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.header  = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
+    _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    _tableView.footer.hidden = YES;
     [self.view addSubview:_tableView];
+}
+#pragma mark - 下拉刷新
+
+- (void)headRefresh{
+    self.page = 0;
+    _tableView.footer.hidden = NO;
+    if(_queryType == nil && _queryDate == nil){
+        [self requestForm];
+        return;
+    }else if(_queryType == nil){
+        [self queryByDate:_queryDate];
+    }else if(_queryDate == nil){
+        [self queryByType:_queryType];
+    }
+    
+    
+}
+
+#pragma mark - 上拉加载
+
+- (void)footerRefresh{
+    self.page ++;
+//    [self requestForm];
+//    [self queryByType:_queryType];
+    if(_queryType == nil && _queryDate == nil){
+        [self requestForm];
+        return;
+    }else if(_queryType == nil){
+        [self queryByDate:_queryDate];
+    }else if(_queryDate == nil){
+        [self queryByType:_queryType];
+    }
+    
 }
 
 //解决tableView和手势冲突问题
@@ -119,7 +184,7 @@
 
 -(void)selectTypeClick{
     datePickerView = [[UIView alloc] init];
-    datePickerView.frame = CGRectMake(0, 44, SCREEN_WIDTH, SCREEN_HEIGHT);
+    datePickerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     datePickerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     datePickerView.userInteractionEnabled = YES;
 //    [datePickerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
@@ -225,23 +290,52 @@
 #pragma mark - ITAlertBoxDelegate
 
 - (void)alertBox:(ITAlertBox *)alertBox didSelectedResult:(NSString *)dateString {
+    
     if(dateString){
-        [[CGAFHttpRequest shareRequest] queryByDateWithdate:dateString serverSuccessFn:^(id dict) {
-            if(dict){
-                
-                result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                
-                NSLog(@"%@",result);
-                [_tableView reloadData];
-            }
-        } serverFailureFn:^(NSError *error) {
-            if(error){
-                NSLog(@"%@",error);
-            }
-        }];
+        _queryDate = dateString;
+        _page = 0;
+        [self queryByDate:_queryDate];
+        
     }
     
     [self disMissView];
+}
+
+-(void)queryByDate:(NSString *)date{
+    [[CGAFHttpRequest shareRequest] queryByDateWithdate:date page:_page serverSuccessFn:^(id dict) {
+        _tableView.footer.hidden = NO;
+        [_tableView.header endRefreshing];
+        
+        [_tableView.footer endRefreshing];
+        if([dict[@"code"] integerValue] == 1004){
+            if(_page == 0){
+                [result removeAllObjects];
+            }
+            _queryType = nil;
+            [result addObjectsFromArray:dict[@"data"]];
+            
+            NSLog(@"%@",result);
+            [_tableView reloadData];
+            
+            //如果已经加载到最后一页
+            if([dict[@"data"] count] == 0){
+                [_tableView.footer noticeNoMoreData];
+                if(_page == 0){
+                    _tableView.footer.hidden = YES;
+                }
+            }
+        }
+        
+        
+        
+    } serverFailureFn:^(NSError *error) {
+        if(error){
+            NSLog(@"%@",error);
+            [_tableView.header endRefreshing];
+            
+            [_tableView.footer endRefreshing];
+        }
+    }];
 }
 
 #pragma mark - 代理方法
@@ -266,7 +360,20 @@
         CGBillQueryTableViewCell *cell = [CGBillQueryTableViewCell cellForTableView:tableView];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        //    cell.imgData = //返回数据暂无头像
+        NSData *data=[[NSData alloc] initWithBase64EncodedString:[[result objectAtIndex:indexPath.row] objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+//        headImgView.image = [UIImage imageWithData:data];
+
+        
+        
+        
+        if(data.length > 0){
+//            imgView.image = [UIImage imageWithData:_imgData];
+            cell.headimg.image = [UIImage imageWithData:data];
+        }else{
+//            imgView.image = [UIImage imageNamed:@"headImg"];
+            cell.headimg.image = [UIImage imageNamed:@"headImg"];
+        }
+        
         cell.title.text = [[result objectAtIndex:indexPath.row] objectForKey:@"operaUser"];
         if([[[result objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:@"CNY"]){
             cell.amount.text = [NSString stringWithFormat:@"¥%@",[[result objectAtIndex:indexPath.row] objectForKey:@"num"]];
@@ -291,29 +398,6 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-//        switch (indexPath.row) {
-//            case 0:
-//                cell.textLabel.text = @"全部";
-//                break;
-//            case 1:
-//                cell.textLabel.text = @"兑换";
-//                break;
-//            case 2:
-//                cell.textLabel.text = @"转账";
-//                break;
-//            case 3:
-//                cell.textLabel.text = @"充值";
-//                break;
-//            case 4:
-//                cell.textLabel.text = @"话费充值";
-//                break;
-//            case 5:
-//                cell.textLabel.text = @"提现";
-//                break;
-//
-//            default:
-//                break;
-//        }
         //"全部", "兑换", "转账", "充值", "话费充值", "提现"
         cell.textLabel.text = typeArray[indexPath.row];
         
@@ -329,22 +413,50 @@
         [self pushViewControllerHiddenTabBar:vc animated:YES];
         
     }else{
-        
-        [[CGAFHttpRequest shareRequest] queryByTypeWithtype:typeArray[indexPath.row] serverSuccessFn:^(id dict) {
-            if(dict){
-                
-                result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                [self disMissView];
-                NSLog(@"%@",result);
-                [_tableView reloadData];
-            }
-        } serverFailureFn:^(NSError *error) {
-            if(error){
-                NSLog(@"%@",error);
-            }
-        }];
-        
+        _queryType = typeArray[indexPath.row];
+        _page = 0;
+        [self queryByType:_queryType];
     }
+}
+
+-(void)queryByType:(NSString *)type{
+    [[CGAFHttpRequest shareRequest] queryByTypeWithtype:type page:_page serverSuccessFn:^(id dict) {
+        _tableView.footer.hidden = NO;
+        [_tableView.header endRefreshing];
+        
+        [_tableView.footer endRefreshing];
+        if([dict[@"code"] integerValue] == 1004){
+            if(_page == 0){
+                [result removeAllObjects];
+            }
+            _queryDate = nil;
+//            result= dict[@"data"];
+            [result addObjectsFromArray:dict[@"data"]];
+            NSLog(@"%@",result);
+            [_tableView reloadData];
+            
+            //如果已经加载到最后一页
+            if([dict[@"data"] count] == 0){
+                [_tableView.footer noticeNoMoreData];
+                if(_page == 0){
+                    _tableView.footer.hidden = YES;
+                }
+            }
+        }
+        
+        
+        
+        [self disMissView];
+    } serverFailureFn:^(NSError *error) {
+        if(error){
+            NSLog(@"%@",error);
+            
+            [_tableView.header endRefreshing];
+            
+            [_tableView.footer endRefreshing];
+            
+        }
+    }];
 }
 
 

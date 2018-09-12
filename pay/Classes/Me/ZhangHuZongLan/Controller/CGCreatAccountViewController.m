@@ -43,7 +43,7 @@
             [[CGAFHttpRequest shareRequest] queryMoneyTypeWithserverSuccessFn:^(id dict) {
                 if(dict){
                     
-                    NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    NSDictionary *result= dict[@"data"];
                     
                     NSLog(@"%@",result);
                     
@@ -133,12 +133,13 @@
     if(indexPath.row == 1){
         cell.textLabel.text = @"资金密码";
         
-        _amount = [[UITextField alloc] initWithFrame:CGRectMake(93, 15, SCREEN_WIDTH - 60 - 17, 16)];
+        _amount = [[UITextField alloc] initWithFrame:CGRectMake(93, 0, SCREEN_WIDTH - 93 - 17, 44)];
         _amount.placeholder = @"请填写您的资金密码";
         _amount.delegate = self;
         _amount.secureTextEntry = YES;
         _amount.font = [UIFont systemFontOfSize:16];
-        _amount.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        _amount.clearButtonMode = UITextFieldViewModeAlways;
+        _amount.keyboardType = UIKeyboardTypeNumberPad;
         [cell addSubview:_amount];
     }
     return cell;
@@ -191,12 +192,9 @@
     
     [[CGAFHttpRequest shareRequest]  createCountWithcountType:_countType payPwd:_amount.text serverSuccessFn:^(id dict) {
         if(dict){
-            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSDictionary *result= dict[@"data"];
             
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-            }else{
+            if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"开通账户成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     if([_from isEqualToString:@"noAccount"]){
@@ -208,6 +206,7 @@
                 }];
                 [alertController addAction:skipAction];
                 [self presentViewController:alertController animated:YES completion:nil];
+                
             }
             
             
@@ -218,5 +217,10 @@
         }
     }];
     
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 @end

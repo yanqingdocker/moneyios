@@ -20,5 +20,6 @@
 #import "CGNetworkingManager.h"
 #import <MJExtension/MJExtension.h>
 #import "MBProgressHUD+Extension.h"
+#import "StringUtil.h"
 
 #endif /* PrefixHeader_h */

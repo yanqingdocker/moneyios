@@ -139,16 +139,19 @@
 
 
 #pragma mark - 查询账户业务记录
-- (void)operaQueryByUseridWithserverSuccessFn:(void(^)(id dict))successFn
-                              serverFailureFn:(void(^)(NSError *error))failureFn;
+- (void)operaQueryByUseridWithpage:(NSInteger )page
+                   serverSuccessFn:(void(^)(id dict))successFn
+                   serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 根据日期查询账单
 - (void)queryByDateWithdate:(NSString *)date
+                       page:(NSInteger )page
             serverSuccessFn:(void(^)(id dict))successFn
             serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 根据交易类型查询账单
 - (void)queryByTypeWithtype:(NSString *)type
+page:(NSInteger )page
                         serverSuccessFn:(void(^)(id dict))successFn
                   serverFailureFn:(void(^)(NSError *error))failureFn;
 
@@ -176,11 +179,9 @@
            serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 账户充值接口
-- (void)rechargeWithtradeMoney:(NSString *)tradeMoney
-                       payType:(NSString *)payType
-                       countId:(NSString *)countId
-               serverSuccessFn:(void(^)(id dict))successFn
-               serverFailureFn:(void(^)(NSError *error))failureFn;
+- (void)rechargeWithdatas:(NSString *)datas
+          serverSuccessFn:(void(^)(id dict))successFn
+          serverFailureFn:(void(^)(NSError *error))failureFn;
 
 #pragma mark - 获取银行卡类型接口
 - (void)getTypeWithbankcardid:(NSString *)bankcardid

@@ -50,7 +50,7 @@
             [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
                 if(dict){
                     
-                    _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    _dataArray = dict[@"data"];
                     
                     NSLog(@"%@",_dataArray);
                     
@@ -126,19 +126,16 @@
     if(passwordView.tag == 0){
         [[CGAFHttpRequest shareRequest] authCountpwdWithid:_accountID payPwd:password serverSuccessFn:^(id dict) {
             if(dict){
-                NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                
-                if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                    [MBProgressHUD showText:@"密码不正确,请重新输入" toView:self.view];
-                    [passwordView clearPassword];
-                }
-                if([[result objectForKey:@"code"] isEqualToString:@"success"]){
+//                NSDictionary *result= dict[@"data"];
+                if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
                     [passwordView hidePasswordView];
                     XLPasswordView *passwordView1 = [XLPasswordView passwordView];
                     passwordView1.delegate = self;
                     passwordView1.titleLabel.text = @"修改密码";
                     passwordView1.tag = 1;
                     [passwordView1 showPasswordInView:self.view];
+                }else{
+                    [passwordView clearPassword];
                 }
             }
         } serverFailureFn:^(NSError *error) {
@@ -150,16 +147,12 @@
     if (passwordView.tag == 1) {
         [[CGAFHttpRequest shareRequest] updateCountpwdWithid:_accountID payPwd:password serverSuccessFn:^(id dict) {
             if(dict){
-                NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                
-                if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                    [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-                    [passwordView clearPassword];
-                }
-                if([[result objectForKey:@"code"] isEqualToString:@"success"]){
-                    
+//                NSDictionary *result= dict[@"data"];
+                if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
                     [MBProgressHUD showText:@"修改成功" toView:self.view];
                     [passwordView hidePasswordView];
+                }else{
+                    [passwordView clearPassword];
                 }
             }
         } serverFailureFn:^(NSError *error) {

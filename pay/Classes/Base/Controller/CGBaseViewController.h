@@ -38,4 +38,6 @@
 -(NSString *)getNewBankNumWitOldBankNum:(NSString *)bankNum;
 #pragma mark - 界面居中布局
 - (void)viewToCenterXWithView:(UIView *)view ;
+#pragma mark - 图片质量及尺寸压缩
+-(NSData *)compressWithMaxLength:(NSUInteger)maxLength image:(UIImage *)image;
 @end

@@ -36,7 +36,7 @@
         if(dict){
             
             
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _result = dict[@"data"];
             NSLog(@"%@",_result);
             [_tableView reloadData];
         }
@@ -147,7 +147,7 @@
             if(dict){
                 
                 
-                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                NSDictionary *result = dict[@"data"];
                 NSLog(@"%@",result);
                 
                 //                cell.isreadLab.text = @"已读";
@@ -187,7 +187,7 @@
         if(dict){
             
             
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSDictionary *result = dict[@"data"];
             NSLog(@"%@",result);
             
 //            _result = [_result  mutableCopy];
@@ -213,7 +213,7 @@
             if(dict){
                 
                 
-                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                NSDictionary *result = dict[@"data"];
                 NSLog(@"%@",result);
                 
 //                cell.isreadLab.text = @"已读";

@@ -32,15 +32,15 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [[CGAFHttpRequest shareRequest] getuserWithserverSuccessFn:^(id dict) {
-                if(dict){
+                
                     
-                    _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    _dataArray = dict[@"data"];
                     _userModel = [UserModel objectWithKeyValues:_dataArray];
-//                    _dataArray = result[6];
+
                     NSLog(@"%@",_dataArray);
 
                     [_tableView reloadData];
-                }
+                
             } serverFailureFn:^(NSError *error) {
                 if(error){
                     NSLog(@"%@",error);
@@ -264,14 +264,15 @@
 //    [_headImgView setImage:image forState:UIControlStateNormal];
     _headImgView.image = image;
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
+//    NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
+    NSData *imageData =[self compressWithMaxLength:100000 image:image];
     NSString *encodedImageStr = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     //上传头像代码写下面
 
     [[CGAFHttpRequest shareRequest] uploadimgAllWithimg:encodedImageStr serverSuccessFn:^(id dict) {
         if(dict){
             
-            _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _dataArray = dict[@"data"];
             
             NSLog(@"%@",_dataArray);
             

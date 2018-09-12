@@ -11,7 +11,7 @@
 #import "CGConfirmPaymentView.h"
 #import "XLPasswordView.h"
 
-@interface CGHuaFeiChongZhiViewController ()<XLPasswordViewDelegate>{
+@interface CGHuaFeiChongZhiViewController ()<XLPasswordViewDelegate,UITextFieldDelegate>{
     UIButton *btnView;
     NSMutableArray    *  _listDataArray;
     UITextField *_phoneNum;
@@ -43,7 +43,7 @@
         if(dict){
             
             
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _result = dict[@"data"];
             NSLog(@"%@",_result);
             if ([_result count] == 0) {
                 
@@ -98,9 +98,12 @@
     [bgView addSubview:quhaoLab];
     
     _phoneNum = [[UITextField alloc] init];
+    _phoneNum.delegate = self;
     _phoneNum.placeholder = @"请输入手机号";
     _phoneNum.font = [UIFont systemFontOfSize:33];
     _phoneNum.frame = CGRectMake(17, 47, SCREEN_WIDTH - 17*2, 27);
+    _phoneNum.clearButtonMode = UITextFieldViewModeAlways;
+    _phoneNum.keyboardType = UIKeyboardTypeNumberPad;
     [bgView addSubview:_phoneNum];
     
     UILabel *line = [[UILabel alloc] init];
@@ -186,6 +189,7 @@
 
 - (void)btnClick:(UIButton *)btn
 {
+    [self.view endEditing:YES];
     for (int i = 0; i<_listDataArray.count; i++) {
         if(i == btn.tag){
             [_listDataArray[btn.tag] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -213,6 +217,7 @@
 
 - (void)paymentEvent
 {
+    [self.view endEditing:YES];
     _confirmPaymentView = [[CGConfirmPaymentView alloc]init];
     _confirmPaymentView.cellTextLabel1 = @"充值号码";
     _confirmPaymentView.cellTextLabel2 = @"付款方式";
@@ -237,22 +242,18 @@
         if(dict){
             
             
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSDictionary *result = dict[@"data"];
             NSLog(@"%@",result);
             
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-                [passwordView clearPassword];
-            }
-            if([[result objectForKey:@"code"] isEqualToString:@"success"]){
-                
+            if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"充值成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 }];
                 [alertController addAction:skipAction];
                 [self presentViewController:alertController animated:YES completion:nil];
-                
+            }else{
+                [passwordView clearPassword];
             }
         }
     } serverFailureFn:^(NSError *error) {
@@ -265,6 +266,18 @@
 - (void)jiluEven{
     CGTopUpDetailViewController *tudvc = [[CGTopUpDetailViewController alloc] init];
     [self pushViewControllerHiddenTabBar:tudvc animated:YES];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (textField.text.length >= 11 && ![string isEqualToString:@""]) { //添加这半行代码
+        return NO;
+    }
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 @end

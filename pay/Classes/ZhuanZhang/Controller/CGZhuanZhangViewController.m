@@ -120,9 +120,11 @@
     [bgView addSubview:titleLab];
 
     _alipayAccount = [[UITextField alloc] init];
-    _alipayAccount.frame = CGRectMake(144, 12, SCREEN_WIDTH - 144 -35, 16);
+    _alipayAccount.frame = CGRectMake(144, 0, SCREEN_WIDTH - 144 -35, 44);
     _alipayAccount.font = [UIFont systemFontOfSize:18];
     _alipayAccount.placeholder = @"手机号";
+    _alipayAccount.clearButtonMode = UITextFieldViewModeAlways;
+    _alipayAccount.keyboardType = UIKeyboardTypeNumberPad;
     _alipayAccount.delegate = self;
     [bgView addSubview:_alipayAccount];
 
@@ -300,20 +302,21 @@
 
     }
     
-    [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:_alipayAccount.text serverSuccessFn:^(id dict) {//@"17759513665"
+    [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:_alipayAccount.text serverSuccessFn:^(id dict) {
         if(dict){
-            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSDictionary *result= dict[@"data"];
             NSLog(@"%@",result);
             
-            NSData *data=[[NSData alloc] initWithBase64EncodedString:[result objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
+                NSData *data=[[NSData alloc] initWithBase64EncodedString:[result objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
+                vc.imgdata = data;
+                vc.receivecount = _alipayAccount.text;
+                vc.username = [result objectForKey:@"username"];
+                [self pushViewControllerHiddenTabBar:vc animated:YES];
+            }
             
             
-            CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
-//            vc.moneynum = [result objectForKey:@"num"];
-            vc.imgdata = data;
-            vc.receivecount = _alipayAccount.text;
-            vc.username = [result objectForKey:@"username"];//[result objectForKey:@"username"]
-            [self pushViewControllerHiddenTabBar:vc animated:YES];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
@@ -325,9 +328,15 @@
 //    [self pushViewControllerHiddenTabBar:vc animated:YES];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (textField.text.length >= 11 && ![string isEqualToString:@""]) { //添加这半行代码
+        return NO;
+    }
+    return YES;
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //    [_nameText resignFirstResponder];
     [self.view endEditing:YES];
 }
 

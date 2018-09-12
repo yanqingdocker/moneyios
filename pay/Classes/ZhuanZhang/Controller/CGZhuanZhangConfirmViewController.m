@@ -35,7 +35,6 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *array;
-@property (nonatomic, assign) BOOL flag;
 
 @end
 
@@ -43,12 +42,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if([_moneynum isEqualToString:@"0"]){
-        _flag = YES;
-    }else{
-        _flag = NO;
-    }
-    // Do any additional setup after loading the view.
     [self requestForm];
 }
 
@@ -57,7 +50,7 @@
         if(dict){
 
 
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _result = dict[@"data"];
             NSLog(@"%@",_result);
             if ([_result count] == 0) {
 
@@ -67,10 +60,7 @@
 //                }else{
 
                     _countType = [[_result objectAtIndex:0] objectForKey:@"countType"];
-                    
-                    if([_type isEqualToString:@""]){
-                        _type = _countType;
-                    }
+                
                     _account = [NSString stringWithFormat:@"%@(%@)",[[_result objectAtIndex:0] objectForKey:@"cardId"],[[_result objectAtIndex:0] objectForKey:@"countType"]];
 
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -197,7 +187,7 @@
 - (void)confirmEvent{
     
     [self.view endEditing:YES];
-    if([_moneynum isEqualToString:@"0"]){
+    if([_moneynum isEqualToString:@"0"] || [_moneynum isEqualToString:@""]){
         [MBProgressHUD showText:@"请输入转账金额" toView:self.view];
         return;
     }
@@ -207,25 +197,10 @@
         return;
     }
     
-    if(![_type isEqualToString:_countType]){
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"将通过当日汇率,兑换相应货币后转账" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            XLPasswordView *passwordView = [XLPasswordView passwordView];
-            passwordView.delegate = self;
-            [passwordView showPasswordInView:self.view];
-            
-        }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-        }];
-        [alertController addAction:skipAction];
-        [alertController addAction:cancelAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }else{
         XLPasswordView *passwordView = [XLPasswordView passwordView];
         passwordView.delegate = self;
         [passwordView showPasswordInView:self.view];
-    }
+    
     
     
     
@@ -234,21 +209,17 @@
 - (void)passwordView:(XLPasswordView *)passwordView didFinishInput:(NSString *)password
 {
     //    NSLog(@"输入密码位数已满,在这里做一些事情,例如自动校验密码");
-    [[CGAFHttpRequest shareRequest] switchWithcountid:_accountID receivecount:_receivecount moneynum:_moneynum payPwd:password receivetype:_type serverSuccessFn:^(id dict) {
+    [[CGAFHttpRequest shareRequest] switchWithcountid:_accountID receivecount:_receivecount moneynum:_moneynum payPwd:password receivetype:_countType serverSuccessFn:^(id dict) {
         if(dict){
-            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSDictionary *result= dict[@"data"];
             
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-                [passwordView clearPassword];
-            }
-            if([[result objectForKey:@"code"] isEqualToString:@"success"]){
-                //                [passwordView hidePasswordView];
-                //                [MBProgressHUD showText:@"转账成功" toView:self.view];
+            if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
                 CGJiaoYiDetailsViewController *vc = [[CGJiaoYiDetailsViewController alloc] init];
-                vc.liushuiID = [result objectForKey:@"message"];
+                vc.liushuiID = [result objectForKey:@"snumber"];
                 [self pushViewControllerHiddenTabBar:vc animated:YES];
                 [passwordView hidePasswordView];
+            }else{
+                [passwordView clearPassword];
             }
             
             
@@ -293,16 +264,6 @@
         cell.titleLab.font = [UIFont systemFontOfSize:11];
         cell.contentText.keyboardType =UIKeyboardTypeDecimalPad;
         
-        if([_type isEqualToString:@"CNY"]){
-//            cell.countType = @"CNYIcon";
-            cell.img.image = [UIImage imageNamed:@"CNYIcon"];
-        }
-        else if([_type isEqualToString:@"USD"]){
-            //            cell.countType = @"CNYIcon";
-            cell.img.image = [UIImage imageNamed:@"USDIcon"];
-        }
-        else{
-            
             if([_countType isEqualToString:@"CNY"]){
                 //            cell.countType = @"CNYIcon";
                 cell.img.image = [UIImage imageNamed:@"CNYIcon"];
@@ -311,32 +272,18 @@
                 //            cell.countType = @"CNYIcon";
                 cell.img.image = [UIImage imageNamed:@"USDIcon"];
             }
-        }
         
         
-        if([_moneynum isEqualToString:@"0"]){
-            cell.contentText.enabled = _flag;
+        cell.contentText.text = _moneynum;
             cell.contentText.tag = 1001;
             cell.contentText.placeholder = @"0.00";
             cell.contentText.delegate =self;
 
-        }else{
-            cell.contentText.text = _moneynum;
-            cell.contentText.enabled = _flag;
-        }
         return cell;
     }
     if (indexPath.row == 1) {
         cell.textLabel.text = @"付款账户";
-        //        if([_dataArray count] > 0){
-        //            cell.detailTextLabel.text = _amountType;
-        //
-        //        }
-//        if (_type) {
-            cell.detailTextLabel.text = _account;
-//        }else{
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",_typeArray[0]];
-//        }
+        cell.detailTextLabel.text = _account;
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -372,9 +319,6 @@
             if([blockSelf.array[i] isEqualToString:str]){
                 _accountID = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:i] objectForKey:@"id"]];
                 _countType = [NSString stringWithFormat:@"%@",[[_result objectAtIndex:i] objectForKey:@"countType"]];
-                if(blockSelf.flag){
-                    _type = _countType;
-                }
                 
             }
         }

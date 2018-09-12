@@ -33,10 +33,7 @@
 
 - (void)requestForm{
     [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
-        if(dict){
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",_result);
-        }
+        _result = [dict objectForKey:@"data"];
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);

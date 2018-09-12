@@ -30,7 +30,7 @@
 
 - (void)setUI
 {
-//    _imgData =     ({
+    _headimg =     ({
         UIImageView * imgView = [[UIImageView alloc]init];
         imgView.frame = CGRectMake(17,
                                     19,
@@ -45,10 +45,9 @@
     //设置图形样子
     maskLayer.path = maskPath.CGPath;
     imgView.layer.mask = maskLayer;
-//    imgView.image = [UIImage imageWithData:_imgData];
-    imgView.image = [UIImage imageNamed:@"headImg"];
-    [self.contentView addSubview:imgView];
-//    });
+    
+        imgView;
+    });
     
     _title =     ({
         UILabel * titleLab = [[UILabel alloc]init];
@@ -63,9 +62,9 @@
     
     _amount =     ({
         UILabel * titleLab = [[UILabel alloc]init];
-        titleLab.frame = CGRectMake(SCREEN_WIDTH - 14 - 60,
+        titleLab.frame = CGRectMake(SCREEN_WIDTH - 14 - 160,
                                     20,
-                                    60,
+                                    160,
                                     15);
         titleLab.font = [UIFont systemFontOfSize:18];
 //        if(){
@@ -105,6 +104,7 @@
     [self.contentView addSubview:_amount];
     [self.contentView addSubview:_type];
     [self.contentView addSubview:_date];
+    [self.contentView addSubview:_headimg];
     
 }
 

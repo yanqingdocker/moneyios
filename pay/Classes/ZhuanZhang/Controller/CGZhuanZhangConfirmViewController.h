@@ -14,7 +14,5 @@
 @property(nonatomic,strong)NSData *imgdata;//头像data
 @property(nonatomic,strong)NSString *receivecount;//电话
 @property(nonatomic,strong)NSString *username;//名称
-@property(nonatomic,strong)NSString *type;//资金类型
-//@property(nonatomic,strong)NSMutableArray *typeArray;//资金类型
 
 @end

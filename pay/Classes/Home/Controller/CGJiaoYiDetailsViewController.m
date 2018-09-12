@@ -33,7 +33,7 @@
         if(dict){
             
             
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _result = dict[@"data"];
             NSLog(@"%@",_result);
             
             _jyModel = [CGJiaoYiDetailsModel objectWithKeyValues:[_result objectAtIndex:0]];

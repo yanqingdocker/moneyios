@@ -10,6 +10,7 @@
 
 @interface CGBillQueryTableViewCell : UITableViewCell
 @property (nonatomic, strong) NSData * imgData;
+@property (nonatomic, strong) UIImageView * headimg;
 @property (nonatomic, strong) UILabel * title;
 @property (nonatomic, strong) UILabel * amount;
 @property (nonatomic, strong) UILabel * type;

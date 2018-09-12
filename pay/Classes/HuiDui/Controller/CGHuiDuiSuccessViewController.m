@@ -31,10 +31,10 @@
 
 - (void)requestForm{
     [[CGAFHttpRequest shareRequest] queryByIdWithid:_liushuiID serverSuccessFn:^(id dict) {
-        if(dict){
+//        if(dict){
+        
             
-            
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _result = dict[@"data"];
             NSLog(@"%@",_result);
             
             _jyModel = [CGJiaoYiDetailsModel objectWithKeyValues:[_result objectAtIndex:0]];
@@ -58,12 +58,8 @@
                 }
             }
             
-//
-//            _jiaoyiType.text = _jyModel.operaType;
-//            _money.text = _jyModel.num;
-//
             [_tableView reloadData];
-        }
+//        }
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);

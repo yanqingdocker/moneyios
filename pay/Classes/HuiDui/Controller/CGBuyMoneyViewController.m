@@ -29,19 +29,14 @@
 
 - (void)requestForm{
     [[CGAFHttpRequest shareRequest] getSingleRateWithtype:[NSString stringWithFormat:@"%@:%@",_sellType,_buyType] serverSuccessFn:^(id dict) {
-        if(dict){
-            
-            
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",_result);
-            
-            
-            _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"message"]];
-            
-        }
+        NSLog(@"%@",dict);
+        _result = dict[@"data"];
+        _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",dict[@"data"][@"rate"]];
+        
+        
     } serverFailureFn:^(NSError *error) {
         if(error){
-            NSLog(@"%@",error);
+            NSLog(@"%ld",(long)error.code);
         }
     }];
     
@@ -81,11 +76,6 @@
         make.width.mas_equalTo(@200);
     }];
     
-    
-//    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:@"本人已充分了解本保险产品,并承诺投保信息的真实性,理解并同意《商户协议》《保险条约》的全部内容"];
-//    [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, attributedStr.length) ];
-//    [attributedStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#01A3FE"] range:NSMakeRange(30,12)];
-//    selectLab.attributedText = attributedStr;
     
     _huilvLab = [[UILabel alloc] init];
     _huilvLab.textColor = RGBCOLOR(102, 102, 102);
@@ -128,7 +118,7 @@
     
     UIButton *tixianBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, _tableView.frame.origin.y+_tableView.frame.size.height +22, SCREEN_WIDTH - 15*2, 36)];
     [tixianBtn setTitle:@"确认" forState:UIControlStateNormal];
-    [tixianBtn setTintColor:[UIColor whiteColor]];
+//    [tixianBtn setTintColor:[UIColor whiteColor]];
     [tixianBtn setBackgroundColor:RGBCOLOR(72,151,239)];//金色247, 195, 109
     [tixianBtn addTarget:self action:@selector(confirmEvent) forControlEvents:UIControlEventTouchUpInside];
     tixianBtn.layer.cornerRadius = 5;
@@ -176,10 +166,12 @@
         }
         
         _amount = [[UITextField alloc] init];
-        _amount.frame = CGRectMake(37, 76, 320, 12);
+        _amount.frame = CGRectMake(37, 60, SCREEN_WIDTH - 37 - 18 -5, 44);
         _amount.delegate =self;
         _amount.font = [UIFont systemFontOfSize:12];
         _amount.placeholder = [NSString stringWithFormat:@"可兑换金额:%@",_blance];
+        _amount.clearButtonMode = UITextFieldViewModeAlways;
+        _amount.keyboardType = UIKeyboardTypeDecimalPad;
         [_amount addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
         [cell addSubview:_amount];
     }
@@ -203,7 +195,7 @@
     
 //    if([_buyType isEqualToString:@"USD"]){
     
-        float huilv2 = [[_result objectForKey:@"message"] floatValue];
+        float huilv2 = [[_result objectForKey:@"rate"] floatValue];
         _duihuanAmount.text = [NSString stringWithFormat:@"%0.4f",huilv / huilv2];
 //    }
 //    if([_buyType isEqualToString:@"CNY"]){
@@ -250,5 +242,10 @@
 //            NSLog(@"%@",error);
 //        }
 //    }];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 @end

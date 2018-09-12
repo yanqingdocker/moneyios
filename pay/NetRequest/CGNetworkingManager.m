@@ -7,7 +7,7 @@
 //
 
 #import "CGNetworkingManager.h"
-//#import "NSString+Hash.h"
+#import "CGHttpHelper.h"
 #import "MBProgressHUD.h"
 #define BaseUrl [NSURL URLWithString:@""]
 #define kWebCachePath [NSTemporaryDirectory() stringByAppendingString:@"cache"]
@@ -97,7 +97,27 @@ static CGNetworkingManager *manager = nil;
             [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow  animated:YES];
         }
         if (success) {
-            success(responseObject);
+            NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
+            dic = [dic mutableCopy];
+            if ([dic.allKeys containsObject:@"code"]) {
+                NSString *codestring=[NSString stringWithFormat:@"%@",dic[@"code"]];
+                if (![codestring isEqualToString:@"1004"]) {
+                    [CGHttpHelper isNeedReLoginWithHttpCode:dic[@"code"] message:dic[@"message"]];
+                    if([codestring isEqualToString:@"1001"]){
+                        return;
+                    }
+                }else{
+                    if(![[dic objectForKey:@"data"] isEqualToString:@""]){
+                        NSData *JSONData = [[dic objectForKey:@"data"] dataUsingEncoding:NSUTF8StringEncoding];
+                        // 将流转换为字典
+                        NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+                        [dic setObject:dataDict forKey:@"data"];
+                    }
+                    
+                }
+            }
+            
+            success(dic);
         }
         
     }failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -221,16 +241,23 @@ static CGNetworkingManager *manager = nil;
             [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow  animated:YES];
         }
         if (success) {
+            NSMutableDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
+            dic = [dic mutableCopy];
+            if ([dic.allKeys containsObject:@"code"]) {
+                NSString *codestring=[NSString stringWithFormat:@"%@",dic[@"code"]];
+                if (![codestring isEqualToString:@"1004"]) {
+                    [CGHttpHelper isNeedReLoginWithHttpCode:dic[@"code"] message:dic[@"message"]];
+                    return;
+                }else{
+                    
+                    NSData *JSONData = [[dic objectForKey:@"data"] dataUsingEncoding:NSUTF8StringEncoding];
+                    // 将流转换为字典
+                    NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+                    [dic setObject:dataDict forKey:@"data"];
+                }
+            }
             
-            //            NSDictionary *dic = [ParamsAES dictToJSON:responseObject];
-            //            if ([dic.allKeys containsObject:@"code"]) {
-            //                NSString *codestring=[NSString stringWithFormat:@"%@",dic[@"code"]];
-            //                if ([codestring isEqualToString:@"Ex9999"]) {
-            //                    [HttpHelper isNeedReLoginWithHttpCode:dic[@"code"]];
-            //                }
-            //            }
-            
-            success(responseObject);
+            success(dic);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (showHUD==YES) {

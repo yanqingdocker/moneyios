@@ -7,6 +7,7 @@
 //
 
 #import "CGMeRootViewController.h"
+#import "CGMeRootModel.h"
 #import "CGSetViewController.h"//设置
 #import "CGMyEmailViewController.h"//我的信箱
 #import "CGZhangHuZongLanViewController.h"//账户总览
@@ -25,63 +26,38 @@
     UILabel *_spending;//支出
     UILabel *srLine;//收入线
     UILabel *zcLine;//支出线
-//    UserModel *usermodel;
-    
-    NSMutableArray *_dataArray;
 }
 
 @property (nonatomic,strong) UIImagePickerController *imagePicker;
+@property (nonatomic,strong) CGMeRootModel *model;
 @end
 
 @implementation CGMeRootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor yellowColor];
-//    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, STATUSBAR_HEIGHT)];
-//    
-//    statusBarView.backgroundColor = [UIColor clearColor];
-//    
-//    [self.view addSubview:statusBarView];
-    
-    _dataArray = [[NSMutableArray alloc] init];
 }
 
 - (void)requestForm{
-
-    
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{//getuser
+        dispatch_async(dispatch_get_main_queue(), ^{
             [[CGAFHttpRequest shareRequest] getPersonCountWithserverSuccessFn:^(id dict) {
-                if(dict){
+                if([[dict objectForKey:@"code"] integerValue] == 1004){
+                    _model = [CGMeRootModel objectWithKeyValues:dict[@"data"]];
 
-                    _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-
-                    NSLog(@"%@",_dataArray);
-//                    usermodel = [UserModel objectWithKeyValues:_dataArray];
-//                    if(![[[_dataArray objectAtIndex:0] objectForKey:@"img"] isEqualToString:@""]){
-//                        NSData *data=[[NSData alloc] initWithBase64EncodedString:[[_dataArray objectAtIndex:0] objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//
-//                        [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-//                    }
-                    NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                    [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-                    _nameLab.text = [[_dataArray objectAtIndex:1] objectForKey:@"username"];
-                    _lastLoginLab.text = [[_dataArray objectAtIndex:1] objectForKey:@"time"];//最后登录时间
-                    _totalAssets.text = [[_dataArray objectAtIndex:1] objectForKey:@"num"];//总资产
-                    _RMBtotalAssets.text = [[_dataArray objectAtIndex:1] objectForKey:@"title"];//总资产描述文字
-//                    _defaultCountType = usermodel.defaultcount;
+                    _nameLab.text = [GlobalSingleton Instance].currentUser.username;
+                    _lastLoginLab.text = [GlobalSingleton Instance].currentUser.lasttime;//最后登录时间
+                    _totalAssets.text = _model.num;//总资产
+                    _RMBtotalAssets.text = _model.title;//总资产描述文字
 
 
                     [[NSUserDefaults standardUserDefaults] setObject:[GlobalSingleton Instance].currentUser.defaultcount forKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]];
-                    _income.text = [[_dataArray objectAtIndex:1] objectForKey:@"inmoney"];//收入
-                    _spending.text = [[_dataArray objectAtIndex:1] objectForKey:@"outmoney"];//支出
+                    _income.text = _model.inmoney;//收入
+                    _spending.text = _model.outmoney;//支出
+                    
+                    float xian1 = [_model.inmoney floatValue]/([_model.inmoney floatValue] + [_model.outmoney floatValue]);
 
-                    float xian1 = [[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue]/([[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue] + [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]);
-
-                    float xian2 = [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]/([[[_dataArray objectAtIndex:1] objectForKey:@"inmoney"] floatValue] + [[[_dataArray objectAtIndex:1] objectForKey:@"outmoney"] floatValue]);
+                    float xian2 = [_model.outmoney floatValue]/([_model.inmoney floatValue] + [_model.outmoney floatValue]);
 
                     srLine.frame = CGRectMake(41, 109, xian1 * (SCREEN_WIDTH - 41*2), 5);
                     zcLine.frame = CGRectMake(41 + srLine.frame.size.width, 109, xian2 * (SCREEN_WIDTH - 41*2), 5);
@@ -120,8 +96,14 @@
     
     
     _headImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 48/2, 69, 48, 48)];
-    [_headImgBtn setImage:[UIImage imageNamed:@"headImg"] forState:UIControlStateNormal];
-         
+    
+    if([GlobalSingleton Instance].currentUser.img){
+        NSData *data=[[NSData alloc] initWithBase64EncodedString:[GlobalSingleton Instance].currentUser.img options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        [_headImgBtn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+    }else{
+        [_headImgBtn setImage:[UIImage imageNamed:@"headImg"] forState:UIControlStateNormal];
+    }
+    
      
     [_headImgBtn addTarget:self action:@selector(headClick) forControlEvents:UIControlEventTouchUpInside];
     _headImgBtn.layer.cornerRadius=_headImgBtn.frame.size.width/2;//裁成圆角
@@ -356,19 +338,24 @@
     
     [_headImgBtn setImage:image forState:UIControlStateNormal];
 //    self.imageView.image = image;
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
+//    NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
+//
+//    NSLog(@"changdu:%lu",(unsigned long)imageData.length);
+    NSData *imageData =[self compressWithMaxLength:100000 image:image];
+//    NSLog(@"changdu:%lu",(unsigned long)Datas.length);
     NSString *encodedImageStr = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
-    [GlobalSingleton Instance].currentUser.img = encodedImageStr;
+    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
     //上传头像
     [[CGAFHttpRequest shareRequest] uploadimgAllWithimg:encodedImageStr serverSuccessFn:^(id dict) {
         if(dict){
-            NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-
-            NSLog(@"%@",dataArray);
+//            NSDictionary *result = dict[@"data"];
+            
+                [GlobalSingleton Instance].currentUser.img = encodedImageStr;
+            
 
         }
     } serverFailureFn:^(NSError *error) {
@@ -387,52 +374,6 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark -消息框代理实现-
-//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    if (actionSheet.tag == 2550) {
-//        NSUInteger sourceType = 0;
-//        // 判断系统是否支持相机
-//        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-//        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//            imagePickerController.delegate = self; //设置代理
-//            imagePickerController.allowsEditing = YES;
-//            imagePickerController.sourceType = sourceType; //图片来源
-//            if (buttonIndex == 0) {
-//                return;
-//            }else if (buttonIndex == 1) {
-//                //拍照
-//                sourceType = UIImagePickerControllerSourceTypeCamera;
-//                imagePickerController.sourceType = sourceType;
-//                [self presentViewController:imagePickerController animated:YES completion:nil];
-//            }else if (buttonIndex == 2){
-//                //相册
-//                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//                imagePickerController.sourceType = sourceType;
-//                [self presentViewController:imagePickerController animated:YES completion:nil];
-//            }
-//        }else {
-//            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//            imagePickerController.sourceType = sourceType;
-//            [self presentViewController:imagePickerController animated:YES completion:nil];
-//        }
-//    }
-//}
-//
-//#pragma mark -实现图片选择器代理-（上传图片的网络请求也是在这个方法里面进行，这里我不再介绍具体怎么上传图片）
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-//    [picker dismissViewControllerAnimated:YES completion:^{}];
-//    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
-////    _headerV.image = image;  //给UIimageView赋值已经选择的相片
-//    [_headImgBtn setImage:image forState:UIControlStateNormal];
-//
-//    //上传图片到服务器--在这里进行图片上传的网络请求，这里不再介绍
-////    ......
-//}
-//
-////当用户取消选择的时候，调用该方法
-//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-//    [picker dismissViewControllerAnimated:YES completion:^{}];
-//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -449,31 +390,6 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self topBar];
 }
-
-
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-//    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-//        statusBar.backgroundColor = [UIColor clearColor];
-//    }
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
-//    
-//    
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    //背景色
-////    self.view.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
-//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"0d0d0d"];
-//    [self.navigationController setNavigationBarHidden:NO animated:NO];
-////    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-////    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-////        statusBar.backgroundColor = [UIColor blackColor];
-////        self.navigationController.navigationBar.translucent = NO;
-////    }
-//}
 
 -(void)setClick{
     CGSetViewController *vc = [[CGSetViewController alloc] init];

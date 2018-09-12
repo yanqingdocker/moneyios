@@ -137,12 +137,9 @@
     [[CGAFHttpRequest shareRequest] checkPhoneWithtelphone:_telphone.text
                                            serverSuccessFn:^(id dict)
      {
-         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-         if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-             [MBProgressHUD showText:@"请输入正确的手机" toView:self.view];
-         }else{
-             [self startTimer:_getCheckBtn];
-         }
+//         NSDictionary *result = dict[@"data"];
+         [self startTimer:_getCheckBtn];
+         
          
      }serverFailureFn:^(NSError *error){
          if(error){
@@ -153,19 +150,14 @@
 
 - (void)nextClick{
     [[CGAFHttpRequest shareRequest] findpswWithtelphone:_telphone.text checknum:_check.text serverSuccessFn:^(id dict) {
-        if(dict){
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",result);
-            
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-            }else{
+        
+            NSDictionary *result = dict[@"data"];
                 loginBtn.enabled = NO;
                 CGResetpPSWViewController *vc = [[CGResetpPSWViewController alloc] init];
                 vc.telphone = _telphone.text;
                 [self pushViewControllerHiddenTabBar:vc animated:YES];
-            }
-        }
+            
+        
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);

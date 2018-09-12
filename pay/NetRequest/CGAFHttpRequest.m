@@ -141,7 +141,7 @@
     params[@"oldpassword"] = oldpassword;//旧密码
     params[@"newpassword"] = newpassword;//新密码
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,RESETPWDMODE]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,RESETPWDMODE]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -402,11 +402,16 @@
 }
 
 #pragma mark - 查询账户业务记录
-- (void)operaQueryByUseridWithserverSuccessFn:(void(^)(id dict))successFn
+- (void)operaQueryByUseridWithpage:(NSInteger )page
+                   serverSuccessFn:(void(^)(id dict))successFn
                               serverFailureFn:(void(^)(NSError *error))failureFn
 {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"page"] = [NSString stringWithFormat:@"%ld",(long)page];//页码
+    
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,OPERAQUERYBYUSERID]
-                    WithParams:nil
+                    WithParams:params
                        success:successFn
                        failure:failureFn
                        showHUD:YES];
@@ -414,11 +419,12 @@
 
 #pragma mark - 根据日期查询账单
 - (void)queryByDateWithdate:(NSString *)date
+                       page:(NSInteger )page
           serverSuccessFn:(void(^)(id dict))successFn
                               serverFailureFn:(void(^)(NSError *error))failureFn
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
+    params[@"page"] = [NSString stringWithFormat:@"%ld",(long)page];//页码
     params[@"date"] = date;//日期
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYBYDATE]
                     WithParams:params
@@ -429,11 +435,12 @@
 
 #pragma mark - 根据交易类型查询账单
 - (void)queryByTypeWithtype:(NSString *)type
+                       page:(NSInteger )page
                       serverSuccessFn:(void(^)(id dict))successFn
                        serverFailureFn:(void(^)(NSError *error))failureFn
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
+    params[@"page"] = [NSString stringWithFormat:@"%ld",(long)page];//页码
     params[@"type"] = type;//类型
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,QUERYBYTYPE]
                     WithParams:params
@@ -505,26 +512,19 @@
 }
 
 #pragma mark - 账户充值接口
-- (void)rechargeWithtradeMoney:(NSString *)tradeMoney
-                       payType:(NSString *)payType
-                       countId:(NSString *)countId
+//tradeMoney:(NSString *)tradeMoney
+//payType:(NSString *)payType
+//countId:(NSString *)countId
+//payPwd:(NSString *)payPwd
+- (void)rechargeWithdatas:(NSString *)datas
                serverSuccessFn:(void(^)(id dict))successFn
                serverFailureFn:(void(^)(NSError *error))failureFn
 {
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-//    params[@"tradeMoney"] = tradeMoney;//充值金额
-//    params[@"payType"] = payType;//类型
-//    params[@"countId"] = countId;//充值账户ID
-    
-    NSDictionary *song2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"1",@"tradeMoney",
-                           @"CNY",@"payType",
-                           @"688485602369",@"countId",
-                           nil];//貌似是两个参数,不需要payType
 
     
-    params[@"datas"] = song2;//账户id
+    params[@"datas"] = datas;//账户id
     
     [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,RECHARGE]
                      WithParams:params
@@ -576,7 +576,7 @@
     
     params[@"id"] = ID;
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,UNBIND]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,UNBIND]
                      WithParams:params
                         success:successFn
                         failure:failureFn

@@ -140,7 +140,7 @@
             
             cell.content.enabled = NO;
             _bankCardimg = [[UIImageView alloc] init];
-            _bankCardimg.frame = CGRectMake(90, 0, self.view.frame.size.width - 90*2, 44);
+            _bankCardimg.frame = CGRectMake(90, 0, self.view.frame.size.width - 90*2, 43);
             _bankCardimg.contentMode = UIViewContentModeScaleAspectFit;
             [cell addSubview:_bankCardimg];
             
@@ -205,31 +205,31 @@
 //            _bankcard = [NSString stringWithFormat:@"%@%@",textField.text,string];
         }
         
-        if(_bankcard.length > 5){//@"6226661701682969"
+        if(_bankcard.length > 15){//@"6226661701682969"
             [[CGAFHttpRequest shareRequest] getTypeWithbankcardid:_bankcard serverSuccessFn:^(id dict) {
-                if(dict){
+                if(![self dx_isNullOrNilWithObject:dict[@"data"]]){
                     
-                    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    NSDictionary *result = dict[@"data"];
                     NSLog(@"%@",result);
-                    if ([[result objectForKey:@"code"] isEqualToString:@"success"]) {
+                    if ([[dict objectForKey:@"code"] isEqualToString:@"1004"]) {
                         
                         
-                        NSString * jsonString = [result objectForKey:@"message"];
-                        
-                        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-                        
-                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-                        
-                        NSLog(@"%@",dic);
-                        
-                        
+//                        NSString * jsonString = [result objectForKey:@"message"];
+//
+//                        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//
+//                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+//
+//                        NSLog(@"%@",dic);
                         
                         
-                        _data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dic objectForKey:@"logUrl"]]];
+                        
+                        
+                        _data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[result objectForKey:@"logUrl"]]];
                         
 
                         
-                        _banktype = [dic objectForKey:@"bankType"];
+                        _banktype = [result objectForKey:@"bankType"];
 
 
                         _bankCardimg.image = [UIImage imageWithData:_data];
@@ -251,18 +251,53 @@
                     
                     
                     
+                }else{
+                    _flag = @"0";
+                    //                        _bankCardimg.image = [UIImage imageNamed:@"白底"];
+                    _bankCardimg.image = nil;
+                    _banktype = @"";
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+                    
+                    [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
             } serverFailureFn:^(NSError *error) {
                 if(error){
                     NSLog(@"%@",error);
                 }
             }];
+        }else{
+            _flag = @"0";
+            _bankCardimg.image = nil;
+            _banktype = @"";
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+            
+            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }
     }
     
     return YES;
 }
 
+- (BOOL)dx_isNullOrNilWithObject:(id)object;
+{
+    if (object == nil || [object isEqual:[NSNull null]]) {
+        return YES;
+    } else if ([object isKindOfClass:[NSString class]]) {
+        if ([object isEqualToString:@""]) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else if ([object isKindOfClass:[NSNumber class]]) {
+        if ([object isEqualToNumber:@0]) {
+            return YES;
+        } else {
+            return NO;
+        }
+    }
+    
+    return NO;
+}
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -297,13 +332,9 @@
     
     [[CGAFHttpRequest shareRequest]  bindBankCardWithdatas:[self convertToJsonData:datas] serverSuccessFn:^(id dict) {
         if(dict){
-            
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",result);
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]) {
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-            }
-            if ([[result objectForKey:@"code"] isEqualToString:@"success"]) {
+//            NSDictionary *result = dict[@"data"];
+//            NSLog(@"%@",result);
+            if ([[dict objectForKey:@"code"] isEqualToString:@"1004"]) {
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"绑定成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self.navigationController popViewControllerAnimated:YES];
@@ -311,9 +342,6 @@
                 [alertController addAction:skipAction];
                 [self presentViewController:alertController animated:YES completion:nil];
             }
-            
-            
-            
         }
     } serverFailureFn:^(NSError *error) {
         if(error){

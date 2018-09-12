@@ -47,9 +47,9 @@
     _content =     ({
         UITextField * contentText = [[UITextField alloc]init];
         contentText.frame = CGRectMake(90,
-                                14,
+                                0,
                                 SCREEN_WIDTH - 90 -17,
-                                16);
+                                44);
         
         contentText.font = [UIFont systemFontOfSize:16];
         contentText;
@@ -71,4 +71,5 @@
     
     // Configure the view for the selected state
 }
+
 @end

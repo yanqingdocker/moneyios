@@ -70,25 +70,28 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if(indexPath.row == 0){
-        _oldPassword = [[UITextField alloc] initWithFrame:CGRectMake(17, 14, SCREEN_WIDTH - 17*2, 16)];
+        _oldPassword = [[UITextField alloc] initWithFrame:CGRectMake(17, 0, SCREEN_WIDTH - 17*2, 44)];
         _oldPassword.placeholder = @"原密码";
         _oldPassword.secureTextEntry = YES;
+        _oldPassword.clearButtonMode = UITextFieldViewModeAlways;
         _oldPassword.font = [UIFont systemFontOfSize:16];
 //        _oldPassword.borderStyle = UIKeyboardTypeNumberPad;
         [cell addSubview:_oldPassword];
     }
     if(indexPath.row == 1){
-        _newPassword = [[UITextField alloc] initWithFrame:CGRectMake(17, 14, SCREEN_WIDTH - 17*2, 16)];
+        _newPassword = [[UITextField alloc] initWithFrame:CGRectMake(17, 0, SCREEN_WIDTH - 17*2, 44)];
         _newPassword.placeholder = @"请输入新密码";
         _newPassword.secureTextEntry = YES;
+        _newPassword.clearButtonMode = UITextFieldViewModeAlways;
 //        _newPassword.borderStyle = UIKeyboardTypeNumberPad;
         _newPassword.font = [UIFont systemFontOfSize:16];
         [cell addSubview:_newPassword];
     }
     if(indexPath.row == 2){
-        _checkNewPassword = [[UITextField alloc] initWithFrame:CGRectMake(17, 14, SCREEN_WIDTH - 17*2, 16)];
+        _checkNewPassword = [[UITextField alloc] initWithFrame:CGRectMake(17, 0, SCREEN_WIDTH - 17*2, 44)];
         _checkNewPassword.placeholder = @"确认新密码";
         _checkNewPassword.secureTextEntry = YES;
+        _checkNewPassword.clearButtonMode = UITextFieldViewModeAlways;
         _checkNewPassword.font = [UIFont systemFontOfSize:16];
         _checkNewPassword.secureTextEntry = YES;
         [cell addSubview:_checkNewPassword];
@@ -117,18 +120,18 @@
         return;
     }
     
-    //    _submitBtn.enabled = NO;
-    
     [[CGAFHttpRequest shareRequest] resetpwdmodeWitholdpassword:_oldPassword.text newpassword:_checkNewPassword.text serverSuccessFn:^(id dict) {
         if(dict){
 //            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+                [alertController addAction:skipAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
             
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                [self.navigationController popToRootViewControllerAnimated:YES];
-            }];
-            [alertController addAction:skipAction];
-            [self presentViewController:alertController animated:YES completion:nil];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
@@ -138,6 +141,9 @@
     
 }
 
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 
 @end

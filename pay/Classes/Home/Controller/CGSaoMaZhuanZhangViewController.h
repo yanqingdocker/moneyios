@@ -10,10 +10,10 @@
 #import "CGBaseViewController.h"
 
 @interface CGSaoMaZhuanZhangViewController : CGBaseViewController
-//@property(nonatomic,strong)NSDictionary *params;
 @property(nonatomic,strong)NSString *moneynum;//金额
 @property(nonatomic,strong)NSData *imgdata;//头像data
 @property(nonatomic,strong)NSString *receivecount;//电话
 @property(nonatomic,strong)NSString *username;//名称
+@property(nonatomic,strong)NSString *type;//资金类型
 
 @end

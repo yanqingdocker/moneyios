@@ -44,6 +44,7 @@
     [super viewDidLoad];
     telphonelength = 0;
     passwordlength = 0;
+    [self loginClick];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -252,52 +253,43 @@
 - (void)loginClick{
     [self.view endEditing:YES];
     
-    _telphone.text = @"13950357177";
-    _password.text = @"111111";
+//    _telphone.text = @"13950357177";
+//    _password.text = @"111111";
 
     
 //    _telphone.text = @"18193412366";
 //    _password.text = @"123456";
     
-//    _telphone.text = @"17759513665";
-//    _password.text = @"123456";
+    _telphone.text = @"17759513665";
+    _password.text = @"123456";
     
     [[CGAFHttpRequest shareRequest] loginWithphone:_telphone.text password:_password.text serverSuccessFn:^(id dict) {
-        if(dict){            
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            NSLog(@"%@",result);
-            
-            
-            GlobalSingleton *single=[GlobalSingleton Instance];
-            
-            single.currentUser = [UserModel objectWithKeyValues:result];
-            
-            single.currentUser.login = YES;
-            
-            
-            [[XGPushTokenManager defaultTokenManager] bindWithIdentifier:single.currentUser.userid type:XGPushTokenBindTypeAccount];
-            
-//            CGTabBarController *vc = [[CGTabBarController alloc] init];
-//            getAppWindow().rootViewController = vc;
-            
-            
-//            self.tabBarController.tabBar.hidden=NO;
-//            CGHomeViewController *vc = [[CGHomeViewController alloc] init];
-//            [self pushViewControllerHiddenTabBar:vc animated:YES];
-            
-//            self.hidesBottomBarWhenPushed = YES;
-            
-            
-            self.tabBarController.tabBar.hidden=NO;
-
-            CGHomeViewController * vc = [[CGHomeViewController alloc]init];
-            
-            [self.navigationController pushViewController:vc animated:NO];
-            
+//        if([[dict objectForKey:@"code"] integerValue] == 1004){
+//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+//            NSLog(@"%@",result);
+//            if([[result objectForKey:@"code"] integerValue] == 1004){
+                GlobalSingleton *single=[GlobalSingleton Instance];
+                
+                single.currentUser = [UserModel objectWithKeyValues:dict[@"data"]];
+//                NSLog(@"%@",[NSJSONSerialization JSONObjectWithData:[result objectForKey:@"data"] options:kNilOptions error:nil]);
+                single.currentUser.login = YES;
+                
+                
+                [[XGPushTokenManager defaultTokenManager] bindWithIdentifier:single.currentUser.userid type:XGPushTokenBindTypeAccount];
+                
+                
+                self.tabBarController.tabBar.hidden=NO;
+                
+                CGHomeViewController * vc = [[CGHomeViewController alloc]init];
+                
+                [self.navigationController pushViewController:vc animated:NO];
+                
                 CGTabBarController *tabbar = [[CGTabBarController alloc] init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = tabbar;
-            
-        }
+//            }else{
+//                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+//            }
+//        }
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);

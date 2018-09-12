@@ -72,14 +72,16 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if(indexPath.row == 0){
-        _amount = [[UITextField alloc] initWithFrame:CGRectMake(17, 14, SCREEN_WIDTH - 17*2, 16)];
+        _amount = [[UITextField alloc] initWithFrame:CGRectMake(17, 0, SCREEN_WIDTH - 17*2, 44)];
         _amount.placeholder = @"充值金额";
         _amount.font = [UIFont systemFontOfSize:16];
         _amount.borderStyle = UIKeyboardTypeNumberPad;
+        _amount.clearButtonMode = UITextFieldViewModeAlways;
+        _amount.keyboardType = UIKeyboardTypeDecimalPad;
         [cell addSubview:_amount];
     }
     if(indexPath.row == 1){
-        _num = [[UITextField alloc] initWithFrame:CGRectMake(17, 14, SCREEN_WIDTH - 17*2, 16)];
+        _num = [[UITextField alloc] initWithFrame:CGRectMake(17, 0, SCREEN_WIDTH - 17*2, 44)];
         if([self.title isEqualToString:@"水费代缴"]){
             _num.placeholder = @"水费单号";
         }
@@ -88,12 +90,15 @@
         }
         _num.borderStyle = UIKeyboardTypeNumberPad;
         _num.font = [UIFont systemFontOfSize:16];
+        _num.clearButtonMode = UITextFieldViewModeAlways;
+        _num.keyboardType = UIKeyboardTypeNumberPad;
         [cell addSubview:_num];
     }
     if(indexPath.row == 2){
-        _password = [[UITextField alloc] initWithFrame:CGRectMake(17, 14, SCREEN_WIDTH - 17*2, 16)];
+        _password = [[UITextField alloc] initWithFrame:CGRectMake(17, 0, SCREEN_WIDTH - 17*2, 44)];
         _password.placeholder = @"密码";
         _password.font = [UIFont systemFontOfSize:16];
+        _password.clearButtonMode = UITextFieldViewModeAlways;
         _password.secureTextEntry = YES;
         [cell addSubview:_password];
     }
@@ -124,6 +129,11 @@
     }];
     [alertController addAction:skipAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 @end

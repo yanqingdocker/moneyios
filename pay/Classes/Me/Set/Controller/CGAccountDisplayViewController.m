@@ -37,14 +37,14 @@
             [[CGAFHttpRequest shareRequest] getuserWithserverSuccessFn:^(id dict) {
                 if(dict){
 
-                    NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    NSDictionary *dataArray = dict[@"data"];
 
                     NSLog(@"%@",dataArray);//defaultcount
                     defaultCountType = [dataArray objectForKey:@"defaultcount"];
                     [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
                         if(dict){
                             
-                            _dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                            _dataArray = dict[@"data"];
                             
                             NSLog(@"%@",_dataArray);
                             //                    allkeys = [_dataArray allKeys];
@@ -121,12 +121,12 @@
 //    }
     
     
-//    if ([[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]]]) {
-//        weakCell.selectImg.image = [UIImage imageNamed:@"selectIcon"];
-//    }
-    if ([[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:defaultCountType]) {
+    if ([[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]]]) {
         weakCell.selectImg.image = [UIImage imageNamed:@"selectIcon"];
     }
+//    if ([[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"] isEqualToString:defaultCountType]) {
+//        weakCell.selectImg.image = [UIImage imageNamed:@"selectIcon"];
+//    }
     //当上下滑动时因为cell复用，需要判断哪个选择了
     else if (_selIndex == indexPath) {
         weakCell.selectImg.image = [UIImage imageNamed:@"selectIcon"];
@@ -221,7 +221,7 @@
             [[CGAFHttpRequest shareRequest] updatedefaultcountWithcounttype:counttype  serverSuccessFn:^(id dict) {
                 if(dict){
                     
-                    NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    NSDictionary *dataArray = dict[@"data"];
                     
                     NSLog(@"%@",dataArray);
                     

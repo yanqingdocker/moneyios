@@ -19,12 +19,15 @@
     NSString *_accountID;
     //    UITableView *detailTableView;
     UIView *fukuanfangshiView;
+    UIButton *paymentBtn;
+    UITableView *detailTableView;
     
 //    UITableView *fukuanfangshiTableView;
 }
 @property (nonatomic, strong) UITableView *detailTableView;
 
 @property (nonatomic, strong) UITableView *fukuanfangshiTableView;
+@property (nonatomic, strong) NSIndexPath *lastIndex;
 
 @end
 
@@ -33,13 +36,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _array  = [[NSMutableArray alloc] init];
-    for (int i = 0; i < _dataArray.count; i++) {
-        [_array addObject:[NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:i] objectForKey:@"countType"]]];
+    if(_amount){
+        for (int i = 0; i < _dataArray.count; i++) {
+            [_array addObject:[NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:i] objectForKey:@"countType"]]];
+        }
+        _accountType = [NSString stringWithFormat:@"%@", [[_dataArray objectAtIndex:0] objectForKey:@"countType"]];
+        _accountID = [NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:0] objectForKey:@"id"]];
+    }else{
+//        for (int i = 0; i < _dataArray.count; i++) {
+//            [_array addObject:_dataArray[i]];
+//        }
+        
+            _accountType = [_dataArray[0] objectForKey:@"bankType"];
+            _accountID = [_dataArray[0] objectForKey:@"bankCard"];//id
+        
+        
     }
-    _accountType = [NSString stringWithFormat:@"%@", [[_dataArray objectAtIndex:0] objectForKey:@"countType"]];
-    _accountID = [NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:0] objectForKey:@"id"]];
+    
 
     [self setupContent];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    _lastIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [_fukuanfangshiTableView selectRowAtIndexPath:_lastIndex animated:YES scrollPosition:UITableViewScrollPositionTop];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    
+    [self tableView:_fukuanfangshiTableView didSelectRowAtIndexPath:path];
+    
 }
 
 - (void)setupContent {
@@ -74,14 +103,9 @@
         line.backgroundColor = [UIColor lightGrayColor];
         [_contentView addSubview:line];
         
-        UILabel *amountLab = [[UILabel alloc] init];
-        amountLab.frame = CGRectMake(0, 77, SCREEN_WIDTH, 36);
-        amountLab.text = _amount;
-        amountLab.font = [UIFont systemFontOfSize:37];
-        amountLab.textAlignment = NSTextAlignmentCenter;
-        [_contentView addSubview:amountLab];
         
-        UIButton *paymentBtn = [[UIButton alloc] init];
+        
+        paymentBtn = [[UIButton alloc] init];
         paymentBtn.frame = CGRectMake(15, 370 - NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH - 15*2, 50);
         [paymentBtn setTitle:@"立即支付" forState:UIControlStateNormal];
         [paymentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -91,7 +115,7 @@
         [_contentView addSubview:paymentBtn];
     }
     
-    UITableView *detailTableView = [[UITableView alloc] init];
+    detailTableView = [[UITableView alloc] init];
     detailTableView.backgroundColor = [UIColor clearColor];
     detailTableView.frame = CGRectMake(0, 147, SCREEN_WIDTH, 89);
     [_contentView addSubview:detailTableView];
@@ -120,8 +144,39 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifire];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        if(_amount){
+            
+            cell.textLabel.text = [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"];
+        }else{
+            cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@logo",[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"bankType"]]];
+            cell.textLabel.text = [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"bankType"];
+            NSInteger row = [indexPath row];
+            
+            
+            
+            NSInteger oldRow = [_lastIndex row];
+            
+            
+            
+            if (row == oldRow && _lastIndex!=nil) {
+                
+                
+                
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                
+                
+                
+            }else{
+                
+                
+                
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+                
+                
+            }
+        }
         
-        cell.textLabel.text = [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"];
         
         return cell;
     }else{
@@ -159,9 +214,50 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView == _fukuanfangshiTableView){
-        _accountID = [NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
-
-        _accountType = [NSString stringWithFormat:@"%@", [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"]];
+        if(_amount){
+            _accountID = [NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
+            
+            _accountType = [NSString stringWithFormat:@"%@", [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"]];
+            
+        }else{
+            _accountID = [NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"bankCard"]];
+            
+            _accountType = [NSString stringWithFormat:@"%@", [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"bankType"]];
+            
+            NSInteger newRow = [indexPath row];
+            
+            
+            
+            NSInteger oldRow = (_lastIndex !=nil)?[_lastIndex row]:-1;
+            
+            
+            
+            if (newRow != oldRow) {
+                
+                
+                
+                UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+                
+                
+                
+                newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+                
+                
+                
+                UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:_lastIndex];
+                
+                
+                
+                oldCell.accessoryType = UITableViewCellAccessoryNone;
+                
+                
+                
+                _lastIndex = indexPath;
+                
+                
+                
+            }
+        }
         
         [_detailTableView reloadData];
         [self gobackView];
@@ -175,7 +271,7 @@
             // 右上角关闭按钮
             UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             closeBtn.frame = CGRectMake(20, 10, 20, 20);
-            [closeBtn setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
+            [closeBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
             [closeBtn addTarget:self action:@selector(gobackView) forControlEvents:UIControlEventTouchUpInside];
             [fukuanfangshiView addSubview:closeBtn];
             
@@ -209,43 +305,7 @@
     _selectbankcardblock(_accountID);
     [self disMissView];
 
-//    XLPasswordView *passwordView = [XLPasswordView passwordView];
-//    passwordView.delegate = self;
-//    [passwordView showPasswordInView:self.view];
-//    _contentView.hidden = YES;
 }
-
-//- (void)passwordView:(XLPasswordView *)passwordView didFinishInput:(NSString *)password
-//{
-//    //    NSLog(@"输入密码位数已满,在这里做一些事情,例如自动校验密码");
-//    [[CGAFHttpRequest shareRequest] payMentWithcountId:_accountID cardNum:_amount phone:_phoneNum payPwd:password serverSuccessFn:^(id dict) {
-//        if(dict){
-//
-//
-//            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-//            NSLog(@"%@",result);
-//
-//            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-//                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-//                [passwordView clearPassword];
-//            }
-//            if([[result objectForKey:@"code"] isEqualToString:@"success"]){
-//
-//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"充值成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//                UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                    [self.navigationController popToRootViewControllerAnimated:YES];
-//                }];
-//                [alertController addAction:skipAction];
-//                [self presentViewController:alertController animated:YES completion:nil];
-//
-//            }
-//        }
-//    } serverFailureFn:^(NSError *error) {
-//        if(error){
-//            NSLog(@"%@",error);
-//        }
-//    }];
-//}
 
 - (void)showInView:(UIView *)view {
     if (!view) {
@@ -261,7 +321,14 @@
         
         self.view.alpha = 1.0;
         
-        [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight- NAVIGATIONBAR_HEIGHT , SCREEN_WIDTH, CGConfirmPaymentViewHight)];
+        if(_amount){
+            [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight- NAVIGATIONBAR_HEIGHT , SCREEN_WIDTH, CGConfirmPaymentViewHight)];
+            
+        }else{
+            [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight- NAVIGATIONBAR_HEIGHT +36, SCREEN_WIDTH, CGConfirmPaymentViewHight)];
+            paymentBtn.frame = CGRectMake(15, 370 - NAVIGATIONBAR_HEIGHT - 36, SCREEN_WIDTH - 15*2, 50);
+            detailTableView.frame = CGRectMake(0, 147 - 36, SCREEN_WIDTH, 89);
+        }
         
     } completion:nil];
 }

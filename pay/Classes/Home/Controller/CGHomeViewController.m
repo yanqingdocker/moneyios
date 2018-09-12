@@ -21,7 +21,7 @@
 #import "CGShouKuanMaViewController.h"
 #import "CGBillQueryViewController.h"
 
-//#import "CGSaoMaZhuanZhangViewController.h"
+#import "CGSaoMaZhuanZhangViewController.h"
 #import "CGHuiDuiTypeViewController.h"
 
 #import "CGZhuanZhangConfirmViewController.h"
@@ -262,7 +262,7 @@
 //                        }
 //
 //                        if(flag){
-//                            CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
+//                            CGSaoMaZhuanZhangViewController *vc = [[CGSaoMaZhuanZhangViewController alloc] init];
 //                            vc.moneynum = [params objectForKey:@"num"];
 ////                            vc.imgdata = data;
 //                            vc.type = [params objectForKey:@"type"];
@@ -272,7 +272,7 @@
 //                        }else{
 //                            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"您没有相应账户,是否使用现有账户转账" message:nil preferredStyle:UIAlertControllerStyleAlert];
 //                            UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                                CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
+//                                CGSaoMaZhuanZhangViewController *vc = [[CGSaoMaZhuanZhangViewController alloc] init];
 //                                vc.moneynum = [params objectForKey:@"num"];
 //                                vc.imgdata = data;
 //                                vc.type = [params objectForKey:@"type"];
@@ -301,7 +301,7 @@
             if(dict){
                 
                 
-                NSMutableArray *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                NSMutableArray *result = dict[@"data"];
                 NSLog(@"%@",result);
                 if ([result count] == 0) {
                     CGNoAccountViewController *vc = [[CGNoAccountViewController alloc] init];
@@ -329,13 +329,13 @@
 -(void)zhuanzhangEvent:(NSDictionary *)params{
     [[CGAFHttpRequest shareRequest] getuserbyTelphoneWithtelphone:[params objectForKey:@"phone"] serverSuccessFn:^(id dict) {
         if(dict){
-            NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSDictionary *result= dict[@"data"];
             NSLog(@"%@",result);
             
             NSData *data=[[NSData alloc] initWithBase64EncodedString:[result objectForKey:@"img"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
             
             
-            CGZhuanZhangConfirmViewController *vc = [[CGZhuanZhangConfirmViewController alloc] init];
+            CGSaoMaZhuanZhangViewController *vc = [[CGSaoMaZhuanZhangViewController alloc] init];
             vc.moneynum = [params objectForKey:@"num"];
             vc.imgdata = data;
             vc.type = [params objectForKey:@"type"];

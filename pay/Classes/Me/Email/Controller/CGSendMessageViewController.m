@@ -37,11 +37,12 @@
     phoneView.layer.borderColor = RGBCOLOR(203, 203, 228).CGColor;
     [self.view addSubview:phoneView];
     
-    _phone = [[UITextField alloc] initWithFrame:CGRectMake(17, 18, SCREEN_WIDTH - 17*2, 12)];
+    _phone = [[UITextField alloc] initWithFrame:CGRectMake(17, 2, SCREEN_WIDTH - 17*2, 44)];
     _phone.placeholder = @"请输入收件人电话（仅限本平台用户）";
     _phone.font = [UIFont systemFontOfSize:12];
     _phone.delegate = self;
     _phone.borderStyle = UIKeyboardTypeNumberPad;
+    _phone.clearButtonMode = UITextFieldViewModeAlways;
     [phoneView addSubview:_phone];
     
     UIView *themeView = [[UIView alloc] initWithFrame:CGRectMake(0, 79, SCREEN_WIDTH, 44)];
@@ -50,8 +51,9 @@
     themeView.layer.borderColor = RGBCOLOR(203, 203, 228).CGColor;
     [self.view addSubview:themeView];
     
-    _theme = [[UITextField alloc] initWithFrame:CGRectMake(17, 18, SCREEN_WIDTH - 17*2, 12)];
+    _theme = [[UITextField alloc] initWithFrame:CGRectMake(17, 2, SCREEN_WIDTH - 17*2, 44)];
     _theme.placeholder = @"请输入邮件主题";
+    _theme.clearButtonMode = UITextFieldViewModeAlways;
     _theme.font = [UIFont systemFontOfSize:12];
     _theme.delegate = self;
     [themeView addSubview:_theme];
@@ -143,17 +145,14 @@
 -(void)confirmEvent{
     [[CGAFHttpRequest shareRequest] sendCardWithreceivecount:_phone.text title:_theme.text content:_content.text serverSuccessFn:^(id dict) {
         if(dict){
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-            if ([[result objectForKey:@"code"] isEqualToString:@"fail"]) {
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-            }else{
+//            NSDictionary *result = dict[@"data"];
+            if ([[dict objectForKey:@"code"] isEqualToString:@"1004"]) {
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"发送邮件成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
                 [alertController addAction:skipAction];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
+                [self presentViewController:alertController animated:YES completion:nil];            }
             
         }
     } serverFailureFn:^(NSError *error) {
@@ -161,5 +160,10 @@
             NSLog(@"%@",error);
         }
     }];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 @end

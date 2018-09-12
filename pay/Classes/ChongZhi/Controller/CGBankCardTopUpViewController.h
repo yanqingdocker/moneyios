@@ -12,4 +12,5 @@
 
 @interface CGBankCardTopUpViewController : CGBaseViewController
 
+@property (strong, nonatomic) NSMutableArray *bankcardArray;
 @end

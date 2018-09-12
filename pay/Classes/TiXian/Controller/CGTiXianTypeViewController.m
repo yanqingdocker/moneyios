@@ -9,6 +9,7 @@
 #import "CGTiXianTypeViewController.h"
 #import "CGTiXianViewController.h"
 #import "CGTiXianAlipayViewController.h"
+#import "CGCashToBankCardViewController.h"
 
 @interface CGTiXianTypeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -55,22 +56,22 @@
         //        UIView *speedView = [[UIView alloc] init];
         UIButton *cellView = [[UIButton alloc ]init];
         if(i == 0){
-            [cellView setImage:[UIImage imageNamed:@"提现"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"提现到银行"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 1){
-            [cellView setImage:[UIImage imageNamed:@"话费"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"提现到支付宝"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 2){
-            [cellView setImage:[UIImage imageNamed:@"转账"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"提现到微信"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 3){
-            [cellView setImage:[UIImage imageNamed:@"兑汇"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"提现到比特币"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 4){
-            [cellView setImage:[UIImage imageNamed:@"理财"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"现金提现"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 5){
-            [cellView setImage:[UIImage imageNamed:@"生活"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"外币提现"] forState:UIControlStateNormal];
             cellView.tag = i;
         }
         [cellView addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -110,7 +111,25 @@
 - (void)btnClick:(UIButton *)btn
 {
     if(btn.tag == 0){
-//        CGBankCardTopUpViewController *vc = [[CGBankCardTopUpViewController alloc] init];
+        [[CGAFHttpRequest shareRequest] queryWithserverSuccessFn:^(id dict) {
+            if(dict){
+                if([dict[@"data"] count] > 0){
+                    CGCashToBankCardViewController *vc = [[CGCashToBankCardViewController alloc] init];
+                    vc.bankcardArray = dict[@"data"];
+                    [self pushViewControllerHiddenTabBar:vc animated:YES];
+                }else{
+                    [MBProgressHUD showText:@"您没有银行卡" toView:self.view];
+                }
+                
+                
+            }
+        } serverFailureFn:^(NSError *error) {
+            if(error){
+                NSLog(@"%@",error);
+            }
+        }];
+        
+//        CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
 //        [self pushViewControllerHiddenTabBar:vc animated:YES];
         
     }else if(btn.tag == 1){

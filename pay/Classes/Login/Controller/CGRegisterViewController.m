@@ -219,13 +219,18 @@
     [[CGAFHttpRequest shareRequest] checkPhoneWithtelphone:_telphone.text
                                            serverSuccessFn:^(id dict)
      {
-         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-         if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-             [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-         }else{
-             [self startTimer:_getCheckBtn];
-         }
+         NSDictionary *result = dict[@"data"];
+//         if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
+//             [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+//         }else{
+//             [self startTimer:_getCheckBtn];
+//         }
          
+         if([[result objectForKey:@"code"] integerValue] == 1004){
+             [self startTimer:_getCheckBtn];
+         }else{
+             [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
+         }
      }serverFailureFn:^(NSError *error){
          if(error){
              NSLog(@"%@",error);
@@ -237,12 +242,9 @@
     [self.view endEditing:YES];
     [[CGAFHttpRequest shareRequest] registerWithphone:_telphone.text password:_password.text checkNum:_check.text serverSuccessFn:^(id dict) {
         if(dict){
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSDictionary *result = dict[@"data"];
             NSLog(@"%@",result);
             
-            if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-            }else{
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"注册成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     loginBtn.enabled = NO;
@@ -250,7 +252,7 @@
                 }];
                 [alertController addAction:skipAction];
                 [self presentViewController:alertController animated:YES completion:nil];
-            }
+            
         }
     } serverFailureFn:^(NSError *error) {
         if(error){

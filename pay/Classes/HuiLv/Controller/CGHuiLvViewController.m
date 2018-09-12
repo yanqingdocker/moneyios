@@ -33,7 +33,7 @@
             [[CGAFHttpRequest shareRequest] queryAllWithserverSuccessFn:^(id dict) {
                 if(dict){
                     
-                    NSArray *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    NSArray *result= dict[@"data"];
                     
                     _dataArray = result[6];
                     NSLog(@"%@",_dataArray);

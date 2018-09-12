@@ -67,7 +67,7 @@
         CGFloat rowMargin = 85;
 //    CGFloat rowMargin = 20;
     //Item索引 ->根据需求改变索引
-    NSUInteger index = 6;
+    NSUInteger index = 5;
     
     for (int i = 0 ; i< index; i++) {
         //Item X轴
@@ -80,24 +80,21 @@
         //        UIView *speedView = [[UIView alloc] init];
         UIButton *cellView = [[UIButton alloc ]init];
         if(i == 0){
-            [cellView setImage:[UIImage imageNamed:@"提现"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"银行卡充值"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 1){
-            [cellView setImage:[UIImage imageNamed:@"话费"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"支付宝充值"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 2){
-            [cellView setImage:[UIImage imageNamed:@"转账"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"微信充值"] forState:UIControlStateNormal];
             cellView.tag = i;
         }else if(i == 3){
-            [cellView setImage:[UIImage imageNamed:@"bitcoin"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"比特币充值"] forState:UIControlStateNormal];
 //            [cellView setTitle:@"比特币充值" forState:UIControlStateNormal];
 //            cellView.titleLabel.font = [UIFont systemFontOfSize:18];
             [cellView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }else if(i == 4){
-            [cellView setImage:[UIImage imageNamed:@"理财"] forState:UIControlStateNormal];
-            cellView.tag = i;
-        }else if(i == 5){
-            [cellView setImage:[UIImage imageNamed:@"生活"] forState:UIControlStateNormal];
+            [cellView setImage:[UIImage imageNamed:@"网银充值"] forState:UIControlStateNormal];
             cellView.tag = i;
         }
         [cellView addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -200,8 +197,25 @@
 - (void)btnClick:(UIButton *)btn
 {
     if(btn.tag == 0){
-        CGBankCardTopUpViewController *vc = [[CGBankCardTopUpViewController alloc] init];
-        [self pushViewControllerHiddenTabBar:vc animated:YES];
+        [[CGAFHttpRequest shareRequest] queryWithserverSuccessFn:^(id dict) {
+            if(dict){
+                if([dict[@"data"] count] > 0){
+                    CGBankCardTopUpViewController *vc = [[CGBankCardTopUpViewController alloc] init];
+                    vc.bankcardArray = dict[@"data"];
+                    [self pushViewControllerHiddenTabBar:vc animated:YES];
+                }else{
+                    [MBProgressHUD showText:@"您没有银行卡" toView:self.view];
+                }
+                
+                
+            }
+        } serverFailureFn:^(NSError *error) {
+            if(error){
+                NSLog(@"%@",error);
+            }
+        }];
+        
+        
         
     }else if(btn.tag == 1){
 //        CGHuaFeiChongZhiViewController *vc = [[CGHuaFeiChongZhiViewController alloc] init];

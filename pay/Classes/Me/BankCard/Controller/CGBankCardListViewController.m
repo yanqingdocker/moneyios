@@ -14,6 +14,7 @@
 @property (strong, nonatomic)  NSMutableArray *result;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) CGBankCardModel *BCModel;
+@property (strong, nonatomic) UIImageView *imageView;
 
 @end
 
@@ -33,23 +34,20 @@
 -(void)requestForm{
     [[CGAFHttpRequest shareRequest] queryWithserverSuccessFn:^(id dict) {
         if(dict){
-            
-            NSMutableArray *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            NSMutableArray *result = dict[@"data"];
             NSLog(@"%@",result);
             if(result.count == 0){
                 //缺省图
-                [MBProgressHUD showText:@"您没有银行卡" toView:self.view];
+                _imageView=[[UIImageView alloc]initWithFrame:self.view.bounds];
+                _imageView.image=[UIImage imageNamed:@"bgLoginImg"];
+                _imageView.hidden= NO;
+                [self.view addSubview:_imageView];
+                
             }else{
-                if([[[result objectAtIndex:0] objectForKey:@"code"] isEqualToString:@"fail"]){
-                    [MBProgressHUD showText:[[result objectAtIndex:0] objectForKey:@"message"] toView:self.view];
-                }else{
-                    
-                    _result = [result mutableCopy];
-                    
-                    [_tableView reloadData];
-                }
+                _imageView.hidden = YES;
+                _result = [result mutableCopy];
             }
-            
+            [_tableView reloadData];
             
             
         }
@@ -150,10 +148,9 @@
         [[CGAFHttpRequest shareRequest] unbindWithID:_BCModel.id serverSuccessFn:^(id dict) {
             if(dict){
                 
-                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
-                if ([[result objectForKey:@"code"] isEqualToString:@"fail"]) {
-                    [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-                }else{
+//                NSDictionary *result = dict[@"data"];
+                if ([[dict objectForKey:@"code"] isEqualToString:@"1004"]) {
+                    [MBProgressHUD showText:[dict objectForKey:@"message"] toView:self.view];
                     [self requestForm];
                 }
                 

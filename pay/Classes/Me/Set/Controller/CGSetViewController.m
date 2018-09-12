@@ -167,9 +167,9 @@
     [[CGAFHttpRequest shareRequest] logoutWithserverSuccessFn:^(id dict) {
         if(dict){
             [[XGPushTokenManager defaultTokenManager] unbindWithIdentifer:[GlobalSingleton Instance].currentUser.userid type:XGPushTokenBindTypeAccount];
-            CGLoginViewController * vc = [[CGLoginViewController alloc]init];
-            
-            [self.navigationController pushViewController:vc animated:NO];
+//            CGLoginViewController * vc = [[CGLoginViewController alloc]init];
+//            
+//            [self.navigationController pushViewController:vc animated:NO];
             
             CGLoginTabBarController *tabbar = [[CGLoginTabBarController alloc] init];
             [UIApplication sharedApplication].keyWindow.rootViewController = tabbar;

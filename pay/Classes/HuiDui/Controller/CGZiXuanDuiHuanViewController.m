@@ -48,13 +48,13 @@
         if(dict){
 
 
-            _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+            _result = dict[@"data"];
             NSLog(@"%@",_result);
             
 //            model = [CGGetSingleRateModel objectWithKeyValues:_result];
             
-            _huilvLab.text = [NSString stringWithFormat:@"当前汇率：%@",[_result objectForKey:@"message"]];
-            _huilv = [[_result objectForKey:@"message"] floatValue];
+            _huilvLab.text = [NSString stringWithFormat:@"当前汇率：%@",[_result objectForKey:@"rate"]];
+            _huilv = [[_result objectForKey:@"rate"] floatValue];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
@@ -163,17 +163,6 @@
     line2.backgroundColor = RGBCOLOR(234,234,241);
     [bgView addSubview:line2];
     
-//    if([_buyType isEqualToString:@"USD"]){
-//        moneyIcon.image = [UIImage imageNamed:@"selectUSD"];
-//        selectLab.text = @"买入美元(USD)";
-//        _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"buyPic"]];//有点搞不清楚哪个用买入哪个用卖出
-//    }
-//    else if([_buyType isEqualToString:@"CNY"]){
-//        moneyIcon.image = [UIImage imageNamed:@"selectCNY"];
-//        selectLab.text = @"买入人民币(CNY)";
-//        _huilvLab.text = [NSString stringWithFormat:@"当前汇率:%@",[_result objectForKey:@"sellPic"]];
-//    }
-//
     CGRect tableframe=CGRectMake(0, 147 , SCREEN_WIDTH,94*2);
     _tableView=[[UITableView alloc]initWithFrame:tableframe style:UITableViewStylePlain];
     _tableView.delegate=self;
@@ -235,10 +224,12 @@
 //        }
 //
         _amount = [[UITextField alloc] init];
-        _amount.frame = CGRectMake(18, 76, 320, 12);
+        _amount.frame = CGRectMake(18, 60, SCREEN_WIDTH  - 18*2, 44);
         _amount.delegate =self;
         _amount.font = [UIFont systemFontOfSize:12];
         _amount.placeholder = [NSString stringWithFormat:@"可兑换金额:%@",[[_dataArray objectAtIndex:0] objectForKey:@"blance"]];
+        _amount.clearButtonMode = UITextFieldViewModeAlways;
+        _amount.keyboardType = UIKeyboardTypeDecimalPad;
         [_amount addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
         [cell addSubview:_amount];
     }
@@ -294,17 +285,15 @@
     
     [[CGAFHttpRequest shareRequest] exchangeWithdatas:[self convertToJsonData:datas] serverSuccessFn:^(id dict) {
             if(dict){
-                NSDictionary *result= [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                NSDictionary *result= dict[@"data"];
     
-                if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
-                    [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-                    [passwordView clearPassword];
-                }
-                if([[result objectForKey:@"code"] isEqualToString:@"success"]){
+                if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
                     CGHuiDuiSuccessViewController *vc = [[CGHuiDuiSuccessViewController alloc] init];
-                    vc.liushuiID = [result objectForKey:@"message"];
+                    vc.liushuiID = [result objectForKey:@"snumber"];
                     [self pushViewControllerHiddenTabBar:vc animated:YES];
                     [passwordView hidePasswordView];
+                }else{
+                    [passwordView clearPassword];
                 }
     
     

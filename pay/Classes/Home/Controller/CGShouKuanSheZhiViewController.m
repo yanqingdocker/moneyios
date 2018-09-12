@@ -45,7 +45,7 @@
                 if(dict){
                     
                     
-                    _result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
+                    _result = dict[@"data"];
                     NSLog(@"%@",_result);
                     
                     if([[[_result objectAtIndex:0] objectForKey:@"code"] isEqualToString:@"fail"]){
@@ -126,11 +126,12 @@
     if(indexPath.row == 0){
         cell.textLabel.text = @"金额";
         
-        _amount = [[UITextField alloc] initWithFrame:CGRectMake(60, 15, SCREEN_WIDTH - 60 - 17, 16)];
+        _amount = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, SCREEN_WIDTH - 60 - 17, 44)];
         _amount.placeholder = @"请输入收款金额";
         _amount.delegate = self;
         _amount.font = [UIFont systemFontOfSize:16];
-        _amount.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        _amount.clearButtonMode = UITextFieldViewModeAlways;
+        _amount.keyboardType = UIKeyboardTypeDecimalPad;
         [cell addSubview:_amount];
     }
     if(indexPath.row == 1){
@@ -152,6 +153,8 @@
 }
 
 - (void)selectbankcard{
+    [self.view endEditing:YES];
+    
     _accountBV = [[CGBounceView alloc]init];
     _accountBV.BVtitle = @"选择账户";
     _accountBV.tuanModel = _dataArray;
@@ -188,4 +191,9 @@
     [self goBack];
 }
 
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 @end
