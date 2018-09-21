@@ -20,4 +20,8 @@
 /// @return 扫描控制器
 - (instancetype)initWithCardName:(NSString *)cardName avatar:(UIImage *)avatar completion:(void (^)(NSString *stringValue))completion;
 
+///增加拉近/远视频界面
+@property (nonatomic, assign) BOOL isVideoZoom;
+
+
 @end

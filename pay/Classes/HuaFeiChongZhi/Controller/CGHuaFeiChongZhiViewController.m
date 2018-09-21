@@ -10,6 +10,7 @@
 #import "CGTopUpDetailViewController.h"
 #import "CGConfirmPaymentView.h"
 #import "XLPasswordView.h"
+#import "CGJiaoYiDetailsViewController.h"
 
 @interface CGHuaFeiChongZhiViewController ()<XLPasswordViewDelegate,UITextFieldDelegate>{
     UIButton *btnView;
@@ -218,9 +219,15 @@
 - (void)paymentEvent
 {
     [self.view endEditing:YES];
+    if([StringUtil isNullOrEmpty:_phoneNum.text]){
+        [MBProgressHUD showText:@"请输入手机号" toView:self.view];
+        return;
+    }
+    
     _confirmPaymentView = [[CGConfirmPaymentView alloc]init];
     _confirmPaymentView.cellTextLabel1 = @"充值号码";
     _confirmPaymentView.cellTextLabel2 = @"付款方式";
+    _confirmPaymentView.type = @"话费充值";
     _confirmPaymentView.amount = _amount;
     _confirmPaymentView.phoneNum = _phoneNum.text;
     _confirmPaymentView.dataArray = _result;
@@ -246,12 +253,17 @@
             NSLog(@"%@",result);
             
             if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"充值成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }];
-                [alertController addAction:skipAction];
-                [self presentViewController:alertController animated:YES completion:nil];
+//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"充值成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+//                UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    [self.navigationController popToRootViewControllerAnimated:YES];
+//                }];
+//                [alertController addAction:skipAction];
+//                [self presentViewController:alertController animated:YES completion:nil];
+                
+                CGJiaoYiDetailsViewController *vc = [[CGJiaoYiDetailsViewController alloc] init];
+                vc.liushuiID = [result objectForKey:@"snumber"];
+                [self pushViewControllerHiddenTabBar:vc animated:YES];
+                [passwordView hidePasswordView];
             }else{
                 [passwordView clearPassword];
             }

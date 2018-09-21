@@ -118,8 +118,8 @@
     if (indexPath.row == 2) {
         CGAccountBalanceTableViewCell *cell = [CGAccountBalanceTableViewCell cellForTableView:tableView];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.titleLab.text = [NSString stringWithFormat:@"人民币账户余额:%@￥",@"0.00"];
-        cell.contentText.placeholder = @"0.00";
+        cell.titleLab.text = [NSString stringWithFormat:@"人民币账户余额:%@￥",@"0.0000"];
+        cell.contentText.placeholder = @"0.0000";
         return cell;
     }
     

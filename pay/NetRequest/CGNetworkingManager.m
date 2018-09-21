@@ -103,6 +103,7 @@ static CGNetworkingManager *manager = nil;
                 NSString *codestring=[NSString stringWithFormat:@"%@",dic[@"code"]];
                 if (![codestring isEqualToString:@"1004"]) {
                     [CGHttpHelper isNeedReLoginWithHttpCode:dic[@"code"] message:dic[@"message"]];
+                    [MBProgressHUD showText:dic[@"message"] toView:[UIApplication sharedApplication].keyWindow];
                     if([codestring isEqualToString:@"1001"]){
                         return;
                     }
@@ -127,6 +128,14 @@ static CGNetworkingManager *manager = nil;
         
             if (failure) {
                 failure(error);
+                if(error.code == -1001){
+                    [MBProgressHUD showText:@"请求超时" toView:[UIApplication sharedApplication].keyWindow];
+                }else if(error.code == -1009){
+                    [MBProgressHUD showText:@"似乎已断开与互联网的连接" toView:[UIApplication sharedApplication].keyWindow];
+                }else if(error.code == -40001){
+                    [MBProgressHUD showText:@"网络不可用" toView:[UIApplication sharedApplication].keyWindow];
+                }
+                
             }
     }];
     
@@ -247,13 +256,22 @@ static CGNetworkingManager *manager = nil;
                 NSString *codestring=[NSString stringWithFormat:@"%@",dic[@"code"]];
                 if (![codestring isEqualToString:@"1004"]) {
                     [CGHttpHelper isNeedReLoginWithHttpCode:dic[@"code"] message:dic[@"message"]];
-                    return;
+                    if([codestring isEqualToString:@"1001"]){
+                        return;
+                    }else{
+                        if([URLString  rangeOfString:@"user/login"].location == NSNotFound){
+                            [MBProgressHUD showText:dic[@"message"] toView:[UIApplication sharedApplication].keyWindow];
+                        }
+                    }
+
                 }else{
+                    if(![[dic objectForKey:@"data"] isEqualToString:@""]){
+                        NSData *JSONData = [[dic objectForKey:@"data"] dataUsingEncoding:NSUTF8StringEncoding];
+                        // 将流转换为字典
+                        NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+                        [dic setObject:dataDict forKey:@"data"];
+                    }
                     
-                    NSData *JSONData = [[dic objectForKey:@"data"] dataUsingEncoding:NSUTF8StringEncoding];
-                    // 将流转换为字典
-                    NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-                    [dic setObject:dataDict forKey:@"data"];
                 }
             }
             
@@ -266,6 +284,13 @@ static CGNetworkingManager *manager = nil;
         
         if (failure) {
             failure(error);
+            if(error.code == -1001){
+                [MBProgressHUD showText:@"请求超时" toView:[UIApplication sharedApplication].keyWindow];
+            }else if(error.code == -1009){
+                [MBProgressHUD showText:@"似乎已断开与互联网的连接" toView:[UIApplication sharedApplication].keyWindow];
+            }else if(error.code == -40001){
+                [MBProgressHUD showText:@"网络不可用" toView:[UIApplication sharedApplication].keyWindow];
+            }
         }
     }];
     

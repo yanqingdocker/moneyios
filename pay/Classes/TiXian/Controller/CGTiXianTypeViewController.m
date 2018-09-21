@@ -10,6 +10,7 @@
 #import "CGTiXianViewController.h"
 #import "CGTiXianAlipayViewController.h"
 #import "CGCashToBankCardViewController.h"
+#import "CGWaiBiTiXianViewController.h"
 
 @interface CGTiXianTypeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -20,7 +21,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self requestForm];
 }
+
+//- (void)requestForm{
+//    [[CGAFHttpRequest shareRequest] queryCountByUseridWithserverSuccessFn:^(id dict) {
+//        if(dict){
+//            if([dict[@"data"] count] > 0){
+//                
+//            }else{
+//                [MBProgressHUD showText:@"您没有账户" toView:self.view];
+//            }
+//            
+//        }
+//        
+//    } serverFailureFn:^(NSError *error) {
+//        if(error){
+//            NSLog(@"%@",error);
+//        }
+//    }];
+//}
 
 - (void)initNav{
     self.navigationItem.title = @"提现";
@@ -76,7 +96,12 @@
         }
         [cellView addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        cellView.frame = CGRectMake(X+rankMargin/2, Y+top, W, H);
+        if(i == 1){
+          cellView.frame = CGRectMake(X+rankMargin/2-8, Y+top, 106, H);
+        }else{
+            cellView.frame = CGRectMake(X+rankMargin/2, Y+top, W, H);
+        }
+        
         [bgView addSubview:cellView];
     }
     
@@ -111,9 +136,11 @@
 - (void)btnClick:(UIButton *)btn
 {
     if(btn.tag == 0){
+        
         [[CGAFHttpRequest shareRequest] queryWithserverSuccessFn:^(id dict) {
             if(dict){
                 if([dict[@"data"] count] > 0){
+                    
                     CGCashToBankCardViewController *vc = [[CGCashToBankCardViewController alloc] init];
                     vc.bankcardArray = dict[@"data"];
                     [self pushViewControllerHiddenTabBar:vc animated:YES];
@@ -129,6 +156,7 @@
             }
         }];
         
+        
 //        CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
 //        [self pushViewControllerHiddenTabBar:vc animated:YES];
         
@@ -141,7 +169,8 @@
     }else if(btn.tag == 4){
         
     }else if(btn.tag == 5){
-        
+        CGWaiBiTiXianViewController *vc = [[CGWaiBiTiXianViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
     }
 }
 

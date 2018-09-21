@@ -9,13 +9,13 @@
 #import "CGBaseViewController.h"
 #import "MBProgressHUD+Extension.h"
 
-@interface CGBaseViewController ()
+@interface CGBaseViewController ()<UIGestureRecognizerDelegate>
 {
     
 }
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) dispatch_source_t timer;
-
+@property (nonatomic, strong) UIGestureRecognizer *interactivePopGestureRecognizer;
 @end
 
 @implementation CGBaseViewController
@@ -24,6 +24,17 @@
     [super viewDidLoad];
     [self initNav];
     [self initUI];
+    
+    
+    id target = self.navigationController.interactivePopGestureRecognizer.delegate;
+    
+    // handleNavigationTransition:为系统私有API,即系统自带侧滑手势的回调方法，我们在自己的手势上直接用它的回调方法
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(handleNavigationTransition:)];
+    panGesture.delegate = self; // 设置手势代理，拦截手势触发
+    [self.view addGestureRecognizer:panGesture];
+    
+    // 一定要禁止系统自带的滑动手势
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
 //    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:20/255.0 green:155/255.0 blue:213/255.0 alpha:1.0]];
 //    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil]];
@@ -54,6 +65,20 @@
 //
 //    [self.view addGestureRecognizer:singleTap];
 }
+
+// 什么时候调用，每次触发手势之前都会询问下代理方法，是否触发
+// 作用：拦截手势触发
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    // 当当前控制器是根控制器时，不可以侧滑返回，所以不能使其触发手势
+    if(self.navigationController.childViewControllers.count == 1)
+    {
+        return NO;
+    }
+    
+    return YES;
+}
+
 //-(void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer
 //{
 //    

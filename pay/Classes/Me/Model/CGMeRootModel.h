@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *title;//总资产描述
 @property (nonatomic, strong) NSString *inmoney;//月收入
 @property (nonatomic, strong) NSString *outmoney;//月支出
+@property (nonatomic, strong) NSString *banknum;//银行卡个数
 
 @end

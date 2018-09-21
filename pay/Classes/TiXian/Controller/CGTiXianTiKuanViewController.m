@@ -128,7 +128,7 @@
         cell.titleLab.text = [NSString stringWithFormat:@"提款金额"];
         cell.titleLab.textColor = [UIColor blackColor];
         cell.titleLab.font = [UIFont systemFontOfSize:15];
-        cell.contentText.placeholder = @"0.00";
+        cell.contentText.placeholder = @"0.0000";
         return cell;
     }
     

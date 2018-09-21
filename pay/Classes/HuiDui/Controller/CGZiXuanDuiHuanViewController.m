@@ -267,6 +267,10 @@
 
 -(void) confirmEvent{
     [self.view endEditing:YES];
+    if([StringUtil isNullOrEmptyOrZero:_amount.text]){
+        [MBProgressHUD showText:@"请输入兑换金额" toView:self.view];
+        return;
+    }
     XLPasswordView *passwordView = [XLPasswordView passwordView];
     passwordView.delegate = self;
     [passwordView showPasswordInView:self.view];
@@ -369,6 +373,11 @@
         [self requestForm];
     }
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    return ([StringUtil validateMoney:_amount.text Range:range String:string]);
+}
+
 
 //-(void)dropdownMenuWillHidden:(LMJDropdownMenu *)menu{
 //

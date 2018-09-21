@@ -15,6 +15,11 @@
     return ([str isEqualToString:@""] || str == nil);
 }
 
+//pay项目特制
++ (BOOL)isNullOrEmptyOrZero:(NSString *)str {
+    return ([str isEqualToString:@""] || str == nil || [str isEqualToString:@"0"] || [str isEqualToString:@"0."] || [str isEqualToString:@"0.0"] || [str isEqualToString:@"0.00"] || [str isEqualToString:@"0.0000"]);
+}
+
 //删除小数点后面多余的0
 +(NSString *)changeFloat:(NSString *)stringFloat
 {
@@ -61,7 +66,7 @@
 //            else{
 //                return NO;
 //            }
-//            
+//
 //        }
 //    }
     if (NSNotFound == nDotLoc && 0 != range.location) {
@@ -76,90 +81,106 @@
     else
     {
         cs = [[NSCharacterSet characterSetWithCharactersInString:NUMBERS_ONLY] invertedSet];
-        if(!(strLength <= 16)){
+        if(!(strLength <= 18)){
             return NO;
         }
     }
-    
-    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-    BOOL basicTest = [string isEqualToString:filtered];
-    if (!basicTest)
-    {
-        return NO;
-    }
-    if (NSNotFound != nDotLoc && range.location > nDotLoc + 4)
-    {
-        return NO;
-    }
-    return YES;
-    
-//    BOOL isHaveDian = YES;
-//    if ([number rangeOfString:@"."].location == NSNotFound) {
-//        isHaveDian = NO;
-//    }
-//    if ([string length] > 0) {
-//        
-//        unichar single = [string characterAtIndex:0];//当前输入的字符
-//        if ((single >= '0' && single <= '9') || single == '.') {//数据格式正确
-//            
-//            //首字母不能为0和小数点
-//            if([number length] == 0){
-//                if(single == '.') {
-//                    //                    第一个数字不能为小数点
-//                    [number stringByReplacingCharactersInRange:range withString:@""];
-//                    return NO;
-//                }
-//            }
-//            
-//            if([number length] == 1){
-//                if([number isEqualToString:@"0"]){
-//                    if (single == '.') {
-//                        //                    如果第一位是0,第二位必须是.
-//                        [number stringByReplacingCharactersInRange:range withString:@""];
-//                        return YES;
-//                    }
-//                    else{
-//                        return NO;
-//                    }
-//                    
-//                }
-//            }
-//
-//            //输入的字符是否是小数点
-//            if (single == '.') {
-//                if(!isHaveDian)//text中还没有小数点
-//                {
-//                    isHaveDian = YES;
-//                    return YES;
-//                }else{
-//                    //                    已经输入过小数点了
-//                    [number stringByReplacingCharactersInRange:range withString:@""];
-//                    return NO;
-//                }
-//            }else{
-//                if (isHaveDian) {//存在小数点
-//                    
-//                    //判断小数点的位数
-//                    NSRange ran = [number rangeOfString:@"."];
-//                    if (range.location - ran.location <= 2) {
-//                        return YES;
-//                    }else{
-//                        //                        最多输入两位小数
-//                        return NO;
-//                    }
-//                }else{
-//                    return YES;
-//                }
-//            }
-//        }else{//输入的数据格式不正确
-//            [number stringByReplacingCharactersInRange:range withString:@""];
-//            return NO;
-//        }
-//    }
-//    else
+
+//    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+//    BOOL basicTest = [string isEqualToString:filtered];
+//    if (!basicTest)
 //    {
-//        return YES;
+//        return NO;
 //    }
+//    if (NSNotFound != nDotLoc && range.location > nDotLoc + 4)
+//    {
+//        return NO;
+//    }
+//    return YES;
+    
+    BOOL isHaveDian = YES;
+    if ([number rangeOfString:@"."].location == NSNotFound) {
+        isHaveDian = NO;
+    }
+    if ([string length] > 0) {
+        
+        unichar single = [string characterAtIndex:0];//当前输入的字符
+        if ((single >= '0' && single <= '9') || single == '.') {//数据格式正确
+            
+            //首字母不能为0和小数点
+            if([number length] == 0){
+                if(single == '.') {
+                    //                    第一个数字不能为小数点
+                    [number stringByReplacingCharactersInRange:range withString:@""];
+                    return NO;
+                }
+            }
+            
+            if([number length] == 1){
+                if([number isEqualToString:@"0"]){
+                    if (single == '.') {
+                        //                    如果第一位是0,第二位必须是.
+                        [number stringByReplacingCharactersInRange:range withString:@""];
+                        return YES;
+                    }
+                    else{
+                        return NO;
+                    }
+                    
+                }
+            }
+
+            //输入的字符是否是小数点
+            if (single == '.') {
+                if(!isHaveDian)//text中还没有小数点
+                {
+                    isHaveDian = YES;
+                    return YES;
+                }else{
+                    //                    已经输入过小数点了
+                    [number stringByReplacingCharactersInRange:range withString:@""];
+                    return NO;
+                }
+            }else{
+                if (isHaveDian) {//存在小数点
+                    
+                    //判断小数点的位数
+                    NSRange ran = [number rangeOfString:@"."];
+                    if (range.location - ran.location <= 4) {
+                        return YES;
+                    }else{
+                        //                        最多输入两位小数
+                        return NO;
+                    }
+                }else{
+                    return YES;
+                }
+            }
+//            if (NSNotFound == nDotLoc && 0 != range.location) {
+//                cs = [[NSCharacterSet characterSetWithCharactersInString:NUMBERSDOT_ONLY] invertedSet];
+//                if([string isEqualToString:@"."]){
+//                    return YES;
+//                }
+//                if(!(strLength <= 13)){
+//                    return NO;
+//                }
+//            }
+//            else
+//            {
+//                cs = [[NSCharacterSet characterSetWithCharactersInString:NUMBERS_ONLY] invertedSet];
+//                if(!(strLength <= 18)){
+//                    return NO;
+//                }
+//            }
+        }else{//输入的数据格式不正确
+            [number stringByReplacingCharactersInRange:range withString:@""];
+            return NO;
+        }
+    }
+    else
+    {
+        return YES;
+    }
 
 
     

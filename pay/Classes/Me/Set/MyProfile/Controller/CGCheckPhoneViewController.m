@@ -7,9 +7,10 @@
 //
 
 #import "CGCheckPhoneViewController.h"
-
+#import "CGChangePhoneViewController.h"
 @interface CGCheckPhoneViewController ()<UITextFieldDelegate,UITextViewDelegate>
 //@property (nonatomic,strong)UITextField *phone;
+@property (nonatomic,strong)UIButton *submitBtn;
 
 @end
 
@@ -47,6 +48,43 @@
 //    _phone.delegate = self;
 //    _phone.borderStyle = UIKeyboardTypeNumberPad;
 //    [phoneView addSubview:_phone];
+    
+    _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _submitBtn.frame = CGRectMake(20, 99, SCREEN_WIDTH-20*2, 44);
+    [_submitBtn setTitle:@"更换手机号" forState:UIControlStateNormal];
+    _submitBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    _submitBtn.layer.cornerRadius = 3;
+    _submitBtn.backgroundColor = RGBCOLOR(72,151,239);
+    [_submitBtn addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_submitBtn];
+}
+
+-(void)submitClick{
+    
+//    if (_amount.text.length == 0) {
+//        [MBProgressHUD showText:@"请输入充值金额" toView:self.view];
+//        return;
+//    }
+//    if (_num.text.length == 0) {
+//        [MBProgressHUD showText:@"请输入单号" toView:self.view];
+//        return;
+//    }
+//    if(_password.text.length == 0){
+//        [MBProgressHUD showText:@"请输入密码" toView:self.view];
+//        return;
+//    }
+//    
+//    //    _submitBtn.enabled = NO;
+//    
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"充值成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+//    }];
+//    [alertController addAction:skipAction];
+//    [self presentViewController:alertController animated:YES completion:nil];
+    CGChangePhoneViewController *vc = [[CGChangePhoneViewController alloc] init];
+    [self pushViewControllerHiddenTabBar:vc animated:YES];
+    
 }
 
 @end

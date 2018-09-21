@@ -16,9 +16,9 @@
 #import "CGTabBarController.h"
 
 #import "CGLoginTabBarController.h"
-
-
+#import "AFNetworkActivityIndicatorManager.h"
 #import "XGPush.h"
+#import "Reachability.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 #import <UserNotifications/UserNotifications.h>
@@ -26,6 +26,11 @@
 
 @interface AppDelegate ()<selectDelegate,XGPushDelegate>
 @property (nonatomic,strong) CGInitProcess* cgInitProcess;
+@property (nonatomic,strong) Reachability *reachability;
+/*
+ 当前的网络状态
+ */
+//@property(nonatomic,assign)int netWorkStatesCode;
 @end
 
 @implementation AppDelegate
@@ -52,6 +57,50 @@
 - (void)xgPushDidRegisteredDeviceToken:(NSString *)deviceToken error:(NSError *)error {
     NSLog(@"%s, result %@, error %@", __FUNCTION__, error?@"NO":@"OK", error);
 }
+
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions{
+    //网络监控
+    [self netWorkChangeEvent];
+    return YES;
+}
+
+#pragma mark - 检测网络状态变化
+-(void)netWorkChangeEvent
+{
+    // 开启网络指示器
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    NSURL *url = [NSURL URLWithString:@"https://www.baidu.com"];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:url];
+//    self.netWorkStatesCode =AFNetworkReachabilityStatusUnknown;
+    [manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        self.netWorkStatesCode = status;
+//        switch (status) {
+//            case AFNetworkReachabilityStatusReachableViaWWAN:
+//                NSLog(@"当前使用的是流量模式");
+//                break;
+//            case AFNetworkReachabilityStatusReachableViaWiFi:
+//                NSLog(@"当前使用的是wifi模式");
+//                break;
+//            case AFNetworkReachabilityStatusNotReachable:
+//                NSLog(@"断网了");
+//                break;
+//            case AFNetworkReachabilityStatusUnknown:
+//                NSLog(@"变成了未知网络状态");
+//                break;
+//
+//            default:
+//                break;
+//        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"netWorkChangeEventNotification" object:@(status)];
+    }];
+    [manager.reachabilityManager startMonitoring];
+}
+
+#pragma mark - 释放应用
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"netWorkChangeEventNotification" object:nil];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
@@ -119,6 +168,8 @@
     _window.rootViewController = loginView;
     [self.window makeKeyAndVisible];
 }
+
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

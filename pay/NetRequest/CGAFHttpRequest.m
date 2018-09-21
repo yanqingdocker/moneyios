@@ -74,7 +74,7 @@
                      WithParams:params
                         success:successFn
                         failure:failureFn
-                        showHUD:YES];
+                        showHUD:NO];
 }
 
 #pragma mark - 用户退出
@@ -103,7 +103,7 @@
     params[@"telphone"] = telphone;//手机号码
     params[@"checknum"] = checknum;//用户密码
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,FINDPSW]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,FINDPSW]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -123,6 +123,27 @@
     params[@"password"] = password;//用户密码
     
     [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,RESETPWD]
+                     WithParams:params
+                        success:successFn
+                        failure:failureFn
+                        showHUD:YES];
+}
+
+#pragma mark - 登录前重置密码
+- (void)loginResetpwdWithtelphone:(NSString *)telphone
+                    password:(NSString *)password
+                         checkNum:(NSString *)checkNum
+             serverSuccessFn:(void(^)(id dict))successFn
+             serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    
+    params[@"telphone"] = telphone;//手机号码
+    params[@"password"] = password;//用户密码
+    params[@"checkNum"] = checkNum;//用户密码
+    
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,LOGINRESETPWD]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -174,7 +195,7 @@
     
     params[@"datas"] = datas;
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,AUTHENTICATION]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,AUTHENTICATION]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -597,7 +618,7 @@
     params[@"title"] = title;//标题
     params[@"content"] = content;//内容
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,SEND]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,SEND]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -792,7 +813,7 @@
     params[@"newphone"] = newphone;//手机号
     params[@"checknum"] = checknum;//手机验证码
     
-    [self postDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,UPDATECOUNTPWD]
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,UPDATEPHONE]
                      WithParams:params
                         success:successFn
                         failure:failureFn
@@ -890,6 +911,17 @@
              serverFailureFn:(void(^)(NSError *error))failureFn
 {
     [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,GETPERSONCOUNT]
+                    WithParams:nil
+                       success:successFn
+                       failure:failureFn
+                       showHUD:YES];
+}
+
+#pragma mark - 支付宝充值
+- (void)orderPayWithserverSuccessFn:(void(^)(id dict))successFn
+                          serverFailureFn:(void(^)(NSError *error))failureFn
+{
+    [self getDataWithURLString:[NSString stringWithFormat:@"%@%@",BASEURL,ORDERPAY]
                     WithParams:nil
                        success:successFn
                        failure:failureFn

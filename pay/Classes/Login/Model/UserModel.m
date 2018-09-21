@@ -48,10 +48,10 @@
         self.createtime = @""; //账户创建日期
         self.email = @""; //邮箱
         self.img = @""; //头像
-        self.isauthentication = @""; //不知是啥
+        self.isauthentication = @""; //是否实名认证 1已认证 0未认证
         self.lasttime = @""; //最后登录时间
         self.leavel = @""; //等级
-        self.num = @""; //?
+        self.num = @""; //总资产
         self.type = @""; //类型
         
         self.isSecurityLogOut = NO; //是否从设置里退出

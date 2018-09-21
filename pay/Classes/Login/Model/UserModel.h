@@ -23,10 +23,10 @@
 @property(nonatomic,copy)NSString *createtime;  //账户创建日期
 @property(nonatomic,copy)NSString *email;  //邮箱
 @property(nonatomic,copy)NSString *img;  //头像流
-@property(nonatomic,copy)NSString *isauthentication;  //不知是啥
+@property(nonatomic,copy)NSString *isauthentication;  //是否实名认证 1已认证 0未认证
 @property(nonatomic,copy)NSString *lasttime;  //最后登录时间
 @property(nonatomic,copy)NSString *leavel;  //等级
-@property(nonatomic,copy)NSString *num;  //???
+@property(nonatomic,copy)NSString *num;  //总资产
 @property(nonatomic,copy)NSString *type;  //类型
 @property(nonatomic,copy)NSString *defaultcount;  //默认账户类型
 

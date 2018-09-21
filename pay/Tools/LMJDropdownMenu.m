@@ -103,7 +103,7 @@
     
     
     // 旋转尖头
-    _arrowMark = [[UIImageView alloc] initWithFrame:CGRectMake(_mainBtn.frame.size.width - 35, 0, 9, 9)];
+    _arrowMark = [[UIImageView alloc] initWithFrame:CGRectMake(_mainBtn.frame.size.width/2+35, 0, 9, 9)];
     _arrowMark.center = CGPointMake(VIEW_CENTER_X(_arrowMark), VIEW_HEIGHT(_mainBtn)/2);
     _arrowMark.image  = [UIImage imageNamed:@"dropdownMenu_cornerIcon"];
     [_mainBtn addSubview:_arrowMark];

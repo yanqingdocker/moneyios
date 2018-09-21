@@ -197,7 +197,11 @@
 - (void)confirmEvent{
     
     [self.view endEditing:YES];
-    if([_moneynum isEqualToString:@"0"]){
+//    if([_moneynum isEqualToString:@"0"]){
+//        [MBProgressHUD showText:@"请输入转账金额" toView:self.view];
+//        return;
+//    }
+    if([StringUtil isNullOrEmptyOrZero:_moneynum]){
         [MBProgressHUD showText:@"请输入转账金额" toView:self.view];
         return;
     }
@@ -240,7 +244,7 @@
             
             if([[dict objectForKey:@"code"] isEqualToString:@"1004"]){
                 CGJiaoYiDetailsViewController *vc = [[CGJiaoYiDetailsViewController alloc] init];
-                vc.liushuiID = [result objectForKey:@"message"];
+                vc.liushuiID = [result objectForKey:@"snumber"];
                 [self pushViewControllerHiddenTabBar:vc animated:YES];
                 [passwordView hidePasswordView];
             }else{
@@ -312,7 +316,7 @@
         if([_moneynum isEqualToString:@"0"]){
             cell.contentText.enabled = _flag;
             cell.contentText.tag = 1001;
-            cell.contentText.placeholder = @"0.00";
+            cell.contentText.placeholder = @"0.0000";
             cell.contentText.delegate =self;
             
         }else{
@@ -382,6 +386,12 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(textField.tag == 1001){
+        return ([StringUtil validateMoney:textField.text Range:range String:string]);
+    }
+    return YES;
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     //    _amount = textField.text;

@@ -31,9 +31,10 @@
         [alertController addAction:skipAction];
         
         [viewC presentViewController:alertController animated:YES completion:nil];
-    }else{
-        [MBProgressHUD showText:message toView:[UIApplication sharedApplication].keyWindow];
     }
+//    else{
+//        [MBProgressHUD showText:message toView:[UIApplication sharedApplication].keyWindow];
+//    }
     
 //    int code = httpcode.intValue;
 //    switch (code) {

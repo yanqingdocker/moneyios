@@ -16,5 +16,7 @@
 @property (nonatomic,strong)NSString *amount;
 @property (nonatomic,strong)NSString *phoneNum;
 @property (nonatomic,strong)NSMutableArray *dataArray;
+@property (nonatomic,strong)NSString *type;
+
 - (void)showInView:(UIView *)view;
 @end

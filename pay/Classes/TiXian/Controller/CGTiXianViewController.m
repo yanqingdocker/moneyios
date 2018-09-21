@@ -111,7 +111,7 @@
     self.pickerView.hidden = YES;
     
     if(_moneyType == nil){
-        _moneyType = [NSString stringWithFormat:@"%@(0.00)",[_nameArray objectAtIndex:0]];
+        _moneyType = [NSString stringWithFormat:@"%@(0.0000)",[_nameArray objectAtIndex:0]];
     }
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];

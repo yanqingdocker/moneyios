@@ -4,7 +4,7 @@
 //
 //  Created by 胡彦清 on 2018/8/29.
 //  Copyright © 2018年 v2. All rights reserved.
-//  图文cell
+//  图文(cell)
 
 #import <UIKit/UIKit.h>
 

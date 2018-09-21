@@ -277,7 +277,8 @@
 }
 
 -(void)nextClick{
-    if([_moneyNum.text isEqualToString:@""] || [_moneyNum.text isEqualToString:@"0"]){
+    [self.view endEditing:YES];
+    if([StringUtil isNullOrEmptyOrZero:_moneyNum.text]){
         [MBProgressHUD showText:@"请输入提款金额" toView:self.view];
         return;
     }else if([_moneyNum.text floatValue] > [_blance floatValue]){

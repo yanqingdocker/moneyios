@@ -27,6 +27,8 @@
     LMJDropdownMenu * dropdownMenu;
     NSUInteger telphonelength ;
     NSUInteger passwordlength ;
+    NSString *phone ;
+    NSInteger _number;
 }
 
 @end
@@ -44,7 +46,18 @@
     [super viewDidLoad];
     telphonelength = 0;
     passwordlength = 0;
-    [self loginClick];
+    
+//        _telphone.text = @"13950357177";
+//        _password.text = @"111111";
+//    _telphone.text = @"09666880019";
+//        _password.text = @"123456";
+    
+//        _telphone.text = @"18193412366";
+//        _password.text = @"123456";
+    
+//        _telphone.text = @"17759513665";
+//        _password.text = @"123456";
+//    [self loginClick];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,6 +146,7 @@
     [dropdownMenu.mainBtn setTitle:@"选择国家" forState:UIControlStateNormal];
     [dropdownMenu.mainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     dropdownMenu.mainBtn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    dropdownMenu.arrowMark.image = [UIImage imageNamed:@"dropdownMenu_cornerIcon_white"];
     [_bgView addSubview:dropdownMenu];
     
     NSMutableDictionary *attrs = [NSMutableDictionary dictionary]; // 创建属性字典
@@ -143,7 +157,7 @@
     NSAttributedString *passwordplace = [[NSAttributedString alloc] initWithString:@"请输入密码" attributes:attrs]; // 初始化富文本占位字符串
     
     _telphone = [[UITextField alloc] init];
-    _telphone.frame = CGRectMake(145, 226, SCREEN_WIDTH - 145 - 15 - 17 -5, 44);//242
+    _telphone.frame = CGRectMake(155, 226, SCREEN_WIDTH - 155 - 15 - 17 -5, 44);//242
     _telphone.textColor = [UIColor whiteColor];
     _telphone.attributedPlaceholder = accountplace;
     _telphone.clearButtonMode = UITextFieldViewModeAlways;
@@ -158,10 +172,10 @@
     line1.backgroundColor = [UIColor whiteColor];
     [_bgView addSubview:line1];
     
-    UIImageView *checkIcon = [[UIImageView alloc] init];
-    checkIcon.frame = CGRectMake(40 , 299, 18, 18);
-    checkIcon.image = [UIImage imageNamed:@"checkIcon"];
-    [_bgView addSubview:checkIcon];
+    UIImageView *pwdIcon = [[UIImageView alloc] init];
+    pwdIcon.frame = CGRectMake(40 , 299, 18, 18);
+    pwdIcon.image = [UIImage imageNamed:@"pwdIcon"];
+    [_bgView addSubview:pwdIcon];
     
     _password = [[UITextField alloc] init];
     _password.frame = CGRectMake(64, 286, SCREEN_WIDTH - 64 - 43 -18 - 5, 44);//302
@@ -227,18 +241,22 @@
 
 
 - (void)dropdownMenu:(LMJDropdownMenu *)menu selectedCellNumber:(NSInteger)number{
+    _number = number;
     
-    NSLog(@"你选择了：%@",menu.mainBtn.titleLabel.text);
 }
-//- (void)dropdownMenuDidShow:(LMJDropdownMenu *)menu{
-//    NSLog(@"--已经显示--");
-//
-//}
 
+- (void)dropdownMenuWillShow:(LMJDropdownMenu *)menu{
+    [self.view endEditing:YES];
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+    [dropdownMenu hideDropDown];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
     [dropdownMenu hideDropDown];
 }
 
@@ -253,21 +271,20 @@
 - (void)loginClick{
     [self.view endEditing:YES];
     
-//    _telphone.text = @"13950357177";
-//    _password.text = @"111111";
-
+    if (_number != 0) {
+        phone = [NSString stringWithFormat:@"%@ %@",areaCode[_number],_telphone.text];
+    }else{
+        phone = _telphone.text;
+    }
     
-//    _telphone.text = @"18193412366";
-//    _password.text = @"123456";
+    [MBProgressHUD showMessage:@"安全登录中"];
     
-    _telphone.text = @"17759513665";
-    _password.text = @"123456";
-    
-    [[CGAFHttpRequest shareRequest] loginWithphone:_telphone.text password:_password.text serverSuccessFn:^(id dict) {
+    [[CGAFHttpRequest shareRequest] loginWithphone:phone password:_password.text serverSuccessFn:^(id dict) {
+        [MBProgressHUD hideHUD];
 //        if([[dict objectForKey:@"code"] integerValue] == 1004){
 //            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:dict options:kNilOptions error:nil];
 //            NSLog(@"%@",result);
-//            if([[result objectForKey:@"code"] integerValue] == 1004){
+            if([[dict objectForKey:@"code"] integerValue] == 1004){
                 GlobalSingleton *single=[GlobalSingleton Instance];
                 
                 single.currentUser = [UserModel objectWithKeyValues:dict[@"data"]];
@@ -279,22 +296,29 @@
                 
                 
                 self.tabBarController.tabBar.hidden=NO;
-                
+
                 CGHomeViewController * vc = [[CGHomeViewController alloc]init];
-                
+
                 [self.navigationController pushViewController:vc animated:NO];
-                
+
                 CGTabBarController *tabbar = [[CGTabBarController alloc] init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = tabbar;
-//            }else{
-//                [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
-//            }
-//        }
+            }
+            else{
+                [MBProgressHUD showText:dict[@"message"] toView:self.view];
+            }
+//        [self performSelector:@selector(delayMethod) withObject:nil afterDelay:2.0];
+
+        
     } serverFailureFn:^(NSError *error) {
+        [MBProgressHUD hideHUD];
         if(error){
             NSLog(@"%@",error);
         }
     }];
+}
+-(void)delayMethod{
+    [MBProgressHUD hideHUD];
 }
 
 -(void)resetClick{
@@ -328,6 +352,7 @@
         loginBtn.userInteractionEnabled = NO;
         loginBtn.alpha = 0.6;
     }
+    
     return YES;
 }
 

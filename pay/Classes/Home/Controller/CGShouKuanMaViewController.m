@@ -79,6 +79,7 @@
     [dic setObject:@"" forKey:@"type"];//资金类型
     [dic setObject:@"0" forKey:@"num"];//收款金额
     [dic setObject:[GlobalSingleton Instance].currentUser.username forKey:@"username"];//用户名
+    [dic setObject:@"switch" forKey:@"key"];//平台标识
     
     if(data == nil){
         _avatar = [UIImage imageNamed:@"headImg"];
@@ -195,6 +196,7 @@
         [dic setObject:type forKey:@"type"];//资金类型
         [dic setObject:moneynum forKey:@"num"];//收款金额
         [dic setObject:[GlobalSingleton Instance].currentUser.username forKey:@"username"];//用户名
+        [dic setObject:@"switch" forKey:@"key"];//平台标识
         
         
         _amountLab.text = str;//¥

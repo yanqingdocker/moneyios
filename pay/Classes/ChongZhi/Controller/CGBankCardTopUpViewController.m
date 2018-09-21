@@ -98,7 +98,7 @@
     _moneyNum.frame = CGRectMake(18+25+5 , 50, SCREEN_WIDTH -18*2 - 30, 44);
     _moneyNum.delegate =self;
     _moneyNum.font = [UIFont systemFontOfSize:40];
-    _moneyNum.placeholder = [NSString stringWithFormat:@"0.00"];
+    _moneyNum.placeholder = [NSString stringWithFormat:@"0.0000"];
     _moneyNum.clearButtonMode = UITextFieldViewModeAlways;
     _moneyNum.keyboardType = UIKeyboardTypeDecimalPad;
 //    [_moneyNum addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -346,7 +346,8 @@
 //}
 
 -(void)nextClick{
-    if([_moneyNum.text isEqualToString:@""] || [_moneyNum.text isEqualToString:@"0"]){
+    [self.view endEditing:YES];
+    if([StringUtil isNullOrEmptyOrZero:_moneyNum.text]){
         [MBProgressHUD showText:@"请输入充值金额" toView:self.view];
         return;
     }
@@ -356,6 +357,7 @@
         _confirmPaymentView = [[CGConfirmPaymentView alloc]init];
         _confirmPaymentView.cellTextLabel1 = @"订单信息";
         _confirmPaymentView.cellTextLabel2 = @"付款方式";
+    _confirmPaymentView.amount = _moneyNum.text;
         _confirmPaymentView.phoneNum = @"充值";
         _confirmPaymentView.dataArray = _bankcardArray;
         [_confirmPaymentView showInView:self.view];
@@ -391,6 +393,9 @@
                 NSLog(@"%@",error);
             }
         }];
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    return ([StringUtil validateMoney:_moneyNum.text Range:range String:string]);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

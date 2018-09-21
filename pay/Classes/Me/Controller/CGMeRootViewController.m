@@ -26,6 +26,8 @@
     UILabel *_spending;//支出
     UILabel *srLine;//收入线
     UILabel *zcLine;//支出线
+    
+    UILabel * _banknumLab;//银行卡功能数字
 }
 
 @property (nonatomic,strong) UIImagePickerController *imagePicker;
@@ -54,6 +56,9 @@
                     [[NSUserDefaults standardUserDefaults] setObject:[GlobalSingleton Instance].currentUser.defaultcount forKey:[NSString stringWithFormat:@"%@defaultCountType",[GlobalSingleton Instance].currentUser.userid]];
                     _income.text = _model.inmoney;//收入
                     _spending.text = _model.outmoney;//支出
+                    
+                    _banknumLab.text = [NSString stringWithFormat:@"%@",_model.banknum];
+                    
                     
                     float xian1 = [_model.inmoney floatValue]/([_model.inmoney floatValue] + [_model.outmoney floatValue]);
 
@@ -153,21 +158,34 @@
         [botBtn addTarget:self action:@selector(bankCardClick:) forControlEvents:UIControlEventTouchUpInside];
         [topView addSubview:botBtn];
         
-        
-        _numLab = [[UILabel alloc] init];
-        _numLab.font = [UIFont systemFontOfSize:10];
-        _numLab.textColor = [UIColor whiteColor];
-        _numLab.textAlignment = NSTextAlignmentCenter;
-        _numLab.frame = CGRectMake(botLabX, btnMarginY-12, botBtnW, botBtnH);
-        _numLab.text = [NSString stringWithFormat:@"%d",index];
-        [topView addSubview:_numLab];
+        if(index == 0){
+            _banknumLab = [[UILabel alloc] init];
+            _banknumLab.font = [UIFont systemFontOfSize:10];
+            _banknumLab.textColor = [UIColor whiteColor];
+            _banknumLab.textAlignment = NSTextAlignmentCenter;
+            _banknumLab.frame = CGRectMake(botLabX, btnMarginY-12, botBtnW, botBtnH);
+            _banknumLab.text = @"0";
+            [topView addSubview:_banknumLab];
+        }else{
+            _numLab = [[UILabel alloc] init];
+            _numLab.font = [UIFont systemFontOfSize:10];
+            _numLab.textColor = [UIColor whiteColor];
+            _numLab.textAlignment = NSTextAlignmentCenter;
+            _numLab.frame = CGRectMake(botLabX, btnMarginY-12, botBtnW, botBtnH);
+            _numLab.text = [NSString stringWithFormat:@"%d",index];
+            [topView addSubview:_numLab];
+        }
         
         _functionNameLab = [[UILabel alloc] init];
         _functionNameLab.font = [UIFont systemFontOfSize:13];
         _functionNameLab.textColor = [UIColor whiteColor];
         _functionNameLab.textAlignment = NSTextAlignmentCenter;
         _functionNameLab.frame = CGRectMake(botLabX, btnMarginY+10, botBtnW, botBtnH);
-        _functionNameLab.text = [NSString stringWithFormat:@"银行卡%d",index];
+        if(index == 0){
+            _functionNameLab.text = [NSString stringWithFormat:@"银行卡"];
+        }else{
+            _functionNameLab.text = [NSString stringWithFormat:@"银行卡%d",index];
+        }
         [topView addSubview:_functionNameLab];
         
     }
@@ -216,80 +234,96 @@
         gnImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"gongneng%d",index]];
         [gongnengView addSubview:gnImg];
         
-        //账户总览
-        UIView *totalAssetsView = [[UIView alloc] initWithFrame:CGRectMake(0, 304, SCREEN_WIDTH, 128)];
-        totalAssetsView.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:totalAssetsView];
         
-        UILabel *zhzlLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 14, 60, 14)];
-        zhzlLab.text = @"账户总览";
-        zhzlLab.font = [UIFont systemFontOfSize:14];
-        [totalAssetsView addSubview:zhzlLab];
-        
-        UIImageView *eyeImg = [[UIImageView alloc] init];
-        eyeImg.frame = CGRectMake(74, 13, 15, 15);
-        eyeImg.image = [UIImage imageNamed:@"eye_open"];
-        [totalAssetsView addSubview:eyeImg];
-        
-        UILabel *zzcLab = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 50/2, 34, 50, 14)];
-        zzcLab.text = @"总资产";
-        zzcLab.font = [UIFont systemFontOfSize:14];
-        zzcLab.textAlignment = NSTextAlignmentCenter;
-        [totalAssetsView addSubview:zzcLab];
-        
-        _totalAssets = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 200/2, 64, 200, 18)];
-        _totalAssets.font = [UIFont systemFontOfSize:18];
-        _totalAssets.text = @"$50000.00";
-        _totalAssets.textAlignment = NSTextAlignmentCenter;
-        [totalAssetsView addSubview:_totalAssets];
-        
-        _RMBtotalAssets = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 200/2, 97, 200, 11)];
-        _RMBtotalAssets.font = [UIFont systemFontOfSize:11];
-        _RMBtotalAssets.text = [NSString stringWithFormat:@"折合成$%@",@"1000000.00"];
-        _RMBtotalAssets.textAlignment = NSTextAlignmentCenter;
-        [totalAssetsView addSubview:_RMBtotalAssets];
-        
-        //本月收支
-        UIView *benyueshouzhiView = [[UIView alloc] initWithFrame:CGRectMake(0, 442, SCREEN_WIDTH, 146)];
-        benyueshouzhiView.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:benyueshouzhiView];
-        
-        UILabel *byszLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 21, 60, 14)];
-        byszLab.text = @"本月收支";
-        byszLab.font = [UIFont systemFontOfSize:14];
-        [benyueshouzhiView addSubview:byszLab];
-        
-        UILabel *srLab = [[UILabel alloc] initWithFrame:CGRectMake(51, 59, 25, 11)];
-        srLab.font = [UIFont systemFontOfSize:12];
-        srLab.text = @"收入";
-        [benyueshouzhiView addSubview:srLab];
-        
-        UILabel *zcLab = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 51 - 23, 59, 25, 11)];
-        zcLab.font = [UIFont systemFontOfSize:12];
-        zcLab.text = @"支出";
-        [benyueshouzhiView addSubview:zcLab];
-        
-        _income = [[UILabel alloc] initWithFrame:CGRectMake(40, 74, 200, 17)];
-        _income.text = @"$26362";
-        _income.font = [UIFont systemFontOfSize:17];
-        [benyueshouzhiView addSubview:_income];
-        
-        _spending = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 40 - 200, 74, 200, 17)];
-        _spending.text = @"$16112";
-        _spending.font = [UIFont systemFontOfSize:17];
-        _spending.textAlignment = NSTextAlignmentRight;
-        [benyueshouzhiView addSubview:_spending];
-        
-        
-        srLine = [[UILabel alloc] initWithFrame:CGRectMake(41, 109, 0.62 * (SCREEN_WIDTH - 41*2), 5)];
-        [srLine setBackgroundColor:[UIColor colorWithRed:202.0f/255.0f green:8.0f/255.0f blue:8.0f/255.0f alpha:1.0f]];
-        [benyueshouzhiView addSubview:srLine];
-        
-        zcLine = [[UILabel alloc] initWithFrame:CGRectMake(41 + srLine.frame.size.width, 109, 0.38 * (SCREEN_WIDTH - 41*2), 5)];
-        [zcLine setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:154.0f/255.0f blue:153.0f/255.0f alpha:1.0f]];
-        [benyueshouzhiView addSubview:zcLine];
-//        26362/(26362 + 16112)
     }
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0+topView.frame.size.height+gongnengView.frame.size.height + 6, SCREEN_WIDTH,128+146 + 6)];// SCREEN_HEIGHT-44-66-topView.frame.size.height-_horizontalMarquee.frame.size.height
+    scrollView.backgroundColor = [UIColor whiteColor];
+    
+            if(IS_IPHONE_5){
+                scrollView.contentSize = CGSizeMake(0, 128+146 + 6+44);
+            }
+    
+    [self.view addSubview:scrollView];
+    
+    //账户总览
+//    UIView *totalAssetsView = [[UIView alloc] initWithFrame:CGRectMake(0, 304, SCREEN_WIDTH, 128)];
+    UIView *totalAssetsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 128)];
+    totalAssetsView.backgroundColor = [UIColor whiteColor];
+    [scrollView addSubview:totalAssetsView];
+    
+    UILabel *zhzlLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 14, 60, 14)];
+    zhzlLab.text = @"账户总览";
+    zhzlLab.font = [UIFont systemFontOfSize:14];
+    [totalAssetsView addSubview:zhzlLab];
+    
+    UIImageView *eyeImg = [[UIImageView alloc] init];
+    eyeImg.frame = CGRectMake(74, 13, 15, 15);
+    eyeImg.image = [UIImage imageNamed:@"eye_open"];
+    [totalAssetsView addSubview:eyeImg];
+    
+    UILabel *zzcLab = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 50/2, 34, 50, 14)];
+    zzcLab.text = @"总资产";
+    zzcLab.font = [UIFont systemFontOfSize:14];
+    zzcLab.textAlignment = NSTextAlignmentCenter;
+    [totalAssetsView addSubview:zzcLab];
+    
+    _totalAssets = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 200/2, 64, 200, 18)];
+    _totalAssets.font = [UIFont systemFontOfSize:18];
+    //        _totalAssets.text = @"0.00";
+    _totalAssets.textAlignment = NSTextAlignmentCenter;
+    [totalAssetsView addSubview:_totalAssets];
+    
+    _RMBtotalAssets = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 200/2, 97, 200, 11)];
+    _RMBtotalAssets.font = [UIFont systemFontOfSize:11];
+    //        _RMBtotalAssets.text = [NSString stringWithFormat:@"折合成$%@",@"1000000.00"];
+    _RMBtotalAssets.textAlignment = NSTextAlignmentCenter;
+    [totalAssetsView addSubview:_RMBtotalAssets];
+    
+    UILabel *line = [[UILabel alloc] init];
+    line.frame = CGRectMake(0, 128, SCREEN_WIDTH, 6);
+    line.backgroundColor = RGBCOLOR(245,245,247);
+    [scrollView addSubview:line];
+    
+    //本月收支
+//    UIView *benyueshouzhiView = [[UIView alloc] initWithFrame:CGRectMake(0, 442, SCREEN_WIDTH, 146)];
+    UIView *benyueshouzhiView = [[UIView alloc] initWithFrame:CGRectMake(0, 134, SCREEN_WIDTH, 146)];
+    benyueshouzhiView.backgroundColor = [UIColor whiteColor];
+    [scrollView addSubview:benyueshouzhiView];
+    
+    UILabel *byszLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 21, 60, 14)];
+    byszLab.text = @"本月收支";
+    byszLab.font = [UIFont systemFontOfSize:14];
+    [benyueshouzhiView addSubview:byszLab];
+    
+    UILabel *srLab = [[UILabel alloc] initWithFrame:CGRectMake(51, 59, 25, 11)];
+    srLab.font = [UIFont systemFontOfSize:12];
+    srLab.text = @"收入";
+    [benyueshouzhiView addSubview:srLab];
+    
+    UILabel *zcLab = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 51 - 23, 59, 25, 11)];
+    zcLab.font = [UIFont systemFontOfSize:12];
+    zcLab.text = @"支出";
+    [benyueshouzhiView addSubview:zcLab];
+    
+    _income = [[UILabel alloc] initWithFrame:CGRectMake(40, 74, 200, 17)];
+    //        _income.text = @"$26362";
+    _income.font = [UIFont systemFontOfSize:17];
+    [benyueshouzhiView addSubview:_income];
+    
+    _spending = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 40 - 200, 74, 200, 17)];
+    //        _spending.text = @"$16112";
+    _spending.font = [UIFont systemFontOfSize:17];
+    _spending.textAlignment = NSTextAlignmentRight;
+    [benyueshouzhiView addSubview:_spending];
+    
+    srLine = [[UILabel alloc] initWithFrame:CGRectMake(41, 109, 0.5 * (SCREEN_WIDTH - 41*2), 5)];
+    [srLine setBackgroundColor:[UIColor colorWithRed:202.0f/255.0f green:8.0f/255.0f blue:8.0f/255.0f alpha:1.0f]];
+    [benyueshouzhiView addSubview:srLine];
+    
+    zcLine = [[UILabel alloc] initWithFrame:CGRectMake(41 + srLine.frame.size.width, 109, 0.5 * (SCREEN_WIDTH - 41*2), 5)];
+    [zcLine setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:154.0f/255.0f blue:153.0f/255.0f alpha:1.0f]];
+    [benyueshouzhiView addSubview:zcLine];
 }
 
 #pragma mark -头像UIImageview的点击事件-

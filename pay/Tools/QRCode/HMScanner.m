@@ -12,7 +12,7 @@
 /// 最大检测次数
 #define kMaxDetectedCount   20
 
-@interface HMScanner() <AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface HMScanner() <AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate,UIGestureRecognizerDelegate>
 /// 父视图弱引用
 @property (nonatomic, weak) UIView *parentView;
 /// 扫描范围
@@ -137,7 +137,6 @@
         self.parentView = view;
         self.scanFrame = scanFrame;
         self.completionCallBack = completion;
-        
         [self setupSession];
     }
     return self;
@@ -299,6 +298,7 @@
     
     // 3> 拍摄会话 - 判断能够添加设备
     session = [[AVCaptureSession alloc] init];
+    [session setSessionPreset:AVCaptureSessionPresetHigh];
     if (![session canAddInput:videoInput]) {
         NSLog(@"无法添加输入设备");
         session = nil;
@@ -319,6 +319,28 @@
     // 5> 设置扫描类型
     dataOutput.metadataObjectTypes = dataOutput.availableMetadataObjectTypes;
     [dataOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    
+    
+//    _input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+    if ( !videoInput  )
+        return ;
+    [videoInput.device lockForConfiguration:nil];
+    //自动白平衡
+    if ([device isWhiteBalanceModeSupported:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance])
+    {
+        [videoInput.device setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
+    }
+    //先进行判断是否支持控制对焦,不开启自动对焦功能，很难识别二维码。
+    if (device.isFocusPointOfInterestSupported &&[device isFocusModeSupported:AVCaptureFocusModeAutoFocus])
+    {
+        [videoInput.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+    }
+    //自动曝光
+    if ([device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure])
+    {
+        [videoInput.device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+    }
+    [videoInput.device unlockForConfiguration];
     
     // 6> 设置预览图层会话
     [self setupLayers];

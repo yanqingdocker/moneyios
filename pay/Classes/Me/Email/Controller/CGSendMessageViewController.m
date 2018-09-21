@@ -152,7 +152,9 @@
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
                 [alertController addAction:skipAction];
-                [self presentViewController:alertController animated:YES completion:nil];            }
+                [self presentViewController:alertController animated:YES completion:nil];
+                
+            }
             
         }
     } serverFailureFn:^(NSError *error) {

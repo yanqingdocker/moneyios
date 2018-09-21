@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _array  = [[NSMutableArray alloc] init];
-    if(_amount){
+    if(_type){
         for (int i = 0; i < _dataArray.count; i++) {
             [_array addObject:[NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:i] objectForKey:@"countType"]]];
         }
@@ -103,7 +103,12 @@
         line.backgroundColor = [UIColor lightGrayColor];
         [_contentView addSubview:line];
         
-        
+        UILabel *jine = [[UILabel alloc] initWithFrame:CGRectMake(0, 77, SCREEN_WIDTH, 36)];
+        jine.text = [NSString stringWithFormat:@"充值金额:%@元",_amount];
+        jine.textColor = RGBCOLOR(1, 1, 1);
+        jine.font = [UIFont systemFontOfSize:18];
+        jine.textAlignment = NSTextAlignmentCenter;
+        [_contentView addSubview:jine];
         
         paymentBtn = [[UIButton alloc] init];
         paymentBtn.frame = CGRectMake(15, 370 - NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH - 15*2, 50);
@@ -144,7 +149,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifire];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        if(_amount){
+        if(_type){
             
             cell.textLabel.text = [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"];
         }else{
@@ -214,7 +219,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView == _fukuanfangshiTableView){
-        if(_amount){
+        if(_type){
             _accountID = [NSString stringWithFormat:@"%@",[[_dataArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
             
             _accountType = [NSString stringWithFormat:@"%@", [[_dataArray objectAtIndex:indexPath.row] objectForKey:@"countType"]];
@@ -321,14 +326,14 @@
         
         self.view.alpha = 1.0;
         
-        if(_amount){
+//        if(_amount){
             [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight- NAVIGATIONBAR_HEIGHT , SCREEN_WIDTH, CGConfirmPaymentViewHight)];
             
-        }else{
-            [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight- NAVIGATIONBAR_HEIGHT +36, SCREEN_WIDTH, CGConfirmPaymentViewHight)];
-            paymentBtn.frame = CGRectMake(15, 370 - NAVIGATIONBAR_HEIGHT - 36, SCREEN_WIDTH - 15*2, 50);
-            detailTableView.frame = CGRectMake(0, 147 - 36, SCREEN_WIDTH, 89);
-        }
+//        }else{
+//            [_contentView setFrame:CGRectMake(0, SCREEN_HEIGHT - CGConfirmPaymentViewHight- NAVIGATIONBAR_HEIGHT +36, SCREEN_WIDTH, CGConfirmPaymentViewHight)];
+//            paymentBtn.frame = CGRectMake(15, 370 - NAVIGATIONBAR_HEIGHT - 36, SCREEN_WIDTH - 15*2, 50);
+//            detailTableView.frame = CGRectMake(0, 147 - 36, SCREEN_WIDTH, 89);
+//        }
         
     } completion:nil];
 }

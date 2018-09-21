@@ -17,7 +17,7 @@
 /// 相册图片最大尺寸
 #define kImageMaxSize   CGSizeMake(1000, 1000)
 
-@interface HMScannerViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface HMScannerViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 /// 名片字符串
 @property (nonatomic) NSString *cardName;
 /// 头像图片
@@ -53,7 +53,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self prepareUI];
     
     // 实例化扫描器
@@ -61,7 +60,7 @@
     scanner = [HMScanner scanerWithView:self.view scanFrame:scannerBorder.frame completion:^(NSString *stringValue) {
         // 完成回调
         weakSelf.completionCallBack(stringValue);
-        
+        [scannerBorder stopScannerAnimating];
         // 关闭
         [weakSelf clickCloseButton];
     }];
@@ -89,7 +88,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [scannerBorder stopScannerAnimating];
     [scanner stopScan];
 }
@@ -279,5 +277,6 @@
         [scanner setTorch:NO];
     }
 }
+
 
 @end

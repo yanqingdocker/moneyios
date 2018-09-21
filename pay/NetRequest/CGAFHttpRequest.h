@@ -55,6 +55,13 @@
              serverSuccessFn:(void(^)(id dict))successFn
              serverFailureFn:(void(^)(NSError *error))failureFn;
 
+#pragma mark - 登录前重置密码
+- (void)loginResetpwdWithtelphone:(NSString *)telphone
+                         password:(NSString *)password
+                         checkNum:(NSString *)checkNum
+                  serverSuccessFn:(void(^)(id dict))successFn
+                  serverFailureFn:(void(^)(NSError *error))failureFn;
+
 #pragma mark - 登陆后重置密码
 - (void)resetpwdmodeWitholdpassword:(NSString *)oldpassword
                         newpassword:(NSString *)newpassword
@@ -296,4 +303,8 @@ page:(NSInteger )page
 #pragma mark - 获取我的页面信息
 - (void)getPersonCountWithserverSuccessFn:(void(^)(id dict))successFn
                           serverFailureFn:(void(^)(NSError *error))failureFn;
+
+#pragma mark - 支付宝充值
+- (void)orderPayWithserverSuccessFn:(void(^)(id dict))successFn
+                    serverFailureFn:(void(^)(NSError *error))failureFn;
 @end

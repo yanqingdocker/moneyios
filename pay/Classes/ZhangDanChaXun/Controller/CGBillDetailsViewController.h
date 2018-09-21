@@ -11,4 +11,5 @@
 
 @interface CGBillDetailsViewController : CGBaseViewController
 @property(nonatomic,strong)NSString *liushuiID;//流水号
+@property(nonatomic,strong)UIImage *headimg;
 @end

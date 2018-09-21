@@ -21,6 +21,8 @@
 @property (strong, nonatomic) NSString *isRead;
 @property (strong, nonatomic) CGConfirmPaymentView *confirmPaymentView;
 @property (strong, nonatomic) CGEmailContentView *ECView;
+@property (strong, nonatomic) UIImageView *defaultImg;
+@property (strong, nonatomic) UILabel *defaultLab;
 @end
 
 @implementation CGOutBoxViewController
@@ -37,12 +39,26 @@
             
             
             _result = dict[@"data"];
-            NSLog(@"%@",_result);
+            if(_result.count == 0){
+                _defaultImg.image = [UIImage imageNamed:@"outBoxDefault"];
+                _defaultImg.hidden = NO;
+                _defaultLab.text = @"您还没有发送任何消息!";
+                _defaultLab.hidden = NO;
+            }else{
+                _defaultImg.hidden = YES;
+                _defaultLab.hidden = YES;
+            }
             [_tableView reloadData];
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);
+            if(error.code == -1009 || error.code == -1001){
+                _defaultImg.image = [UIImage imageNamed:@"nonetWork"];
+                _defaultImg.hidden = NO;
+                _defaultLab.text = @"呀,网络好像不给力!";
+                _defaultLab.hidden = NO;
+            }
         }
     }];
 }
@@ -63,6 +79,19 @@
     _tableView.estimatedSectionFooterHeight = 0;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_tableView];
+    
+    _defaultImg=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
+    _defaultImg.image=[UIImage imageNamed:@"outBoxDefault"];
+    _defaultImg.hidden = YES;
+    [self.view addSubview:_defaultImg];
+    
+    _defaultLab = [[UILabel alloc] init];
+    _defaultLab.text = @"您还没有发送任何消息!";
+    _defaultLab.frame = CGRectMake(0, SCREEN_HEIGHT /2-10, SCREEN_WIDTH, 44);
+    _defaultLab.textAlignment = NSTextAlignmentCenter;
+    _defaultLab.textColor = RGBCOLOR(153,153,153);
+    _defaultLab.hidden = YES;
+    [self.view addSubview:_defaultLab];
     
     //    UIButton *tixianBtn = [[UIButton alloc] initWithFrame:CGRectMake(22, 268, SCREEN_WIDTH - 22*2, 44)];
     //    [tixianBtn setTitle:@"提交" forState:UIControlStateNormal];

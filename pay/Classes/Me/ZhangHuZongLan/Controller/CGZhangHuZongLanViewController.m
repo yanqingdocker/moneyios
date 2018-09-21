@@ -20,6 +20,10 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) CGZhangHuZongLanModel *ZHZLModel;
+@property (strong, nonatomic) UIImageView *defaultImg;
+@property (strong, nonatomic) UILabel *defaultLab;
+@property (strong, nonatomic) UIButton * defaultBtn;
+
 @end
 
 @implementation CGZhangHuZongLanViewController
@@ -49,11 +53,30 @@
             NSLog(@"%@",_result);
             
             [_tableView reloadData];
-            
+            if(_result.count == 0){
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@isAccount",[GlobalSingleton Instance].currentUser.userid]];
+                _defaultImg.image = [UIImage imageNamed:@"accountOverviewDefault"];
+                _defaultImg.hidden = NO;
+                _defaultLab.text = @"您的账户空空如也!";
+                _defaultLab.hidden = NO;
+                _defaultBtn.hidden = NO;
+            }else{
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@isAccount",[GlobalSingleton Instance].currentUser.userid]];
+                _tableView.hidden = NO;
+                _defaultImg.hidden = YES;
+                _defaultLab.hidden = YES;
+                _defaultBtn.hidden = YES;
+            }
         }
     } serverFailureFn:^(NSError *error) {
         if(error){
             NSLog(@"%@",error);
+            if(error.code == -1009 || error.code == -1001){
+                _defaultImg.image = [UIImage imageNamed:@"nonetWork"];
+                _defaultImg.hidden = NO;
+                _defaultLab.text = @"呀,网络好像不给力!";
+                _defaultLab.hidden = NO;
+            }
         }
     }];
 }
@@ -74,9 +97,33 @@
     _tableView.estimatedSectionFooterHeight = 0;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.hidden = YES;
     [self.view addSubview:_tableView];
     
     [self addFooterView];
+    
+    _defaultImg=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
+    _defaultImg.image=[UIImage imageNamed:@"accountOverviewDefault"];
+    _defaultImg.hidden = YES;
+    [self.view addSubview:_defaultImg];
+    
+    _defaultLab = [[UILabel alloc] init];
+    _defaultLab.text = @"您的账户空空如也!";
+    _defaultLab.frame = CGRectMake(0, SCREEN_HEIGHT /2-55, SCREEN_WIDTH, 44);
+    _defaultLab.textAlignment = NSTextAlignmentCenter;
+    _defaultLab.textColor = RGBCOLOR(153,153,153);
+    _defaultLab.hidden = YES;
+    [self.view addSubview:_defaultLab];
+    
+    _defaultBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _defaultBtn.frame = CGRectMake(20, SCREEN_HEIGHT /2-10, self.view.frame.size.width - 40, 40);
+    [_defaultBtn setTitleColor:RGBCOLOR(85,135,243) forState:UIControlStateNormal];
+    [_defaultBtn setImage:[UIImage imageNamed:@"addIcon"] forState:UIControlStateNormal];
+    [_defaultBtn setTitle:@"开通账户" forState:UIControlStateNormal];
+    [_defaultBtn setBackgroundImage:[UIImage imageNamed:@"dottedLine"] forState:UIControlStateNormal];
+    [_defaultBtn addTarget:self action:@selector(createAccountClick) forControlEvents:UIControlEventTouchUpInside];
+    _defaultBtn.hidden = YES;
+    [self.view addSubview:_defaultBtn];
 }
 
 - (void)addFooterView {

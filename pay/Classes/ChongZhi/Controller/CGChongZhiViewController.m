@@ -10,7 +10,7 @@
 #import "CGAccountBalanceTableViewCell.h"
 #import "CGTiXianResultsAlertView.h"
 #import "CGConfirmPaymentView.h"
-
+#import "CGAilpayRechargeViewController.h"
 #import "CGBankCardTopUpViewController.h"
 
 @interface CGChongZhiViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -182,7 +182,7 @@
 //        cell.titleLab.textColor = [UIColor blackColor];
 //        cell.titleLab.font = [UIFont systemFontOfSize:15];
 //        cell.contentText.keyboardType =UIKeyboardTypeDecimalPad;
-//        cell.contentText.placeholder = @"0.00";
+//        cell.contentText.placeholder = @"0.0000";
 //        cell.contentText.delegate =self;
 //        return cell;
 //    }
@@ -218,8 +218,18 @@
         
         
     }else if(btn.tag == 1){
-//        CGHuaFeiChongZhiViewController *vc = [[CGHuaFeiChongZhiViewController alloc] init];
-//        [self pushViewControllerHiddenTabBar:vc animated:YES];
+//        [[CGAFHttpRequest shareRequest] orderPayWithserverSuccessFn:^(id dict) {
+//            if([[dict objectForKey:@"code"] integerValue] == 1004){
+//
+//            }
+//        } serverFailureFn:^(NSError *error) {
+//            if(error){
+//                NSLog(@"%@",error);
+//            }
+//        }];
+        
+        CGAilpayRechargeViewController *vc = [[CGAilpayRechargeViewController alloc] init];
+        [self pushViewControllerHiddenTabBar:vc animated:YES];
     }else if(btn.tag == 2){
 //        CGZhuanZhangViewController *vc = [[CGZhuanZhangViewController alloc] init];
 //        [self pushViewControllerHiddenTabBar:vc animated:YES];

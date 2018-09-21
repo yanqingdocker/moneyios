@@ -11,4 +11,5 @@
 
 @interface CGResetpPSWViewController : CGBaseViewController
 @property (nonatomic,strong)NSString *telphone;
+@property (nonatomic,strong)NSString *checkNum;
 @end

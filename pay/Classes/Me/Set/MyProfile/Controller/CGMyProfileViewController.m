@@ -9,6 +9,7 @@
 #import "CGMyProfileViewController.h"
 #import "UserModel.h"
 #import "CGCheckPhoneViewController.h"
+#import "CGCertificationViewController.h"
 @interface CGMyProfileViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UITableView *_tableView;
     NSDictionary *_dataArray;
@@ -146,6 +147,7 @@
     }
     if (indexPath.section == 1){
         if(indexPath.row == 0){
+            cell.accessoryType = UITableViewCellAccessoryNone;
             cell.textLabel.text = @"地区";
             if(_dataArray){
                 cell.detailTextLabel.text = [_dataArray objectForKey:@"address"];
@@ -168,6 +170,7 @@
             
         }
         if(indexPath.row == 2){
+            cell.accessoryType = UITableViewCellAccessoryNone;
             cell.textLabel.text = @"电子邮箱";
             if(_dataArray){
                 cell.detailTextLabel.text = [_dataArray objectForKey:@"email"];
@@ -204,9 +207,10 @@
             
         }
         if(indexPath.row == 1){
-            //            CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];
-            //            [self pushViewControllerHiddenTabBar:vc animated:YES];
-            
+            CGCertificationViewController *vc = [[CGCertificationViewController alloc] init];
+            vc.isauthentication = [[_dataArray objectForKey:@"isauthentication"] integerValue];
+//            vc.isauthentication = 0;
+            [self pushViewControllerHiddenTabBar:vc animated:YES];
         }
         if(indexPath.row == 2){
             //            CGTiXianViewController *vc = [[CGTiXianViewController alloc] init];

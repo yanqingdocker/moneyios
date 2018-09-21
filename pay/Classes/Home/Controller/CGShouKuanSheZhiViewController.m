@@ -177,11 +177,17 @@
 -(void)submitClick{
     [self.view endEditing:YES];
     
-    if (_amount.text.length == 0) {
+    if([StringUtil isNullOrEmptyOrZero:_amount.text]){
         [MBProgressHUD showText:@"请输入收款金额" toView:self.view];
         return;
     }
-    //    _submitBtn.enabled = NO;
+
+    NSString *theLast = [_amount.text substringFromIndex:[_amount.text length]-1];
+    
+    if([theLast isEqualToString:@"."]){
+        _amount.text = [_amount.text substringToIndex:[_amount.text length] - 1];
+    }
+    
     if([_countType rangeOfString:@"CNY"].location !=NSNotFound){
         _selectbankcardblock([NSString stringWithFormat:@"¥%@",_amount.text],_countType);//
     }
@@ -191,6 +197,12 @@
     [self goBack];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+//    if(textField.tag == 1001){
+        return ([StringUtil validateMoney:textField.text Range:range String:string]);
+//    }
+//    return YES;
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

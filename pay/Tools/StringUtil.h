@@ -22,6 +22,8 @@
 @interface StringUtil : NSObject
 + (BOOL)validateMoney:(NSString *)number Range:(NSRange)range String:(NSString *)string;
 
++ (BOOL)isNullOrEmptyOrZero:(NSString *)str;
+
 //删除小数点后面多余的0
 + (NSString *)changeFloat:(NSString *)stringFloat;
 

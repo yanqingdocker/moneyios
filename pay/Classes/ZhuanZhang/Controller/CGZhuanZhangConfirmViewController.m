@@ -187,11 +187,10 @@
 - (void)confirmEvent{
     
     [self.view endEditing:YES];
-    if([_moneynum isEqualToString:@"0"] || [_moneynum isEqualToString:@""]){
+    if([StringUtil isNullOrEmptyOrZero:_moneynum]){
         [MBProgressHUD showText:@"请输入转账金额" toView:self.view];
         return;
     }
-    
     if([_result count] == 0){
         [MBProgressHUD showText:@"抱歉您没有付款账户,无法转账" toView:self.view];
         return;
@@ -276,7 +275,7 @@
         
         cell.contentText.text = _moneynum;
             cell.contentText.tag = 1001;
-            cell.contentText.placeholder = @"0.00";
+            cell.contentText.placeholder = @"0.0000";
             cell.contentText.delegate =self;
 
         return cell;
@@ -331,6 +330,14 @@
 {
     [self.view endEditing:YES];
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(textField.tag == 1001){
+        return ([StringUtil validateMoney:textField.text Range:range String:string]);
+    }
+    return YES;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField{
 //    _amount = textField.text;
     if(textField.tag == 1001){

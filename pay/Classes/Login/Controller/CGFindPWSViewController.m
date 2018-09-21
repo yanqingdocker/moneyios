@@ -18,6 +18,8 @@
     NSUInteger telphonelength;
     NSUInteger checklength;
 
+    NSString *phone ;
+    NSInteger _number;
 }
 @property (strong, nonatomic) UIButton *getCheckBtn;
 @end
@@ -61,6 +63,7 @@
     [dropdownMenu.mainBtn setTitle:@"选择国家" forState:UIControlStateNormal];
     [dropdownMenu.mainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     dropdownMenu.mainBtn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    dropdownMenu.arrowMark.image = [UIImage imageNamed:@"dropdownMenu_cornerIcon_white"];
     [bgView addSubview:dropdownMenu];
     
     UILabel *line1 = [[UILabel alloc] init];
@@ -76,7 +79,7 @@
     NSAttributedString *checkplace = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:attrs]; // 初始化富文本占位字符串
     
     _telphone = [[UITextField alloc] init];
-    _telphone.frame = CGRectMake(145, 156, SCREEN_WIDTH - 145 - 15 - 17 -5, 44);
+    _telphone.frame = CGRectMake(155, 156, SCREEN_WIDTH - 155 - 15 - 17 -5, 44);
     _telphone.textColor = [UIColor whiteColor];
     _telphone.attributedPlaceholder = accountplace;
     _telphone.clearButtonMode = UITextFieldViewModeAlways;
@@ -138,7 +141,9 @@
                                            serverSuccessFn:^(id dict)
      {
 //         NSDictionary *result = dict[@"data"];
-         [self startTimer:_getCheckBtn];
+         if([dict[@"code"] isEqualToString:@"1004"]){
+             [self startTimer:_getCheckBtn];
+         }
          
          
      }serverFailureFn:^(NSError *error){
@@ -148,15 +153,30 @@
      }];
 }
 
+- (void)dropdownMenuWillShow:(LMJDropdownMenu *)menu{
+    [self.view endEditing:YES];
+}
+- (void)dropdownMenu:(LMJDropdownMenu *)menu selectedCellNumber:(NSInteger)number{
+    _number = number;
+    
+}
 - (void)nextClick{
-    [[CGAFHttpRequest shareRequest] findpswWithtelphone:_telphone.text checknum:_check.text serverSuccessFn:^(id dict) {
+    [self.view endEditing:YES];
+    if (_number != 0) {
+        phone = [NSString stringWithFormat:@"%@ %@",areaCode[_number],_telphone.text];
+    }else{
+        phone = _telphone.text;
+    }
+    [[CGAFHttpRequest shareRequest] findpswWithtelphone:phone checknum:_check.text serverSuccessFn:^(id dict) {
         
-            NSDictionary *result = dict[@"data"];
+//            NSDictionary *result = dict[@"data"];
+        if([dict[@"code"] isEqualToString:@"1004"]){
                 loginBtn.enabled = NO;
                 CGResetpPSWViewController *vc = [[CGResetpPSWViewController alloc] init];
                 vc.telphone = _telphone.text;
+            vc.checkNum = _check.text;
                 [self pushViewControllerHiddenTabBar:vc animated:YES];
-            
+        }
         
     } serverFailureFn:^(NSError *error) {
         if(error){
@@ -186,6 +206,11 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [dropdownMenu hideDropDown];
 }
 
 @end

@@ -15,8 +15,8 @@
 #ifndef __OPTIMIZE__  //debug release 判断
 //测试地址
 //登录模块
-//#define BASEURL             @"http://47.52.196.190"//基础地址
-#define BASEURL             @"http://192.168.31.12:8082"//yanqing地址
+#define BASEURL             @"http://47.52.196.190:443"//基础地址
+//#define BASEURL             @"http://192.168.31.12:443"//yanqing地址
 //#define BASEURL             @"http://192.168.1.3:8082"//自己家地址
 #define CHECKPHONE          @"/user/checkPhone"//获取验证码
 #define REGISTER            @"/user/register"//用户注册
@@ -24,6 +24,7 @@
 #define LOGOUT              @"/user/logout"//用户退出
 #define FINDPSW             @"/user/findpsw"//找回密码
 #define RESETPWD            @"/user/resetpwd"//重置密码
+#define LOGINRESETPWD       @"/user/loginResetpwd"//登录前重置密码
 #define RESETPWDMODE        @"/user/resetpwdmode"//登录后重置密码
 #define UPDATEDEFAULTCOUNT  @"/user/updatedefaultcount"//更改显示默认账户类型
 #define AUTHENTICATION      @"/user/authentication"//实名认证
@@ -78,6 +79,7 @@
 #define BORROWQUERYALL      @"/borrow/queryAll"//查询个人借贷
 #define APPLYVIP            @"/user/applyVip"//开通VIP
 #define GETOUTCASH          @"/count/getOutCash"//外币提现接口
+#define ORDERPAY            @"/api/orderPay"//支付宝充值
 
 #else
 //正式地址

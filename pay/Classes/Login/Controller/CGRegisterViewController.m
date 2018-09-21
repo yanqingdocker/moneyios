@@ -20,6 +20,8 @@
     NSUInteger checklength ;
     NSUInteger passwordlength ;
     NSUInteger passwordchecklength ;
+    NSString *phone ;
+    NSInteger _number;
 }
 
 @property (strong, nonatomic) UIButton *getCheckBtn;
@@ -64,6 +66,7 @@
     [dropdownMenu.mainBtn setTitle:@"选择国家" forState:UIControlStateNormal];
     [dropdownMenu.mainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     dropdownMenu.mainBtn.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    dropdownMenu.arrowMark.image = [UIImage imageNamed:@"dropdownMenu_cornerIcon_white"];
     [bgView addSubview:dropdownMenu];
     
     UILabel *line1 = [[UILabel alloc] init];
@@ -83,7 +86,7 @@
     NSAttributedString *passwordcheckplace = [[NSAttributedString alloc] initWithString:@"请再次输入您的密码" attributes:attrs]; // 初始化富文本占位字符串
     
     _telphone = [[UITextField alloc] init];
-    _telphone.frame = CGRectMake(145, 86, SCREEN_WIDTH - 145 - 15 - 17 -5, 44);
+    _telphone.frame = CGRectMake(155, 86, SCREEN_WIDTH - 155 - 15 - 17 -5, 44);
     _telphone.textColor = [UIColor whiteColor];
     _telphone.attributedPlaceholder = accountplace;
     _telphone.clearButtonMode = UITextFieldViewModeAlways;
@@ -219,18 +222,19 @@
     [[CGAFHttpRequest shareRequest] checkPhoneWithtelphone:_telphone.text
                                            serverSuccessFn:^(id dict)
      {
-         NSDictionary *result = dict[@"data"];
+//         NSDictionary *result = dict[@"data"];
 //         if([[result objectForKey:@"code"] isEqualToString:@"fail"]){
 //             [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
 //         }else{
 //             [self startTimer:_getCheckBtn];
 //         }
          
-         if([[result objectForKey:@"code"] integerValue] == 1004){
+         if([[dict objectForKey:@"code"] integerValue] == 1004){
              [self startTimer:_getCheckBtn];
-         }else{
-             [MBProgressHUD showText:[result objectForKey:@"message"] toView:self.view];
          }
+//         else{
+//             [MBProgressHUD showText:[dict objectForKey:@"message"] toView:self.view];
+//         }
      }serverFailureFn:^(NSError *error){
          if(error){
              NSLog(@"%@",error);
@@ -238,9 +242,25 @@
      }];
 }
 
+- (void)dropdownMenuWillShow:(LMJDropdownMenu *)menu{
+    [self.view endEditing:YES];
+}
+
+- (void)dropdownMenu:(LMJDropdownMenu *)menu selectedCellNumber:(NSInteger)number{
+    _number = number;
+    
+}
+
 - (void)nextClick{
     [self.view endEditing:YES];
-    [[CGAFHttpRequest shareRequest] registerWithphone:_telphone.text password:_password.text checkNum:_check.text serverSuccessFn:^(id dict) {
+    
+    if (_number != 0) {
+        phone = [NSString stringWithFormat:@"%@ %@",areaCode[_number],_telphone.text];
+    }else{
+        phone = _telphone.text;
+    }
+    
+    [[CGAFHttpRequest shareRequest] registerWithphone:phone password:_password.text checkNum:_check.text serverSuccessFn:^(id dict) {
         if(dict){
             NSDictionary *result = dict[@"data"];
             NSLog(@"%@",result);
@@ -285,6 +305,11 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [dropdownMenu hideDropDown];
 }
 
 @end

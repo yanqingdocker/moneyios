@@ -114,25 +114,25 @@
     [self.view addSubview:bgView];
 
     UILabel *titleLab = [[UILabel alloc] init];
-    titleLab.frame = CGRectMake(15, 12, 120, 16);
+    titleLab.frame = CGRectMake(15, 13, 120, 16);
     titleLab.font = [UIFont systemFontOfSize:18];
     titleLab.text = @"对方账户";
     [bgView addSubview:titleLab];
 
     _alipayAccount = [[UITextField alloc] init];
-    _alipayAccount.frame = CGRectMake(144, 0, SCREEN_WIDTH - 144 -35, 44);
+    _alipayAccount.frame = CGRectMake(95, 0, SCREEN_WIDTH - 95 -35, 44);
     _alipayAccount.font = [UIFont systemFontOfSize:18];
-    _alipayAccount.placeholder = @"手机号";
+    _alipayAccount.placeholder = @"仅限本平台手机号";
     _alipayAccount.clearButtonMode = UITextFieldViewModeAlways;
     _alipayAccount.keyboardType = UIKeyboardTypeNumberPad;
     _alipayAccount.delegate = self;
     [bgView addSubview:_alipayAccount];
 
-    UIButton *accountBtn = [[UIButton alloc] init];
-    accountBtn.frame = CGRectMake(SCREEN_WIDTH - 12 -18, 11, 18, 18);
-    [accountBtn setImage:[UIImage imageNamed:@"accountIcon"] forState:UIControlStateNormal];
-    [accountBtn addTarget:self action:@selector(selectAccount) forControlEvents:UIControlEventTouchUpInside];
-    [bgView addSubview:accountBtn];
+//    UIButton *accountBtn = [[UIButton alloc] init];
+//    accountBtn.frame = CGRectMake(SCREEN_WIDTH - 12 -18, 11, 18, 18);
+//    [accountBtn setImage:[UIImage imageNamed:@"accountIcon"] forState:UIControlStateNormal];
+//    [accountBtn addTarget:self action:@selector(selectAccount) forControlEvents:UIControlEventTouchUpInside];
+//    [bgView addSubview:accountBtn];
 
     UILabel *tipsLab = [[UILabel alloc] init];
     tipsLab.frame = CGRectMake(16, 0 + 61, 200, 13);

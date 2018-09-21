@@ -24,7 +24,7 @@
 @end
 
 @interface CGBaseViewController : UIViewController <CGBaseViewControllerDelegate>
-
+//@property (nonatomic, assign) id <CGBaseViewControllerDelegate>delegate;
 @property (nonatomic, strong, readonly) UIView *topBar;
 
 @property (nonatomic, assign) BOOL  isHiddenTabBar;

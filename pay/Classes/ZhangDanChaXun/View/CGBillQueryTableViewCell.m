@@ -67,12 +67,6 @@
                                     160,
                                     15);
         titleLab.font = [UIFont systemFontOfSize:18];
-//        if(){
-//            
-//        }else{
-//           titleLab.textColor = RGBCOLOR(216, 40  , 40);//绿色
-//        }
-        titleLab.textColor = RGBCOLOR(216, 40  , 40);
         titleLab.textAlignment = NSTextAlignmentRight;
         titleLab;
     });

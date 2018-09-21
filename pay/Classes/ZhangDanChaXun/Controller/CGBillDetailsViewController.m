@@ -83,17 +83,25 @@
 //        headImgView.image = [UIImage imageWithData:data];
 //
 //    }else{
-        headImgView.image = [UIImage imageNamed:@"headImg"];
+        headImgView.image = _headimg;//[UIImage imageNamed:@"headImg"]
 //    }
-    
+
     [bgView addSubview:headImgView];
     
     nameLab = [[UILabel alloc] init];
-    nameLab.frame = CGRectMake(SCREEN_WIDTH/2 + 7 -25, 30, 120, 14);
+    nameLab.frame = CGRectMake(SCREEN_WIDTH/2  -25, 30, 180, 14);
     nameLab.text = @"用户名称";//默认值
     nameLab.font = [UIFont systemFontOfSize:14];
 //    nameLab.textAlignment = NSTextAlignmentCenter;
     [bgView addSubview:nameLab];
+    
+    
+    [headImgView mas_remakeConstraints:^(MASConstraintMaker *make){
+        make.right.equalTo(nameLab.mas_left).offset(-7);
+        make.centerY.equalTo(nameLab);
+        make.height.mas_equalTo(@25);
+        make.width.mas_equalTo(@25);
+    }];
     
     amountLab = [[UILabel alloc] init];
     amountLab.text = @"";//默认值

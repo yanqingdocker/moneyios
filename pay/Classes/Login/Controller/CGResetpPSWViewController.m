@@ -140,19 +140,25 @@
 }
 
 - (void)nextClick{
-    [[CGAFHttpRequest shareRequest] resetpwdWithtelphone:self.telphone password:_password.text serverSuccessFn:^(id dict) {
+    if([_password.text isEqualToString:_passwordcheck.text]){
+        [MBProgressHUD showText:@"两次密码不一致,请确认" toView:self.view];
+    }
+    
+    [[CGAFHttpRequest shareRequest] loginResetpwdWithtelphone:self.telphone password:_password.text checkNum:self.checkNum serverSuccessFn:^(id dict) {
         
             NSDictionary *result = dict[@"data"];
             NSLog(@"%@",result);
             
+        if([dict[@"code"] isEqualToString:@"1004"]){
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"重置密码成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                loginBtn.enabled = NO;
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }];
+            [alertController addAction:skipAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
         
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"重置密码成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *skipAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    loginBtn.enabled = NO;
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }];
-                [alertController addAction:skipAction];
-                [self presentViewController:alertController animated:YES completion:nil];
             
         
         

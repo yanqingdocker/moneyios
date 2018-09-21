@@ -55,7 +55,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleLab.text = [NSString stringWithFormat:@"充值"];
     cell.dateLab.text = [NSString stringWithFormat:@"2018-08-01"];
-    cell.balanceLab.text = [NSString stringWithFormat:@"0.00"];
+    cell.balanceLab.text = [NSString stringWithFormat:@"0.0000"];
     cell.changeLab.text = [NSString stringWithFormat:@"+16.54"];
     return cell;
     
