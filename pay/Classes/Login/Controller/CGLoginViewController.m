@@ -47,8 +47,8 @@
     telphonelength = 0;
     passwordlength = 0;
     
-//        _telphone.text = @"13950357177";
-//        _password.text = @"111111";
+        _telphone.text = @"13950357177";
+        _password.text = @"111111";
 //    _telphone.text = @"09666880019";
 //        _password.text = @"123456";
     
@@ -57,7 +57,7 @@
     
 //        _telphone.text = @"17759513665";
 //        _password.text = @"123456";
-//    [self loginClick];
+    [self loginClick];
 }
 
 - (void)viewWillAppear:(BOOL)animated
